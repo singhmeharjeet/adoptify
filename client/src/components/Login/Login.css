@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+:root {
+    --login-page-height: calc(100vh);
+}
+
+.login-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: border-box;
+}
+
+#bg {
+    height: var(--login-page-height);
+    box-shadow: 0.5em 1em 1em 0.5em rgba(0, 0, 0, 0.3);
+    padding: 0.5em;
+}
+
+.login-form-wrapper {
+    width: 100%;
+    height: var(--login-page-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.login-form-title {
+    font-size: 4.5em;
+    font-family: 'Anton', sans-serif;
+    margin-bottom: 1.5em;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-outline>h3 {
+    display: flex;
+    justify-content: center;
+    padding: 7em;
+}
+
+.form-field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    margin: 0.5em;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-field:hover,
+.form-field:active {
+    border-bottom-color: rgb(36, 36, 36);
+    transform: scale(1.1);
+}
+
+.form-field>img {
+    width: 2.5em;
+    height: 2.5em;
+    padding: 0.5em;
+}
+
+.form-field>input {
+    width: 100%;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(154, 154, 154);
+    color: rgb(36, 36, 36);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 5px;
+}
+
+.form-field>input:focus {
+    border-bottom-color: rgb(36, 36, 36);
+}
+
+.login-form-button-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login-form-button-wrapper>button {
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    min-width: 10em;
+    font-weight: 550;
+    letter-spacing: 0.9px;
+    padding: 0em 2em 0em 2em;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: black;
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    margin-top: 1em;
+}
+
+.login-form-button-wrapper>button:hover {
+    color: #b9134f;
+    background-color: darkcyan;
+    color: white;
+}
+
+.login-form-signup {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    gap: 5px;
+}

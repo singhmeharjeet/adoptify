@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.signup-page {
+    display: flex;
+}
+
+.signup-backtologin {
+    width: 100%;
+    padding-top: 3em;
+    padding-left: 3em;
+    margin-bottom: 8em;
+    max-height: 3em;
+}
+
+.signup-form-title {
+    font-size: 4.5em;
+    font-family: "Anton", sans-serif;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-form-wrapper {
+    width: 100%;
+    align-items: center;
+}
+
+.signup-form-outline {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-form {
+    max-width: 50%;
+}

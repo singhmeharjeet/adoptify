@@ -1,0 +1,10 @@
+{
+    "login-background": "https://images.unsplash.com/photo-1610112275816-a00fb089fa2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    "signup-background": "https://images.unsplash.com/photo-1530041539828-114de669390e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    "login-lock-icon": "https://cdn-icons-png.flaticon.com/512/1828/1828415.png",
+    "login-user-icon": "https://cdn-icons-png.flaticon.com/512/456/456283.png",
+    "signup-user-name-icon": "https://cdn-icons-png.flaticon.com/512/1828/1828439.png",
+    "signup-user-phone-icon": "https://cdn-icons-png.flaticon.com/512/159/159832.png",
+    "signup-user-email-icon": "https://cdn-icons-png.flaticon.com/512/482/482138.png",
+    "signup-user-address-icon": "https://cdn-icons-png.flaticon.com/512/927/927667.png"
+}

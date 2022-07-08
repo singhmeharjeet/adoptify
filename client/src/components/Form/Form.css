@@ -1,0 +1,144 @@
+.background {
+    display: flex;
+    min-height: 100vh;
+}
+
+.form-container {
+    flex: 0 1 700px;
+    max-width: 70vw;
+    margin: auto;
+    padding: 10px;
+}
+
+.screen {
+    position: relative;
+    background: #ffffff;
+    border-radius: 15px;
+}
+
+.screen:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+.screen-body {
+    display: flex;
+}
+
+.screen-body-item {
+    flex: 1;
+    padding: 50px;
+}
+
+.screen-body-item.left {
+    display: flex;
+    flex-direction: column;
+}
+
+.app-title {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: darkcyan;
+    font-size: 6vmin;
+}
+
+.app-title:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 40%;
+    height: 4px;
+    background: darkcyan;
+}
+
+.app-form-group {
+    margin-bottom: 15px;
+}
+
+.app-form-group.message {
+    content: " ";
+    margin-top: 20px;
+}
+
+.app-form-control {
+    width: 100%;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(154, 154, 154);
+    color: rgb(36, 36, 36);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.app-form-control::placeholder {
+    color: #666;
+}
+
+.app-form-control:focus {
+    border-bottom-color: rgb(36, 36, 36);
+    transform: scale(1.05);
+}
+
+.app-form-group-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.app-form-button {
+    min-width: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0em 2em 0em 2em;
+    height: 3em;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    font-weight: 550;
+    color: black;
+    background-color: white;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
+.app-form-button:hover {
+    color: #b9134f;
+    background-color: darkcyan;
+    color: white;
+}
+
+#input {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgb(154, 154, 154);
+    color: rgb(36, 36, 36);
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+#input>label {
+    text-transform: uppercase;
+    color: rgba(102, 102, 102, 0.647);
+}
