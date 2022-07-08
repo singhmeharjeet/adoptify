@@ -13,16 +13,30 @@ export default function Add({ clearPermission }) {
 		navigate("/login");
 	};
 
-	const handleSubmit = async ({ pet_name, pet_species, pet_color, images, description }) => {
-		const uName = getPermission();
+	async function handleSubmit({
+		petName,
+		petSpecies,
+		petColor,
+		petImage,
+		petDescription,
+	}) {
 		await fetch(`${BASE_URL}/addPost`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ username: uName, pet_name, pet_species, pet_color, images, description}),
+			body: JSON.stringify({
+				username: getPermission(),
+				petName,
+				petSpecies,
+				petColor,
+				petImage,
+				petDescription,
+			}),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				res.json();
+			})
 			.catch((error) => {
-				console.log('error', error)
+				console.log("error", error);
 			});
 	}
 	return (

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Form.css";
-export default function Form({handleSubmit}) {
-
-
-	// const [username, setUsername] = useState("");
-	// const [password, setPassword] = useState("");
+export default function Form({ handleSubmit }) {
+	const [petName, setPetName] = useState("");
+	const [petSpecies, setPetSpecies] = useState("");
+	const [petColor, setPetColor] = useState("");
+	const [petImage, setPetImage] = useState(null);
+	const [petDiscription, setPetDiscription] = useState("");
 
 	return (
 		<>
@@ -29,6 +30,11 @@ export default function Form({handleSubmit}) {
 											name="pet_name"
 											className="app-form-control"
 											placeholder="PET'S NAME"
+											onChange={(event) => {
+												return setPetName(
+													event.target.value
+												);
+											}}
 										/>
 									</div>
 									<div className="app-form-group">
@@ -36,6 +42,11 @@ export default function Form({handleSubmit}) {
 											name="pet_species"
 											className="app-form-control"
 											placeholder="PET'S SPECIES"
+											onChange={(event) => {
+												return setPetSpecies(
+													event.target.value
+												);
+											}}
 										/>
 									</div>
 									<div className="app-form-group">
@@ -43,6 +54,11 @@ export default function Form({handleSubmit}) {
 											name="pet_color"
 											className="app-form-control"
 											placeholder="PET'S COLOR"
+											onChange={(event) => {
+												return setPetColor(
+													event.target.value
+												);
+											}}
 										/>
 									</div>
 									<div className="app-form-group message">
@@ -51,6 +67,11 @@ export default function Form({handleSubmit}) {
 											name="description"
 											className="app-form-control"
 											placeholder="PET'S DESCRIPTION"
+											onChange={(event) => {
+												return setPetDiscription(
+													event.target.value
+												);
+											}}
 										></textarea>
 									</div>
 									<div className="app-form-group" id="input">
@@ -59,15 +80,27 @@ export default function Form({handleSubmit}) {
 											name="images"
 											type="file"
 											accept=".jpg, .jpeg, .png, .svg, .gif"
+											onChange={(event) => {
+												return setPetImage(
+													event.target.files[0]
+												);
+											}}
 										/>
 									</div>
 									<div className="app-form-group-button">
 										<button
 											type="submit"
 											className="app-form-button"
-											// onSubmit={(event) => handleSubmit(
-											// 	pet_name, pet_species, pet_color, images, description
-											// )}
+											onChange={(event) => {
+												event.preventDefault();
+												handleSubmit(
+													petName,
+													petSpecies,
+													petColor,
+													petImage,
+													petDiscription
+												);
+											}}
 										>
 											SEND
 										</button>
@@ -80,5 +113,4 @@ export default function Form({handleSubmit}) {
 			</div>
 		</>
 	);
-};
-
+}
