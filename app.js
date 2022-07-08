@@ -21,6 +21,7 @@ app.use(express.static("public"));
 
 app.use("/auth", auth);
 
+console.log("Hello");
 //  app.post("/addPost", async (req, res) => {
 // 		var username = req.body.username;
 // 		var petName = req.body.title;
