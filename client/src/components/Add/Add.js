@@ -12,7 +12,7 @@ export default function Add({ clearPermission }) {
 		clearPermission();
 		navigate("/login");
 	};
-
+	
 	async function handleSubmit({
 		petName,
 		petSpecies,

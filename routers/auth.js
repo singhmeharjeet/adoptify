@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../database')
 
-// This code works dont change it!
 module.exports = router.post("/login", async (req, res) => {
 	const requestedUsername = req.body.username;
 	const requestedPassword = req.body.password;
