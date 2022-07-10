@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import {getPermission, setPermission, clearPermission} from "./components/utils"
+import {
+	getPermission,
+	setPermission,
+	clearPermission,
+} from "./components/utils";
 
 import Home from "./components/Home/Home";
 import Add from "./components/Add/Add";
@@ -9,14 +13,13 @@ import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 
-
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
 
 	const clearTokenAtApp = () => {
-		setPerm('')
-		clearPermission()
-  	}
+		setPerm("");
+		clearPermission();
+	};
 
 	return (
 		<div className="App">
@@ -26,7 +29,12 @@ export default function App() {
 						exact
 						caseSensitive={false}
 						path="/login"
-						element={<Login setPermission={setPermission} />}
+						element={
+							<Login
+								setPermission={setPermission}
+								permission={perm}
+							/>
+						}
 					/>
 					<Route
 						exact
@@ -44,9 +52,7 @@ export default function App() {
 						exact
 						caseSensitive={false}
 						path="/add"
-						element={
-								<Add clearPermission={clearTokenAtApp} />
-						}
+						element={<Add clearPermission={clearTokenAtApp} />}
 					/>
 					<Route
 						path="*"

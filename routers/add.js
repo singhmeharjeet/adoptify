@@ -3,9 +3,9 @@ const express = require("express"),
 
 const pool = require("../database");
 
-module.exports = router.post("/addPost", async (req, res) => {
+// module.exports = router.post("/addPost", async (req, res) => {
 	
-});
+// });
 module.exports = router.post("/addPost", async (req, res) => {
 	const username = req.body.username;
 	const petName = req.body.title;

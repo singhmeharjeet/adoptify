@@ -1,5 +1,5 @@
 import "./CardList.css";
-import Users from "../../data.json"
+import Users from "../../data.json";
 
 // const Users = fetch("https://localhost:5000/users/data")
 
@@ -18,7 +18,7 @@ export default function CardList() {
 						style={{
 							width: "95%",
 							height: "80%",
-							color: "transparent",
+							opacity: "0",
 						}}
 					/>
 				</div>
@@ -36,7 +36,11 @@ export default function CardList() {
 					}}
 				>
 					<hr
-						style={{ width: "90%", height: "80%", color: "#bbb" }}
+						style={{
+							width: "90%",
+							height: "80%",
+							color: "#bbb",
+						}}
 					/>
 				</div>
 				<div className="card-list-container">

@@ -1,12 +1,12 @@
 const cors = require("cors");
 const path = require("path");
-const pool = require("./database");
+
 
 const express = require("express"),
-	auth = require("./routers/auth"),
-	add = require("./routers/add")
+	authorize = require("./routers/login.js"),
+	addPost = require("./routers/add.js");
 
-console.log("Hello");
+
 // --  MVC Hello
 // app.js --- n numbers of Routes --- n number of controller
 
@@ -21,9 +21,9 @@ app.use(express.urlencoded({ extended: false })); // we are sending a false type
 app.use(express.static("public/build"));
 app.use(express.static("public"));
 
-app.use("/auth", auth);
-app.use("/addPost", add);
-console.log("Hello");
+
+app.use("/login", authorize);
+app.use("/addPost", addPost);
 
 
 app.get("*", (req, res) => {

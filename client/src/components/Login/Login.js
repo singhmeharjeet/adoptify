@@ -4,46 +4,52 @@ import { useNavigate, Navigate } from "react-router-dom";
 import "./Login.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
-import { getPermission } from "../utils";
 
 async function authenticate(username, password) {
 	let result = "";
-	await fetch(`${BASE_URL}/auth/login`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ username, password }),
-	})
-		.then((res) => res.json())
-		.then((data) => {
-			result = data.token;
-			console.log('result', result)
-		})
-		.catch((error) => {
-			console.log('error', error)
-		});
+	try {
+		const responseJSON = await (
+			await fetch(`${BASE_URL}/login`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					username: username,
+					password: password,
+				}),
+			})
+		).json();
 
+		// if response is sucessfull
+		result = responseJSON.token;
+	} catch (error) {
+		console.log("error", error);
+	}
 	return result;
 }
-export default function Login({ setPermission }) {
+export default function Login({ setPermission, permission }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
 	let navigate = useNavigate();
-	
-	const token = getPermission();
-	if (token) {
-		return <Navigate to="/"></Navigate>;
-	}
+
+	if (permission) return <Navigate to="/"></Navigate>;
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const token = (await authenticate(username, password));
-		console.log("token", token);
-		setPermission(token);
-		if(token === '') {
-			console.log('Please enter correct username and password')
-			return
+
+		// isAuthenticated is a string that has the users username.
+		const isAuthenticated = await authenticate(username, password);
+
+		if (isAuthenticated !== username) {
+			console.log("Username or Password invalid");
+			return;
 		}
+
+		// When we receive the token from the server, we set it to the local storage of the browser
+		setPermission(isAuthenticated);
+
+		// Allow the user to go to the home page
 		navigate("/", { replace: true });
 	};
 
