@@ -1,31 +1,38 @@
+/* 
+	Required Imports
+*/
 const cors = require("cors");
+const upload = require("express-fileupload");
 const path = require("path");
+const express = require("express");
+const authorize = require("./routers/login.js");
+const addPost = require("./routers/add.js");
 
-
-const express = require("express"),
-	authorize = require("./routers/login.js"),
-	addPost = require("./routers/add.js");
-
-
-// --  MVC Hello
-// app.js --- n numbers of Routes --- n number of controller
-
-//left is the environment variable for production, and 5000 is for local
+/* 
+	Setup Server app
+*/
+const app = express();
 const PORT = process.env.PORT || 5010;
 
-const app = express();
-app.use(cors());
-app.use(express.json()); // we will send a json so try to understand it
-app.use(express.urlencoded({ extended: false })); // we are sending a false type
-
-app.use(express.static("public/build"));
+/* 
+	Middleware
+*/
+app.use(cors()); // Handles cross orign request errors.
+app.use(upload()); // Handles image upload
+app.use(express.json()); //	Converts the request body into json object from string
+app.use(express.urlencoded({ extended: true })); // Understand fetch requests
+app.use(express.static("public/build")); // 
 app.use(express.static("public"));
 
-
+/* 
+	Routing APIs
+*/
 app.use("/login", authorize);
 app.use("/addPost", addPost);
 
-
+/* 
+	Default Action
+*/
 app.get("*", (req, res) => {
 	console.log(
 		'path.resolve(__dirname, "public", "build", "index.html)"',

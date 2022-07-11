@@ -36,6 +36,11 @@ export default function Login({ setPermission, permission }) {
 	if (permission) return <Navigate to="/"></Navigate>;
 
 	const handleSubmit = async (event) => {
+		if (username == "" || password == "") {
+			alert("Please enter a username and password");
+			return;
+		}
+
 		event.preventDefault();
 
 		// isAuthenticated is a string that has the users username.
