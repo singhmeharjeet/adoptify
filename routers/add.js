@@ -3,6 +3,12 @@ const express = require("express"),
 
 const pool = require("../database");
 
+const AWS = require('aws-sdk');
+const fs = require('fs');
+// AWS.config.loadFromPath('../config.json')
+
+const s3 = new AWS.S3();
+
 // module.exports = router.post("/addPost", async (req, res) => {
 	
 // });

@@ -96,7 +96,7 @@ export default function CardList() {
 						style={{
 							width: "90%",
 							height: "80%",
-							color: "transparent",
+							opacity: "0",
 						}}
 					/>
 				</div>

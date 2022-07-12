@@ -75,7 +75,7 @@ export default function Login({ setPermission, permission }) {
 									src={images["login-user-icon"]}
 								/>
 								<input
-									type="email"
+									type="text"
 									placeholder="Email"
 									required
 									onChange={(e) => {
@@ -91,7 +91,7 @@ export default function Login({ setPermission, permission }) {
 									src={images["login-lock-icon"]}
 								/>
 								<input
-									type="password"
+									type="text"
 									placeholder="Password"
 									required
 									onChange={(e) => {

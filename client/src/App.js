@@ -12,6 +12,7 @@ import Add from "./components/Add/Add";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import Profile from "./components/Profile/Profile";
 
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
@@ -53,6 +54,11 @@ export default function App() {
 						caseSensitive={false}
 						path="/add"
 						element={<Add clearPermission={clearTokenAtApp} />}
+					/>
+					<Route
+						caseSensitive={true}
+						path="/profile/:username" 
+						element={<Profile clearPermission={clearTokenAtApp}/>}
 					/>
 					<Route
 						path="*"

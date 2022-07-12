@@ -7,6 +7,7 @@ const path = require("path");
 const express = require("express");
 const authorize = require("./routers/login.js");
 const addPost = require("./routers/add.js");
+const profile = require("./routers/profile.js") 
 
 /* 
 	Setup Server app
@@ -27,6 +28,7 @@ app.use(express.static("public"));
 /* 
 	Routing APIs
 */
+app.use("/profile", profile)
 app.use("/login", authorize);
 app.use("/addPost", addPost);
 
