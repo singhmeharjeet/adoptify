@@ -40,8 +40,16 @@ export default function Profile({clearPermission}) {
         <>
             <NavBar handleLogout={handleLogout}/>
             <div className="profile-container">
-                <h1>Profile page</h1>
-                <div
+                <h1>Profile of: {myData.username}</h1>
+                <div>
+                    <p>First Name: {myData.firstname}</p>
+                    <p>Last Name: {myData.lastname}</p>
+                    <p>Email address: {myData.email}</p>
+                    <p>Phone Number: {myData.phone}</p>
+                    <label>Profile Picure: </label>
+                    <img src={myData.profilepicture} name="pfp"/>
+                </div>
+                {/* <div
                         style={{
                             display: "flex",
                             justifyContent: "center",
@@ -55,8 +63,7 @@ export default function Profile({clearPermission}) {
                                 opacity: "1",
                             }}
                         />
-                    </div>
-                <h2>The profile page of {myData.username}</h2>
+                    </div> */}
             </div>
 
         </>

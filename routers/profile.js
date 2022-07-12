@@ -8,7 +8,7 @@ const pool = require('../database.js')
 //show the profile page
 module.exports = router.get('/:uname', async (req, res) => {
     const username = req.params.uname
-    console.log("username:", username)
+    // console.log("username:", username)
     const profileQuery = `SELECT * FROM users WHERE username='${username}'`;
     // const profileQuery = `SELECT * FROM users`
     const profileResponse = await pool.query(profileQuery, (error, result) => {
