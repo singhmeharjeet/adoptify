@@ -2,12 +2,12 @@
 	Required Imports
 */
 const cors = require("cors");
+const express = require("express");
 const upload = require("express-fileupload");
 const path = require("path");
-const express = require("express");
 const authorize = require("./routers/login.js");
 const addPost = require("./routers/add.js");
-const profile = require("./routers/profile.js") 
+const profile = require("./routers/profile.js");
 
 /* 
 	Setup Server app
@@ -22,13 +22,13 @@ app.use(cors()); // Handles cross orign request errors.
 app.use(upload()); // Handles image upload
 app.use(express.json()); //	Converts the request body into json object from string
 app.use(express.urlencoded({ extended: true })); // Understand fetch requests
-app.use(express.static("public/build")); // 
+app.use(express.static("public/build")); //
 app.use(express.static("public"));
 
 /* 
 	Routing APIs
 */
-app.use("/profile", profile)
+app.use("/profile", profile);
 app.use("/login", authorize);
 app.use("/addPost", addPost);
 

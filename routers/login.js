@@ -6,11 +6,10 @@ module.exports = router.post("/", async (req, res) => {
 	const requestedUsername = req.body.username;
 	const requestedPassword = req.body.password;
 
-	console.log(requestedUsername)
-	console.log(requestedPassword)
 	const userQuery = `select password from users where username = '${requestedUsername}'`;
 
 	const userRes = await pool.query(userQuery);
+	// if username exists in the database
 	if (userRes.rows.length === 0) {
 		res.json({
 			token: "",

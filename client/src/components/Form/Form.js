@@ -1,12 +1,63 @@
 import React, { useState } from "react";
+import { BASE_URL } from "../constants";
 import "./Form.css";
-export default function Form({ handleSubmit }) {
+import axios from "axios";
+
+export default function Form({ username }) {
 	const [petName, setPetName] = useState("");
 	const [petSpecies, setPetSpecies] = useState("");
 	const [petColor, setPetColor] = useState("");
-	const [petImage, setPetImage] = useState(null);
+	const [petImage, setPetImage] = useState();
 	const [petDiscription, setPetDiscription] = useState("");
 
+	const [petImageName, setPetImageName] = useState("");
+	const [uploadedImage, setUploadedImage] = useState({});
+
+	const onSubmit = async (e) => {
+		e.preventDefault();	
+		/*
+			when petName is empty then	
+				if (petName) => returns false, so if block doesn't execute
+
+			when petName is empty, we want to run the if block
+				so we need to add 
+					if (!petName) => returns true when petname is empty.
+		*/
+		if (
+			!petName ||
+			!petSpecies ||
+			!petColor ||
+			!petImageName ||
+			!petImage ||
+			!petDiscription
+		) {
+			alert("Please Enter all the values and try again.");
+			return;
+		}
+		
+
+		const formData = new FormData();
+		formData.append("username", username);
+		formData.append("petName", petName);
+		formData.append("petSpecies", petSpecies);
+		formData.append("petColor", petColor);
+		formData.append("petDiscription", petDiscription);
+		formData.append("petImage", petImage);
+
+		try {
+			const res = await axios.post(`${BASE_URL}/addPost`, formData);
+			const { imageName, imagePath } = res.data;
+
+			setUploadedImage({ imageName, imagePath });
+			console.log("uploadedImage", uploadedImage);
+		} catch (err) {
+			if (err.response.status === 500) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log(err.response.data.msg);
+			}
+		}
+	};
 	return (
 		<>
 			<div className="background">
@@ -20,11 +71,7 @@ export default function Form({ handleSubmit }) {
 								</div>
 							</div>
 							<div className="screen-body-item">
-								<form
-									action="/addPost"
-									method="post"
-									className="app-form"
-								>
+								<form className="app-form" onSubmit={onSubmit}>
 									<div className="app-form-group">
 										<input
 											name="pet_name"
@@ -80,9 +127,10 @@ export default function Form({ handleSubmit }) {
 											name="images"
 											type="file"
 											accept=".jpg, .jpeg, .png, .svg, .gif"
-											onChange={(event) => {
-												return setPetImage(
-													event.target.files[0]
+											onChange={(e) => {
+												setPetImage(e.target.files[0]);
+												setPetImageName(
+													e.target.files[0].name
 												);
 											}}
 										/>
@@ -91,18 +139,8 @@ export default function Form({ handleSubmit }) {
 										<button
 											type="submit"
 											className="app-form-button"
-											onChange={(event) => {
-												event.preventDefault();
-												handleSubmit(
-													petName,
-													petSpecies,
-													petColor,
-													petImage,
-													petDiscription
-												);
-											}}
 										>
-											SEND
+											POST
 										</button>
 									</div>
 								</form>
