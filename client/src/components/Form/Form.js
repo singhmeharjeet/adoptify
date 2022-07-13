@@ -8,7 +8,7 @@ export default function Form({ username }) {
 	const [petSpecies, setPetSpecies] = useState("");
 	const [petColor, setPetColor] = useState("");
 	const [petImage, setPetImage] = useState();
-	const [petDiscription, setPetDiscription] = useState("");
+	const [petDescription, setPetDescription] = useState("");
 
 	const [petImageName, setPetImageName] = useState("");
 	const [uploadedImage, setUploadedImage] = useState({});
@@ -29,7 +29,7 @@ export default function Form({ username }) {
 			!petColor ||
 			!petImageName ||
 			!petImage ||
-			!petDiscription
+			!petDescription
 		) {
 			alert("Please Enter all the values and try again.");
 			return;
@@ -41,7 +41,7 @@ export default function Form({ username }) {
 		formData.append("petName", petName);
 		formData.append("petSpecies", petSpecies);
 		formData.append("petColor", petColor);
-		formData.append("petDiscription", petDiscription);
+		formData.append("petDescription", petDescription);
 		formData.append("petImage", petImage);
 
 		try {
@@ -115,7 +115,7 @@ export default function Form({ username }) {
 											className="app-form-control"
 											placeholder="PET'S DESCRIPTION"
 											onChange={(event) => {
-												return setPetDiscription(
+												return setPetDescription(
 													event.target.value
 												);
 											}}
