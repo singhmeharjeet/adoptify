@@ -1,8 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
+import { BASE_URL } from "../constants";
 import images from "../../images.json";
+import axios from "axios";
 
 export default function SignUp() {
+
+	const [uFirstName, setFirstName] = useState("");
+	const [uLastName, setLastName] = useState("");
+	const [uPhoneNum, setPhoneNum] = useState("");
+	const [uAddress, setAddress] = useState("");
+	const [uEmail, setEmail] = useState("");
+	const [uPassword, setPassword] = useState("");
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+
+		const userFormData = new FormData();
+		userFormData.append("uFirstName", uFirstName);
+		userFormData.append("uLastName", uLastName);
+		userFormData.append("uPhoneNum", uPhoneNum);
+		userFormData.append("uAddress", uAddress);
+		userFormData.append("uEmail", uEmail);
+		userFormData.append("uPassword", uPassword);
+		// userFormData.append("uImage", uImage);   IF we are having them insert their profile pic during sign up
+
+		try {
+			const res = await axios.post(`${BASE_URL}/addUser`, userFormData);
+		}
+		catch (err) {
+			if (err.response.status === 500) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log(err.response.data.msg);
+			}
+		}
+	}
 	return (
 		<>
 			<div className="signup-page">
@@ -17,8 +50,9 @@ export default function SignUp() {
 					<div className="signup-form-outline">
 						<form
 							className="signup-form"
-							action="/login"
-							method="post"
+							onSubmit={onSubmit}
+							// action="/login"
+							// method="post"
 						>
 							<div className="form-field">
 								<img
@@ -27,9 +61,15 @@ export default function SignUp() {
 									src={images["signup-user-name-icon"]}
 								/>
 								<input
+									name="firstname"
 									type="text"
 									placeholder="First Name"
 									required
+									onChange={(event) => {
+										return setFirstName(
+											event.target.value
+										);
+									}}
 								/>
 							</div>
 							<div className="form-field">
@@ -39,9 +79,15 @@ export default function SignUp() {
 									src={images["signup-user-name-icon"]}
 								/>
 								<input
+									name="lastname"
 									type="text"
 									placeholder="Last Name"
 									required
+									onChange={(event) => {
+										return setLastName(
+											event.target.value
+										);
+									}}
 								/>
 							</div>
 							<div className="form-field">
@@ -51,10 +97,16 @@ export default function SignUp() {
 									src={images["signup-user-phone-icon"]}
 								/>
 								<input
+									name="phonenum"
 									type="tel"
 									pattern="[0-9]{10}"
 									placeholder="Phone"
 									required
+									onChange={(event) => {
+										return setPhoneNum(
+											event.target.value
+										);
+									}}
 								/>
 							</div>
 							<div className="form-field">
@@ -64,9 +116,15 @@ export default function SignUp() {
 									src={images["signup-user-address-icon"]}
 								/>
 								<input
+									name="address"
 									type="text"
 									placeholder="Address"
 									required
+									onChange={(event) => {
+										return setAddress(
+											event.target.value
+										);
+									}}
 								/>
 							</div>
 							<div className="form-field">
@@ -76,9 +134,15 @@ export default function SignUp() {
 									src={images["signup-user-email-icon"]}
 								/>
 								<input
+									name="email"
 									type="email"
 									placeholder="Email"
 									required
+									onChange={(event) => {
+										return setEmail(
+											event.target.value
+										);
+									}}
 								/>
 							</div>
 
@@ -89,9 +153,15 @@ export default function SignUp() {
 									src={images["login-lock-icon"]}
 								/>
 								<input
+									name="password"
 									type="password"
 									placeholder="Password"
 									required
+									onChange={(event) => {
+										return setPassword(
+											event.target.value
+										);
+									}}
 								/>{" "}
 							</div>
 
