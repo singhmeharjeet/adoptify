@@ -11,6 +11,7 @@ const s3 = new AWS.S3({
 	secretAccessKey: '4G5yNC31KD4+9xjlRjJiv0Fq484ArwD9rEw8WxdP',
 });
 
+//add post
 module.exports = router.post("/", async (req, res) => {
 	if (req.files === null) {
 		return res.status(400).json({ msg: "no file uploaded" });
@@ -18,8 +19,7 @@ module.exports = router.post("/", async (req, res) => {
 
 	const { username, petName, petSpecies, petColor, petDescription } = req.body;
 	const petImage = req.files.petImage;
-	console.log("Pet Image Object: ", petImage);
-	petImage.mv(`${__dirname}/../uploadedImages/${petImage.name}`, (err) => {
+	petImage.mv(`${__dirname}/../uploadedImages/${petImage.name}`, async (err) => {
 		if (err) { 
 			console.error(err);
             return res
@@ -28,27 +28,30 @@ module.exports = router.post("/", async (req, res) => {
         }
  
 		var imgpath = `${__dirname}/../uploadedImages/${petImage.name}`;
-		console.log("new path name: ", imgpath)
 		const fileContent = fs.readFileSync(imgpath);
-		console.log("got image")  
 
 		//TO GIVE IMAGE A UNIQUE ID
 		//insert post with pet name, pet species, color, description, username, INSERT query
+		const newPostQ = `INSERT INTO posts(pet_name, pet_species, pet_color, images, description, fk_username) VALUES 
+		('${petName}', '${petSpecies}', '${petColor}', NULL, '${petDescription}', '${username}')`;
+		await pool.query(newPostQ);
 		//find that post we just inserted, extract post id, SELECT query
+		const findPostQ = `SELECT * FROM posts WHERE pet_name='${petName}' AND pet_species='${petSpecies}'`;
+		const findResult = await pool.query(findPostQ);
+		var postID = findResult.rows[0].postid;
 		// name it with that post id,
 
 		const params = { 
-			Bucket: "adoptifybucket",
-			Key: `${username}.jpg`,
+			Bucket: "adoptify-posts",
+			Key: `${username}-${postID}.jpg`,
 			Body: fileContent, 
 		};
 		s3.upload(params, async function (err, data) { 
 			if (err) console.log(err);
 			var petImageURL = data.Location;
 			//update query and add the petimage url, UPDATE query
-			const newPostQ = `INSERT INTO posts(pet_name, pet_species, pet_color, images, description, fk_username) VALUES 
-			('${petName}', '${petSpecies}', '${petColor}', ARRAY ['${petImageURL}'], '${petDescription}', '${username}');`;
-			const request = await pool.query(newPostQ);
+			const addImageQ = `UPDATE posts SET images[0]='${petImageURL}' WHERE postid=${postID}`;
+			await pool.query(addImageQ);
 			console.log("File uploaded succesfully,", petImageURL) 
 			return res.status(200).json({
 				msg: "file uploaded successfully",
