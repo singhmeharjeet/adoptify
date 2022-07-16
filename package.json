@@ -11,6 +11,8 @@
         "dev": "nodemon app.js"
     },
     "dependencies": {
+        "@fortawesome/free-solid-svg-icons": "^6.1.1",
+        "@fortawesome/react-fontawesome": "^0.2.0",
         "aws-sdk": "^2.1172.0",
         "cors": "^2.8.5",
         "express": "^4.18.1",
