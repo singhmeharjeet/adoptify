@@ -1,9 +1,195 @@
+body{
+    overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.container{
+    height: 100%;
+    width: 100%;
+}
+
 .profile-container {
-    height: calc(100vh - 3em);
-    width: 100vw;
+    height: 100vh;
+    width: 400px;
+    float:left;
+    word-wrap: break-word;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: darkcyan;
+    background: #fff;
     flex-direction: column;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.2);
+}
+
+.profile-contents{
+    width: 100%;
+    margin-top: 40px;
+    background:#fff;
+    font-family: sans-serif;
+}
+
+.posts-container{
+    height: 100vh;
+    word-wrap: break-word;
+    overflow: auto !important;
+}
+
+.posts-container::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-picture{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0px 5px 10px rgba(0,0,0,.2);
+}
+
+.profile-icon{
+    width: 18px;
+    color: black;
+}
+
+.info-section{
+    padding-top: 15px;
+    margin: auto;
+    display: block;
+}
+
+.profile-greeting{
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.profile-picture-container{
+    width: 100%;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+.profile-info-container{
+    width: 100%;
+}
+
+.profile-text{
+    font-size: 18px;
+    font-family: sans-serif;
+    padding-left: 90px;
+}
+
+.posts-label{
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-top: 37px;
+    padding-left: 70px;
+}
+
+.posts-list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.posts{
+    margin: 0 auto;
+    width: 70%;
+    height: 250px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    
+}
+
+.posts-picture{
+    height: 80%;
+    margin-left: 40px;
+    border-radius: 15px;
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.posts-image-container{
+    height: 100%;
+    align-items: center;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    float: left;
+}
+
+.posts-contents{
+    height: 100%;
+    margin-left: 240px;
+
+}
+
+.pet-name{
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.pet-species{
+    font-family: sans-serif;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.pet-description{
+    resize: none;
+    font-family: sans-serif;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.pet-description::-webkit-scrollbar { 
+    display: none;  
+}
+
+.pet-description:disabled{
+    background: transparent;
+    color: black;
+    font-family: sans-serif;
+    border: none;
+    outline: none;
+}
+
+.edit-button, .delete-button{
+    width: 100px;
+    background-color: #fff;
+    color: #2b2b2b;
+    font-weight: bold;
+    font-family: Georgia;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    border-color: #2b2b2b;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover
+{
+    border-color: black;
+    background-color:black;
+    color: white;
+    transition: 0.4s;
+}
+
+.post-buttons{
+    display: fixed;
+    margin-right: 0;
+    float: right;
+    margin-right: 40px;
 }
