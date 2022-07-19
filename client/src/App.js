@@ -14,6 +14,7 @@ import SignUp from "./components/SignUp/SignUp";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import Profile from "./components/Profile/Profile";
 import Admin from "./components/Admin/Admin";
+import GlobalContextProvider from "./global/GlobalContext";
 
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
@@ -26,62 +27,64 @@ export default function App() {
 	return (
 		<div className="App">
 			<BrowserRouter>
-				<Routes>
-					<Route
-						exact
-						caseSensitive={false}
-						path="/login"
-						element={
-							<Login
-								setPermission={setPermission}
-								permission={perm}
-							/>
-						}
-					/>
-					<Route
-						exact
-						caseSensitive={false}
-						path="/signup"
-						element={<SignUp />}
-					/>
-					<Route
-						exact
-						caseSensitive={false}
-						path="/"
-						element={<Home clearPermission={clearTokenAtApp} />}
-					/>
-					<Route
-						exact
-						caseSensitive={false}
-						path="/add"
-						element={
-							<Add
-								clearPermission={clearTokenAtApp}
-								username={perm}
-							/>
-						}
-					/>
-					<Route
-						caseSensitive={true}
-						path="/profile/:username"
-						element={
-							<Profile
-								clearPermission={clearTokenAtApp}
-								username={perm}
-							/>
-						}
-					/>
-					<Route
-						caseSensitive={false}
-						path="/admin"
-						element={<Admin/>}
-					/>
-					<Route
-						path="*"
-						caseSensitive={false}
-						element={<PageNotFound />}
-					/>
-				</Routes>
+				<GlobalContextProvider>
+					<Routes>
+						<Route
+							exact
+							caseSensitive={false}
+							path="/login"
+							element={
+								<Login
+									setPermission={setPermission}
+									permission={perm}
+								/>
+							}
+						/>
+						<Route
+							exact
+							caseSensitive={false}
+							path="/signup"
+							element={<SignUp />}
+						/>
+						<Route
+							exact
+							caseSensitive={false}
+							path="/"
+							element={<Home clearPermission={clearTokenAtApp} />}
+						/>
+						<Route
+							exact
+							caseSensitive={false}
+							path="/add"
+							element={
+								<Add
+									clearPermission={clearTokenAtApp}
+									username={perm}
+								/>
+							}
+						/>
+						<Route
+							caseSensitive={true}
+							path="/profile"
+							element={
+								<Profile
+									clearPermission={clearTokenAtApp}
+									username={perm}
+								/>
+							}
+						/>
+						<Route
+							caseSensitive={false}
+							path="/admin"
+							element={<Admin />}
+						/>
+						<Route
+							path="*"
+							caseSensitive={false}
+							element={<PageNotFound />}
+						/>
+					</Routes>
+				</GlobalContextProvider>
 			</BrowserRouter>
 		</div>
 	);

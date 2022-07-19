@@ -5,7 +5,6 @@ import images from "../../images.json";
 import axios from "axios";
 
 export default function SignUp() {
-
 	const [uFirstName, setFirstName] = useState("");
 	const [uLastName, setLastName] = useState("");
 	const [uPhoneNum, setPhoneNum] = useState("");
@@ -27,15 +26,14 @@ export default function SignUp() {
 
 		try {
 			const res = await axios.post(`${BASE_URL}/addUser`, userFormData);
-		}
-		catch (err) {
+		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");
 			} else {
 				console.log(err.response.data.msg);
 			}
 		}
-	}
+	};
 	return (
 		<>
 			<div className="signup-page">
@@ -66,9 +64,7 @@ export default function SignUp() {
 									placeholder="First Name"
 									required
 									onChange={(event) => {
-										return setFirstName(
-											event.target.value
-										);
+										return setFirstName(event.target.value);
 									}}
 								/>
 							</div>
@@ -84,9 +80,7 @@ export default function SignUp() {
 									placeholder="Last Name"
 									required
 									onChange={(event) => {
-										return setLastName(
-											event.target.value
-										);
+										return setLastName(event.target.value);
 									}}
 								/>
 							</div>
@@ -103,9 +97,7 @@ export default function SignUp() {
 									placeholder="Phone"
 									required
 									onChange={(event) => {
-										return setPhoneNum(
-											event.target.value
-										);
+										return setPhoneNum(event.target.value);
 									}}
 								/>
 							</div>
@@ -121,9 +113,7 @@ export default function SignUp() {
 									placeholder="Address"
 									required
 									onChange={(event) => {
-										return setAddress(
-											event.target.value
-										);
+										return setAddress(event.target.value);
 									}}
 								/>
 							</div>
@@ -139,9 +129,7 @@ export default function SignUp() {
 									placeholder="Email"
 									required
 									onChange={(event) => {
-										return setEmail(
-											event.target.value
-										);
+										return setEmail(event.target.value);
 									}}
 								/>
 							</div>
@@ -158,9 +146,7 @@ export default function SignUp() {
 									placeholder="Password"
 									required
 									onChange={(event) => {
-										return setPassword(
-											event.target.value
-										);
+										return setPassword(event.target.value);
 									}}
 								/>{" "}
 							</div>

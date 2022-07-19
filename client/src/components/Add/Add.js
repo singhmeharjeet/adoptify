@@ -10,7 +10,7 @@ export default function Add({ clearPermission, username }) {
 		clearPermission();
 		navigate("/login");
 	};
-	
+
 	return (
 		<>
 			<NavBar handleLogout={handleLogout} username={username} />

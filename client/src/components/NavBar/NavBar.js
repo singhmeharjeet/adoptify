@@ -1,12 +1,12 @@
 import React from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
-export default function NavBar({ handleLogout, username }) {
+export default function NavBar({ handleLogout }) {
 	const navigate = useNavigate();
 	const handleProfile = () => {
-		navigate(`/profile/${username}`);
-	}
+		navigate(`/profile`);
+	};
 	return (
 		<>
 			<nav className="nav">
