@@ -1,8 +1,12 @@
 import React from "react";
+import {useNavigate} from "react-router-dom"
 import "./NavBar.css";
 
-export default function NavBar({handleLogout}) {
-	
+export default function NavBar({ handleLogout, username }) {
+	const navigate = useNavigate();
+	const handleProfile = () => {
+		navigate(`/profile/${username}`);
+	}
 	return (
 		<>
 			<nav className="nav">
@@ -17,6 +21,9 @@ export default function NavBar({handleLogout}) {
 					</a>
 					<a href="/add" className="addPost button">
 						Add Post
+					</a>
+					<a onClick={handleProfile} className="addPost button">
+						Profile
 					</a>
 				</div>
 				<div className="right">

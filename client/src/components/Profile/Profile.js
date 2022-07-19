@@ -41,7 +41,7 @@ export default function Profile({clearPermission}) {
     console.log("myData: ", myData)
     return (
         <>
-            <NavBar handleLogout={handleLogout}/>
+            <NavBar handleLogout={handleLogout} username={username}/>
             {/* 
                 Front end HTML portion of profile page:
             */}

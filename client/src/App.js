@@ -64,7 +64,12 @@ export default function App() {
 					<Route
 						caseSensitive={true}
 						path="/profile/:username"
-						element={<Profile clearPermission={clearTokenAtApp} />}
+						element={
+							<Profile
+								clearPermission={clearTokenAtApp}
+								username={perm}
+							/>
+						}
 					/>
 					<Route
 						caseSensitive={false}
