@@ -21,9 +21,16 @@ export default function Profile({ clearPermission }) {
 		navigate("/login");
 	};
 
-	const [myData, setMyData] = useState({});
-	const { userDetails } = useContext(GlobalContext);
-	useEffect(() => setMyData(userDetails));
+    const [myData, setMyData] = useState({});
+    // const [myPostData, setMyPostData] = useState([]);
+    
+    
+    const { userDetails, userPosts } = useContext(GlobalContext);
+    
+    useEffect(() => {
+        setMyData(userDetails);
+        // setMyPostData(userPosts);
+    });
 
 	return (
 		<>
@@ -148,17 +155,43 @@ export default function Profile({ clearPermission }) {
 											value="DELETE"
 										></input>
 									</div>
-									<p className="pet-name">Rocky</p>
+                                    <p className="pet-name">Gunner</p>
 									<p className="pet-species">
 										Species: Black Dog
 									</p>
-									<textarea
-										className="pet-description"
-										rows="9"
-										cols="60"
-										value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-										disabled
-									></textarea>
+									<p className="pet-description">
+										Lorem Ipsum is simply dummy text of the
+										printing and typesetting industry. Lorem
+										Ipsum has been the industry's standard
+										dummy text ever since the 1500s, when an
+										unknown printer took a galley of type
+										and scrambled it to make a type specimen
+										book. It has survived not only five
+										centuries, but also the leap into
+										electronic typesetting, remaining
+										essentially unchanged. It was
+										popularised in the 1960s with the
+										release of Letraset sheets containing
+										Lorem Ipsum passages, and more recently
+										with desktop publishing software like
+										Aldus PageMaker including versions of
+										Lorem Ipsum.Lorem Ipsum is simply dummy
+										text of the printing and typesetting
+										industry. Lorem Ipsum has been the
+										industry's standard dummy text ever
+										since the 1500s, when an unknown printer
+										took a galley of type and scrambled it
+										to make a type specimen book. It has
+										survived not only five centuries, but
+										also the leap into electronic
+										typesetting, remaining essentially
+										unchanged. It was popularised in the
+										1960s with the release of Letraset
+										sheets containing Lorem Ipsum passages,
+										and more recently with desktop
+										publishing software like Aldus PageMaker
+										including versions of Lorem Ipsum."
+									</p>
 								</div>
 							</div>
 						</form>
