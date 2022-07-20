@@ -1,5 +1,11 @@
-body::-webkit-scrollbar {
-    display: none;
+* {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+}
+
+*::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
 }
 
 .container {
@@ -8,7 +14,7 @@ body::-webkit-scrollbar {
 }
 
 .profile-container {
-    height: 100vh;
+    height: calc(100vh - 3em);
     width: 400px;
     float: left;
     word-wrap: break-word;
@@ -27,7 +33,7 @@ body::-webkit-scrollbar {
 }
 
 .posts-container {
-    height: 100vh;
+    height: calc(100vh - 3em);
     word-wrap: break-word;
     overflow: auto !important;
 }

@@ -19,7 +19,7 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails } = useContext(GlobalContext);
+	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
     console.log("postdetails: ", postsDetails)
 	/*
 		Stucture of myData and myPostsData is as follows:
@@ -59,17 +59,8 @@ const Profile = ({ clearPermission }) => {
         e.preventDefault();
 
         const postId = e.currentTarget.value;
-        const formData = new FormData();
 
-        try {
-            const res = await axios.delete(`${BASE_URL}/${userDetails.username}/${postId}`, formData);
-        } catch (err) {
-			if (err) {
-				console.log("There was a problem with the server");
-			} else {
-				console.log("success");
-			}
-		}
+        deletePostData(postId);
     }
 
     return (
@@ -83,7 +74,7 @@ const Profile = ({ clearPermission }) => {
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {userDetails.firstname} {userDetails.lastname}!
+							Hi, {userDetails?.firstname + " " + userDetails?.lastname}!
 						</p>
 						<br />
 						<br />
@@ -149,96 +140,63 @@ const Profile = ({ clearPermission }) => {
 					<p className="posts-label">My Posts:</p>
 					<br />
 					<br />
-                {/* start of posts */}
-                {postsDetails.map(postDetails => (
-                    <div className="posts-list" key={postDetails.postid}>
-                    <form method="post">
-                        <div className="posts">
-                            <div className="posts-image-container">
-                                <img
-                                    className="posts-picture"
-                                    src="/sample-pic.jpg"
-                                />
-                            </div>
-                            <div className="posts-contents">
-                                <br />
-                                <div className="post-buttons">
-                                    <input
-                                        type="button"
-                                        className="edit-button"
-                                        value="EDIT"
-                                    ></input>
-                                    &nbsp; &nbsp;
-                                    <button
-                                        type="button"
-                                        className="delete-button"
-                                        value="DELETE"
-                                        onClick={onSubmit}
-                                    >DELETE</button>
-                                </div>
-                                <p className="pet-name">
-                                    {postDetails?.pet_name}
-                                </p>
-                                <p className="pet-species">
-                                    {postDetails?.pet_species}
-                                </p>
-                                <hr
-                                    style={{
-                                        width: "90%",
-                                        color: "#bbb",
-                                        "marginbottom": "1em"
-                                    }}
-                                ></hr>
-                                <p className="pet-description">
-                                    {postDetails?.description}
-                                </p>
-                            </div>
-                        </div>
-                    </form>
-                    <br />
-                    {/* end of posts */}
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
-                ))}
-                {/* <div className = "posts-list">
-                    <form method = "post">
-                        <div className = "posts"> 
-                            <div className = "posts-image-container">
-                                <img className = "posts-picture" src="/sample-pic.jpg"/>
-                            </div>
-                            <div className = "posts-contents">
-                                <br/>
-                                <div className = "post-buttons">
-                                    <input type = "button" className = "edit-button"
-                                        value = "EDIT"></input>
-                                    &nbsp; &nbsp;
-                                    <input type = "button" className = "delete-button"
-                                        value = "DELETE" ></input>
-                                </div>
-                                <p className = "pet-name">Rocky</p>
-                                <p className = "pet-species">Species: Black Dog</p>
-                                <textarea className = "pet-description" rows = "9" cols = "60" value = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." disabled>      
-                                </textarea>
-                            </div>
-                        </div>
-                    </form>
-
-                    <br/> */}
-                {/* end of posts */}
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                </div>
-            </div>
-            {/* </div> */}
-        </>
-    );
-}
-	
-			
-
+					{/* start of posts */}
+					<div className="posts-list">
+						<div>
+							<form method="post">
+								{postsDetails.map((postInfo) => (
+									<div className="posts" key={postInfo?.postid}>
+										<div className="posts-image-container">
+											<img
+												className="posts-picture"
+												src={postInfo.images[0]}
+											/>
+										</div>
+										<div className="posts-contents">
+											<br />
+											<div className="post-buttons">
+												<input
+													type="button"
+													className="edit-button"
+													value="EDIT"
+												></input>
+												&nbsp; &nbsp;
+												<button
+													className="delete-button"
+													value={postInfo?.postid}
+                                                    onClick={onSubmit}
+												>DELETE</button>
+											</div>
+											<p className="pet-name">
+												{postInfo?.pet_name}
+											</p>
+											<p className="pet-species">
+												{postInfo?.pet_species}
+											</p>
+											<hr
+												style={{
+													width: "90%",
+													color: "#bbb",
+													"margin-bottom": "1em",
+												}}
+											></hr>
+											<p className="pet-description">
+												{postInfo?.description}
+											</p>
+										</div>
+									</div>
+								))}
+							</form>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
 export default Profile;

@@ -1,36 +1,18 @@
 
 import "./CardList.css";
-import React,{ useEffect,useState} from "react"
+import React, { useEffect, useState, useContext } from "react"
+import { GlobalContext } from "../../global/GlobalContext"
 
 
 export default function CardList() {
 
-	const [list,setList] = useState([]);
+	const { postsDetails: list } = useContext(GlobalContext);
 	const [filteredList,setFilteredList] = useState([]);
 
-    
-	const getList = async () => {
-		try{
-			// make fetch request
-			const response =  await fetch("http://localhost:5010/post");
-			const jsonData = await response.json();
-		
-			setList(jsonData);
-			setFilteredList(jsonData);
-	
-
-		} catch (err) {
-			console.error(err.message);
-		}
-	};
-	
 	useEffect(() => {
-		getList();
+		setFilteredList(list);
 	}, []);
 	 
-	// console.log(list);
-	// console.log(filteredList);
-
 	const handleBtns=(e) => {
 		let pet = e.target.value;
 
@@ -39,21 +21,21 @@ export default function CardList() {
 		}
 		
 		else if(pet === 'Dogs'){
-			const filtered = list.filter(list=>list.
-				pet_species === 'dog' || list.pet_species === 'Dog');
+			const filtered = list.filter(list=>
+				list.pet_species === 'dog' || list.pet_species === 'Dog');
 	
 			setFilteredList(filtered);
 		}
 		
 		else if(pet === 'Cats'){
-			const filtered = list.filter(list=>list.
-				pet_species === 'cat' || list.pet_species === 'Cat');
+			const filtered = list.filter(list=>
+				list.pet_species === 'cat' || list.pet_species === 'Cat');
 			setFilteredList(filtered);
 		}
 
 		else {
-			const filtered = list.filter(list=>list.
-				pet_species === 'Other' || list.pet_species === 'other');
+			const filtered = list.filter(list=>
+				list.pet_species !== 'dog' || list.pet_species !== 'cat');
 			setFilteredList(filtered);
 		}
 		
