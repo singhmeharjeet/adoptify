@@ -143,7 +143,7 @@ const Profile = ({ clearPermission }) => {
 					{/* start of posts */}
 					<div className="posts-list">
 						<div>
-							<form method="post">
+							<form method="post" className="profile-form">
 								{postsDetails.map((postInfo) => (
 									<div className="posts" key={postInfo?.postid}>
 										<div className="posts-image-container">
@@ -173,13 +173,7 @@ const Profile = ({ clearPermission }) => {
 											<p className="pet-species">
 												{postInfo?.pet_species}
 											</p>
-											<hr
-												style={{
-													width: "90%",
-													color: "#bbb",
-													"margin-bottom": "1em",
-												}}
-											></hr>
+											<hr className = "posts-separator"></hr>
 											<p className="pet-description">
 												{postInfo?.description}
 											</p>
