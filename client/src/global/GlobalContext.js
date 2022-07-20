@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 import { BASE_URL } from "../../src/components/constants";
-import { INSERT_USER_DATA } from "./Types.js";
+import { INSERT_USER_DATA, DELETE_POST } from "./Types.js";
 
 // Initial state
 const initialState = {
@@ -32,15 +32,43 @@ const GlobalContextProvider = ({ children }) => {
 				console.log("error", error);
 			});
 	}
+	function deletePostData(id) {
+
+        try {
+            const res = fetch(`${BASE_URL}/delete/${id}`,{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+			// dispatch({
+			// 	type: DELETE_POST,
+			// 	payload: {
+			// 		id,
+			// 		putUserData
+			// 	}
+			// })
+			putUserData(localStorage.getItem("token"));
+        } catch (err) {
+			if (err) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log("success");
+                putUserData(localStorage.getItem("token"));
+			}
+		}
+	}
 	useEffect(() => {
 		putUserData(localStorage.getItem("token"));
 	}, []);
-
+	
 	return (
 		<GlobalContext.Provider
 			value={{
 				userDetails: state.userDetails,
 				postsDetails: state.postsDetails,
+				putUserData,
+				deletePostData
 			}}
 		>
 			{children}

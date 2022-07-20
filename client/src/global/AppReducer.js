@@ -12,7 +12,6 @@ const AppReducer = (state, action) => {
 				userDetails: action?.payload?.userDetails,
 				postsDetails: action?.payload?.postsDetails,
 			};
-		
 		default:
 			return state;
 	}

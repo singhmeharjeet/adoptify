@@ -2,8 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
-// import { BASE_URL } from "../constants";
+import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
+import './Profile.css';
+
+import axios from 'axios'
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,12 +19,12 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails } = useContext(GlobalContext);
-
+	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
+    console.log("postdetails: ", postsDetails)
 	/*
 		Stucture of myData and myPostsData is as follows:
 	
-		myData = { 
+		userDetails = { 
 			username: "harry.potter123@gmail.com", 
 			password: "password123",
 			firstname: "Harry", 
@@ -32,7 +35,7 @@ const Profile = ({ clearPermission }) => {
 			profilepicture: "imageProfileURL", 
 			isadmin: "false" 
 		}
-		myPostsData = [
+		postsDetails = [
 			{ 
 				postid: "1",	
 				pet_name; "oreo",	
@@ -52,7 +55,15 @@ const Profile = ({ clearPermission }) => {
 		navigate("/login");
 	};
 
-	return (
+    const onSubmit = async(e) => {
+        e.preventDefault();
+
+        const postId = e.currentTarget.value;
+
+        deletePostData(postId);
+    }
+
+    return (
 		<>
 			<NavBar
 				handleLogout={handleLogout}
@@ -150,11 +161,11 @@ const Profile = ({ clearPermission }) => {
 													value="EDIT"
 												></input>
 												&nbsp; &nbsp;
-												<input
-													type="button"
+												<button
 													className="delete-button"
-													value="DELETE"
-												></input>
+													value={postInfo?.postid}
+                                                    onClick={onSubmit}
+												>DELETE</button>
 											</div>
 											<p className="pet-name">
 												{postInfo?.pet_name}
