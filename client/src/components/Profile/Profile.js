@@ -132,7 +132,7 @@ const Profile = ({ clearPermission }) => {
 					{/* start of posts */}
 					<div className="posts-list">
 						<div>
-							<form method="post">
+							<form method="post" className="profile-form">
 								{postsDetails.map((postInfo) => (
 									<div className="posts" key={postInfo?.postid}>
 										<div className="posts-image-container">
