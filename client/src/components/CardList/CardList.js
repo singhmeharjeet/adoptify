@@ -1,9 +1,64 @@
-import "./CardList.css";
-import Users from "../../data.json";
 
-// const Users = fetch("https://localhost:5000/users/data")
+import "./CardList.css";
+import React,{ useEffect,useState} from "react"
+
 
 export default function CardList() {
+
+	const [list,setList] = useState([]);
+	const [filteredList,setFilteredList] = useState([]);
+
+    
+	const getList = async () => {
+		try{
+			// make fetch request
+			const response =  await fetch("http://localhost:5010/post");
+			const jsonData = await response.json();
+		
+			setList(jsonData);
+			setFilteredList(jsonData);
+	
+
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
+	
+	useEffect(() => {
+		getList();
+	}, []);
+	 
+	// console.log(list);
+	// console.log(filteredList);
+
+	const handleBtns=(e) => {
+		let pet = e.target.value;
+
+		if(pet ===  'All'){
+			setFilteredList(list);
+		}
+		
+		else if(pet === 'Dogs'){
+			const filtered = list.filter(list=>list.
+				pet_species === 'dog' || list.pet_species === 'Dog');
+	
+			setFilteredList(filtered);
+		}
+		
+		else if(pet === 'Cats'){
+			const filtered = list.filter(list=>list.
+				pet_species === 'cat' || list.pet_species === 'Cat');
+			setFilteredList(filtered);
+		}
+
+		else {
+			const filtered = list.filter(list=>list.
+				pet_species === 'Other' || list.pet_species === 'other');
+			setFilteredList(filtered);
+		}
+		
+	}
+
 	return (
 		<>
 			<div className="card-list-all">
@@ -23,10 +78,10 @@ export default function CardList() {
 					/>
 				</div>
 				<div className="display-bar">
-					<div className="display-bar-btn">All</div>
-					<div className="display-bar-btn">Dogs</div>
-					<div className="display-bar-btn">Cats</div>
-					<div className="display-bar-btn">Others</div>
+					<button className="display-bar-btn" value = "All" onClick ={handleBtns}>All</button>
+					<button className="display-bar-btn"  value = "Dogs" onClick ={handleBtns}>Dogs</button>
+					<button className="display-bar-btn"  value = "Cats" onClick ={handleBtns}>Cats</button>
+					<button className="display-bar-btn"  value = "Others" onClick ={handleBtns}>Others</button>
 				</div>
 				<div
 					style={{
@@ -44,47 +99,27 @@ export default function CardList() {
 					/>
 				</div>
 				<div className="card-list-container">
-					<div className="-fx-image-gal">
-						<div className="-fx-gal-item">
-							<div className="-fx-gal-image-thumb" tabIndex="1">
-								<img alt="" src={Users[0].posts[0].images[0]} />
+				
+					<div className="-fx-image-gal"  >
+					{filteredList.map(filteredList=> (
+						<div className="-fx-gal-item" key={filteredList.id}>
+							<div className="-fx-gal-image-thumb" tabIndex="1" >
+								<img alt="" src={filteredList.images} />
 							</div>
 							<div className="-fx-gal-image-text">
-								<h1>{Users[0].posts[0].title}</h1>
-								<div>
-									<hr />
-								</div>
-								<p className="-fx-gal-image-text-description">
-									{Users[0].posts[0].description}
-								</p>
 								<ul>
-									<li>{Users[0].phone}</li>
-									<li>{Users[0].email}</li>
-									<li>{Users[0].address}</li>
+									<li>{filteredList.pet_name}</li>
+									<li>{filteredList.pet_color}</li>
 								</ul>
+								<p className="-fx-gal-image-text-description">
+									{filteredList.description}
+								</p>
 							</div>
 						</div>
-						{/* <!-- /-fx-gal-item --> */}
-						<div className="-fx-gal-item">
-							<div className="-fx-gal-image-thumb" tabIndex="1">
-								<img alt="" src={Users[0].posts[0].images[1]} />
-							</div>
-							<div className="-fx-gal-image-text">
-								<h1>{Users[1].posts[1].title}</h1>
-								<p className="-fx-gal-image-text-description">
-									{Users[1].posts[1].description}
-								</p>
-								<ul>
-									<li>{Users[1].phone}</li>
-									<li>{Users[1].email}</li>
-									<li>{Users[1].address}</li>
-								</ul>
-							</div>
-						</div>
-						{/* <!-- /-fx-gal-item --> */}
+						))}
 					</div>
-					{/* <!-- /gallery --> */}
-				</div>
+					
+				</div>	
 				<div
 					style={{
 						display: "flex",
@@ -103,4 +138,5 @@ export default function CardList() {
 			</div>
 		</>
 	);
+
 }

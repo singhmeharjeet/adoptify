@@ -8,6 +8,7 @@ const path = require("path");
 const authorize = require("./routers/login.js");
 const addPost = require("./routers/add.js");
 const profile = require("./routers/profile.js");
+const post = require("./routers/post.js");
 const addUser = require("./routers/addUser.js");
 const admin = require("./routers/admin.js");
 
@@ -33,6 +34,7 @@ app.use(express.static("public"));
 app.use("/profile", profile);
 app.use("/login", authorize);
 app.use("/addPost", addPost);
+app.use("/post",post);
 app.use("/addUser", addUser);
 app.use("/admin", admin);
 

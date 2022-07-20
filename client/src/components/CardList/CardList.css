@@ -46,11 +46,13 @@
     height: 80%;
     max-height: 60vh;
     width: 70vw;
-    overflow-y: auto;
+    overflow-y: scroll;
+   
 }
 
 .-fx-image-gal {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     justify-content: center;
     width: 95%;
