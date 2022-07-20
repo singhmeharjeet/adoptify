@@ -64,7 +64,7 @@ export default function App() {
 							}
 						/>
 						<Route
-							caseSensitive={true}
+							caseSensitive={false}
 							path="/profile"
 							element={
 								<Profile
