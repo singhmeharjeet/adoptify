@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
-import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
 import "./Profile.css";
 
-import axios from "axios";
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +17,7 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, putUserData, deletePostData } =
+	const { userDetails, postsDetails, deletePostData } =
 		useContext(GlobalContext);
 	console.log("postdetails: ", postsDetails);
 	/*
@@ -58,9 +56,7 @@ const Profile = ({ clearPermission }) => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-
 		const postId = e.currentTarget.value;
-
 		deletePostData(postId);
 	};
 
@@ -143,12 +139,10 @@ const Profile = ({ clearPermission }) => {
 				</div>
 				<div className="posts-container">
 					<p className="posts-label">My Posts:</p>
-					<br />
-					<br />
 					{/* start of posts */}
 					<div className="posts-list">
 						<div>
-							<form method="post" className="profile-form">
+							<form method="post" className="posts-form">
 								{postsDetails.map((postInfo) => (
 									<div
 										className="posts"
@@ -161,28 +155,30 @@ const Profile = ({ clearPermission }) => {
 											/>
 										</div>
 										<div className="posts-contents">
-											<br />
-											<div className="post-buttons">
-												<input
-													type="button"
-													className="edit-button"
-													value="EDIT"
-												></input>
-												&nbsp; &nbsp;
-												<button
-													className="delete-button"
-													value={postInfo?.postid}
-													onClick={onSubmit}
-												>
-													DELETE
-												</button>
+											<div className="post-content-upper">
+												<div className="post-title">
+													<p className="pet-name">
+														{postInfo?.pet_name}
+													</p>
+													<p className="pet-species">
+														{postInfo?.pet_species}
+													</p>
+												</div>
+												<div className="post-buttons">
+													<input
+														type="button"
+														className="post-edit-button"
+														value="EDIT"
+													></input>
+													<button
+														className="post-delete-button"
+														value={postInfo?.postid}
+														onClick={onSubmit}
+													>
+														DELETE
+													</button>
+												</div>
 											</div>
-											<p className="pet-name">
-												{postInfo?.pet_name}
-											</p>
-											<p className="pet-species">
-												{postInfo?.pet_species}
-											</p>
 											<hr className="posts-separator"></hr>
 											<p className="pet-description">
 												{postInfo?.description}
@@ -191,11 +187,6 @@ const Profile = ({ clearPermission }) => {
 									</div>
 								))}
 							</form>
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
 						</div>
 					</div>
 				</div>
