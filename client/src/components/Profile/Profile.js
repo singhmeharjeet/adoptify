@@ -52,6 +52,7 @@ const Profile = ({ clearPermission }) => {
 		navigate("/login");
 	};
 
+	const info = postsDetails[0];
 	return (
 		<>
 			<NavBar
@@ -63,7 +64,7 @@ const Profile = ({ clearPermission }) => {
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {userDetails.firstname} {userDetails.lastname}!
+							Hi, {userDetails.firstname + " " userDetails.lastname}!
 						</p>
 						<br />
 						<br />
@@ -130,57 +131,59 @@ const Profile = ({ clearPermission }) => {
 					<br />
 					<br />
 					{/* start of posts */}
-                    {postsDetails.map(postDetails => {
-                        <div className="posts-list">
-						<form method="post">
-							<div className="posts" key={postDetails.postid}>
-								<div className="posts-image-container">
-									<img
-										className="posts-picture"
-										src="/sample-pic.jpg"
-									/>
-								</div>
-								<div className="posts-contents">
-									<br />
-									<div className="post-buttons">
-										<input
-											type="button"
-											className="edit-button"
-											value="EDIT"
-										></input>
-										&nbsp; &nbsp;
-										<input
-											type="button"
-											className="delete-button"
-											value="DELETE"
-										></input>
+					<div className="posts-list">
+						<div>
+							<form method="post">
+								{postsDetails.map((postInfo) => (
+									<div className="posts" key={postInfo?.postid}>
+										<div className="posts-image-container">
+											<img
+												className="posts-picture"
+												src={postInfo.images[0]}
+											/>
+										</div>
+										<div className="posts-contents">
+											<br />
+											<div className="post-buttons">
+												<input
+													type="button"
+													className="edit-button"
+													value="EDIT"
+												></input>
+												&nbsp; &nbsp;
+												<input
+													type="button"
+													className="delete-button"
+													value="DELETE"
+												></input>
+											</div>
+											<p className="pet-name">
+												{postInfo?.pet_name}
+											</p>
+											<p className="pet-species">
+												{postInfo?.pet_species}
+											</p>
+											<hr
+												style={{
+													width: "90%",
+													color: "#bbb",
+													"margin-bottom": "1em",
+												}}
+											></hr>
+											<p className="pet-description">
+												{postInfo?.description}
+											</p>
+										</div>
 									</div>
-									<p className="pet-name">
-										{postDetails?.pet_name}
-									</p>
-									<p className="pet-species">
-										{postDetails?.pet_species}
-									</p>
-									<hr
-										style={{
-											width: "90%",
-											color: "#bbb",
-											"margin-bottom": "1em"
-										}}
-									></hr>
-									<p className="pet-description">
-										{postDetails?.description}
-									</p>
-								</div>
-							</div>
-						</form>
-						<br />
-						{/* end of posts */}
-						<br />
-						<br />
-						<br />
-						<br />
-					</div>})}
+								))}
+							</form>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+						</div>
+					</div>
 				</div>
 			</div>
 		</>
