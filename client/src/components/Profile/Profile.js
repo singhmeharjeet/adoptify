@@ -130,9 +130,10 @@ const Profile = ({ clearPermission }) => {
 					<br />
 					<br />
 					{/* start of posts */}
-					<div className="posts-list">
+                    {postsDetails.map(postDetails => {
+                        <div className="posts-list">
 						<form method="post">
-							<div className="posts">
+							<div className="posts" key={postDetails.postid}>
 								<div className="posts-image-container">
 									<img
 										className="posts-picture"
@@ -155,10 +156,10 @@ const Profile = ({ clearPermission }) => {
 										></input>
 									</div>
 									<p className="pet-name">
-										{postsDetails[0]?.pet_name}
+										{postDetails?.pet_name}
 									</p>
 									<p className="pet-species">
-										{postsDetails[0]?.pet_species}
+										{postDetails?.pet_species}
 									</p>
 									<hr
 										style={{
@@ -168,7 +169,7 @@ const Profile = ({ clearPermission }) => {
 										}}
 									></hr>
 									<p className="pet-description">
-										{postsDetails[0]?.description}
+										{postDetails?.description}
 									</p>
 								</div>
 							</div>
@@ -179,7 +180,7 @@ const Profile = ({ clearPermission }) => {
 						<br />
 						<br />
 						<br />
-					</div>
+					</div>})}
 				</div>
 			</div>
 		</>
