@@ -5,6 +5,7 @@ import NavBar from "../NavBar/NavBar";
 import './Profile.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser, faEnvelope, faMobileScreen, faMapLocationDot} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios'
 
 
 export default function Profile({clearPermission}) {
@@ -17,6 +18,43 @@ export default function Profile({clearPermission}) {
     const { username } = useParams();
 
     const [myData, setMyData] = useState('');
+    const [myPosts, setMyPosts] = useState([]);
+
+    const onSubmit = async(e) => {
+        e.preventDefault();
+
+        const postId = e.currentTarget.value;
+        const formData = new FormData();
+
+        try {
+            const res = await axios.delete(`${BASE_URL}/${username}/${postId}`, formData);
+        } catch (err) {
+			if (err) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log("success");
+			}
+		}
+    }
+
+    async function getPosts(username){
+        let result = "";
+        try {
+            const responseJSON = await (
+                await fetch(`${BASE_URL}/profile/${username}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                })
+            ).json();
+            result = responseJSON;
+        } catch (error) {
+            console.log("error", error);
+        }
+        setMyPosts(result.rows);
+     }
+
     useEffect(() => {
     async function getData(username){
         let result = "";
@@ -29,7 +67,6 @@ export default function Profile({clearPermission}) {
                     }
                 })
             ).json();
-            // if response is sucessful
             result = responseJSON; 
         } catch (error) {
             console.log("error", error);
@@ -37,8 +74,38 @@ export default function Profile({clearPermission}) {
         setMyData(result.rows[0]);
     }
      getData(username);
-  }, [])
-    console.log("myData: ", myData)
+     getPosts(username);
+    }, [])
+
+
+    
+    const [edit, setEdit] = useState(false);
+    function enableEdit() {
+        setEdit(true);
+    }
+    function disableEdit() {
+        setEdit(false);
+    }
+
+    // useEffect(() => {
+    //     fetch(`${BASE_URL}/profile/${username}`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         }
+    // })
+    // }, [edit])
+
+    function renderPosts(){
+        const postList = [];
+        for(let i = 0; i < myPosts.length; i++)
+        {
+            let name = myPosts.pet_name[i];
+        }
+    }
+
+    // console.log("myData: ", myData)
+    // console.log("myPosts: ", myPosts)
     return (
         <>
             <NavBar handleLogout={handleLogout}/>
@@ -105,7 +172,32 @@ export default function Profile({clearPermission}) {
               <br/>
               <br/>
                 {/* start of posts */}
-                <div className = "posts-list">
+                {myPosts.map(myPosts => (
+                    <div className="posts-list" key={myPosts.postid}>
+
+                        <div className="posts">
+                            <div className="posts-image-container">
+                                <img className="posts-picture" alt="" src="/sample-pic.jpg"/*{myPosts.images}*//>
+                            </div>
+                            <div className="posts-contents">
+                                <br/>
+                                <div className="post-buttons">
+                                    <input type = "button" className = "edit-button"
+                                        value = "EDIT"></input>
+                                    &nbsp; &nbsp;
+                                    <button type = "submit" className = "delete-button"
+                                        value={myPosts.postid} onClick={onSubmit}>DELETE</button>
+                                </div>
+                                <p className="pet-name">{myPosts.pet_name}</p>
+                                <p className="pet-species">Species: {myPosts.pet_species}</p>
+                                <textarea className = "pet-description" rows = "9" cols = "60" value = {myPosts.description} disabled>      
+                                </textarea>
+                            </div>
+                        </div>
+      
+                    </div>
+                ))}
+                {/* <div className = "posts-list">
                     <form method = "post">
                         <div className = "posts"> 
                             <div className = "posts-image-container">
@@ -118,7 +210,7 @@ export default function Profile({clearPermission}) {
                                         value = "EDIT"></input>
                                     &nbsp; &nbsp;
                                     <input type = "button" className = "delete-button"
-                                        value = "DELETE"></input>
+                                        value = "DELETE" ></input>
                                 </div>
                                 <p className = "pet-name">Rocky</p>
                                 <p className = "pet-species">Species: Black Dog</p>
@@ -127,7 +219,8 @@ export default function Profile({clearPermission}) {
                             </div>
                         </div>
                     </form>
-                    <br/>
+
+                    <br/> */}
                 {/* end of posts */}
                 <br/>
                 <br/>
@@ -135,8 +228,7 @@ export default function Profile({clearPermission}) {
                 <br/>
                 </div>
             </div>
-            </div>
-
+            {/* </div> */}
         </>
     );
 }
