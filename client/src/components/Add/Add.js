@@ -10,10 +10,10 @@ export default function Add({ clearPermission, username }) {
 		clearPermission();
 		navigate("/login");
 	};
-	
+
 	return (
 		<>
-			<NavBar handleLogout={handleLogout} />
+			<NavBar handleLogout={handleLogout} username={username} />
 			<div className="add-outer">
 				<Form username={username} />
 			</div>

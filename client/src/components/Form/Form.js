@@ -14,7 +14,7 @@ export default function Form({ username }) {
 	const [uploadedImage, setUploadedImage] = useState({});
 
 	const onSubmit = async (e) => {
-		e.preventDefault();	
+		e.preventDefault();
 		/*
 			when petName is empty then	
 				if (petName) => returns false, so if block doesn't execute
@@ -34,7 +34,6 @@ export default function Form({ username }) {
 			alert("Please Enter all the values and try again.");
 			return;
 		}
-		
 
 		const formData = new FormData();
 		formData.append("username", username);

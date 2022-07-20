@@ -2,10 +2,10 @@ import "./Home.css";
 import CardList from "../CardList/CardList";
 import { useNavigate, Navigate } from "react-router-dom";
 import { getPermission } from "../utils";
-import NavBar from "../NavBar/NavBar"
-export default function Home({clearPermission}) {
+import NavBar from "../NavBar/NavBar";
+export default function Home({ clearPermission }) {
 	const navigate = useNavigate();
-	
+
 	const token = getPermission();
 	if (!token) {
 		return <Navigate to="/login"></Navigate>;
@@ -14,11 +14,11 @@ export default function Home({clearPermission}) {
 	function handleLogout() {
 		clearPermission();
 		navigate("/login");
-	};
+	}
 
 	return (
 		<>
-			<NavBar handleLogout={handleLogout} />
+			<NavBar handleLogout={handleLogout} username={token} />
 			<div className="home-container">
 				<div className="home-left"></div>
 				<div className="home-center">

@@ -1,5 +1,5 @@
 export function setPermission(userToken) {
-	const withoutLiterals = JSON.stringify(userToken).replaceAll('"', '');
+	const withoutLiterals = JSON.stringify(userToken).replaceAll('"', "");
 	localStorage.setItem("token", withoutLiterals);
 }
 

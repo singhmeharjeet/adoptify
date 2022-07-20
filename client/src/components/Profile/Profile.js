@@ -1,24 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import "./Profile.css";
 import { BASE_URL } from "../constants";
-import { useParams, useNavigate} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import './Profile.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser, faEnvelope, faMobileScreen, faMapLocationDot} from '@fortawesome/free-solid-svg-icons';
+
 import axios from 'axios'
+import { GlobalContext } from "../../global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faUser,
+	faEnvelope,
+	faMobileScreen,
+	faMapLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
+const Profile = ({ clearPermission }) => {
+	const navigate = useNavigate();
 
-export default function Profile({clearPermission}) {
-    const navigate = useNavigate();
-
+	const { userDetails, postsDetails } = useContext(GlobalContext);
+    console.log("postdetails: ", postsDetails)
+	/*
+		Stucture of myData and myPostsData is as follows:
+	
+		userDetails = { 
+			username: "harry.potter123@gmail.com", 
+			password: "password123",
+			firstname: "Harry", 
+			lastname: "Potter", 
+			phone: "778-023-1234", 
+			email: "harry.potter123@gmail.com", 
+			address: "Washington Street", 
+			profilepicture: "imageProfileURL", 
+			isadmin: "false" 
+		}
+		postsDetails = [
+			{ 
+				postid: "1",	
+				pet_name; "oreo",	
+				pet_species: "dog",	
+				pet_color: "black",	
+				images: ["imgLink1", "imgLink2", "imgLink3", ...],
+				description: "He is a big dog" ,
+				fk_username: "harry.potter123@gmail.com", 
+			},
+			{ 
+				...
+			}
+		]
+	*/
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
-    const { username } = useParams();
-
-    const [myData, setMyData] = useState('');
-    const [myPosts, setMyPosts] = useState([]);
 
     const onSubmit = async(e) => {
         e.preventDefault();
@@ -27,7 +62,7 @@ export default function Profile({clearPermission}) {
         const formData = new FormData();
 
         try {
-            const res = await axios.delete(`${BASE_URL}/${username}/${postId}`, formData);
+            const res = await axios.delete(`${BASE_URL}/${userDetails.username}/${postId}`, formData);
         } catch (err) {
 			if (err) {
 				console.log("There was a problem with the server");
@@ -37,165 +72,136 @@ export default function Profile({clearPermission}) {
 		}
     }
 
-    async function getPosts(username){
-        let result = "";
-        try {
-            const responseJSON = await (
-                await fetch(`${BASE_URL}/profile/${username}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                })
-            ).json();
-            result = responseJSON;
-        } catch (error) {
-            console.log("error", error);
-        }
-        setMyPosts(result.rows);
-     }
-
-    useEffect(() => {
-    async function getData(username){
-        let result = "";
-        try {
-            const responseJSON = await (
-                await fetch(`${BASE_URL}/profile/${username}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                })
-            ).json();
-            result = responseJSON; 
-        } catch (error) {
-            console.log("error", error);
-        }
-        setMyData(result.rows[0]);
-    }
-     getData(username);
-     getPosts(username);
-    }, [])
-
-
-    
-    const [edit, setEdit] = useState(false);
-    function enableEdit() {
-        setEdit(true);
-    }
-    function disableEdit() {
-        setEdit(false);
-    }
-
-    // useEffect(() => {
-    //     fetch(`${BASE_URL}/profile/${username}`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         }
-    // })
-    // }, [edit])
-
-    function renderPosts(){
-        const postList = [];
-        for(let i = 0; i < myPosts.length; i++)
-        {
-            let name = myPosts.pet_name[i];
-        }
-    }
-
-    // console.log("myData: ", myData)
-    // console.log("myPosts: ", myPosts)
     return (
-        <>
-            <NavBar handleLogout={handleLogout}/>
-            {/* 
-                Front end HTML portion of profile page:
-            */}
-            <div className = "container">
-            <div className = "profile-container">
-                <div className = "profile-contents">
-                <p className = "profile-greeting">Hi, {myData.firstname} {myData.lastname}!</p>
-                <br/>
-                <br/>
-                <div className = "profile-picture-container">
-                    <img className = "profile-picture" src="/sample-pic.jpg"/>
-                </div>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div className = "profile-info-container">
-                        <div className = "info-section">
-                            <p className = "profile-text"> <FontAwesomeIcon className = "profile-icon" icon = {faUser}></FontAwesomeIcon> &nbsp; &nbsp; &nbsp; &nbsp;{myData.firstname} {myData.lastname}</p>
-                        </div>
-                        <div className = "info-section">
-                            <p className = "profile-text"> <FontAwesomeIcon className = "profile-icon" icon = {faEnvelope}></FontAwesomeIcon> &nbsp; &nbsp; &nbsp; &nbsp;{myData.email}</p>
-                        </div>
-                        <div className = "info-section">             
-                            <p className = "profile-text"> <FontAwesomeIcon className = "profile-icon" icon = {faMobileScreen}></FontAwesomeIcon> &nbsp; &nbsp; &nbsp; &nbsp;{myData.phone}</p>
-                        </div>
-                        <div className = "info-section">             
-                            <p className = "profile-text"> <FontAwesomeIcon className = "profile-icon" icon = {faMapLocationDot}></FontAwesomeIcon> &nbsp; &nbsp; &nbsp; &nbsp;{myData.address}</p>
-                        </div>
-                    </div>
-                </div>
-                
-            {/*
-                <h7>Profile of: {myData.username}</h7>
-                <div>
-                    <p>First Name: {myData.firstname}</p>
-                    <p>Last Name: {myData.lastname}</p>
-                    <p>Email address: {myData.email}</p>
-                    <p>Phone Number: {myData.phone}</p>
-                    <label>Profile Picure: </label>
-                    <img src={myData.profilepicture} name="pfp"/>
-                </div>
-                 <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            padding: "0.5em",
-                        }}
-                    >
-                        <hr
-                            style={{
-                                width: "95%",
-                                height: "80%",
-                                opacity: "1",
-                            }}
-                        />
-                    </div> */}
-                
-            </div>
-            <div className = "posts-container">
-              <p className = "posts-label">My Posts:</p>
-              <br/>
-              <br/>
-                {/* start of posts */}
-                {myPosts.map(myPosts => (
-                    <div className="posts-list" key={myPosts.postid}>
+		<>
+			<NavBar
+				handleLogout={handleLogout}
+				username={userDetails.username}
+			/>
 
+			<div className="container">
+				<div className="profile-container">
+					<div className="profile-contents">
+						<p className="profile-greeting">
+							Hi, {userDetails.firstname} {userDetails.lastname}!
+						</p>
+						<br />
+						<br />
+						<div className="profile-picture-container">
+							<img
+								className="profile-picture"
+								src="/sample-pic.jpg"
+							/>
+						</div>
+						<br />
+						<br />
+						<br />
+						<div className="profile-info-container">
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faUser}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.firstname}{" "}
+									{userDetails.lastname}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faEnvelope}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.email}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faMobileScreen}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.phone}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faMapLocationDot}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.address}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="posts-container">
+					<p className="posts-label">My Posts:</p>
+					<br />
+					<br />
+                {/* start of posts */}
+                {postsDetails.map(postDetails => (
+                    <div className="posts-list" key={postDetails.postid}>
+                    <form method="post">
                         <div className="posts">
                             <div className="posts-image-container">
-                                <img className="posts-picture" alt="" src="/sample-pic.jpg"/*{myPosts.images}*//>
+                                <img
+                                    className="posts-picture"
+                                    src="/sample-pic.jpg"
+                                />
                             </div>
                             <div className="posts-contents">
-                                <br/>
+                                <br />
                                 <div className="post-buttons">
-                                    <input type = "button" className = "edit-button"
-                                        value = "EDIT"></input>
+                                    <input
+                                        type="button"
+                                        className="edit-button"
+                                        value="EDIT"
+                                    ></input>
                                     &nbsp; &nbsp;
-                                    <button type = "submit" className = "delete-button"
-                                        value={myPosts.postid} onClick={onSubmit}>DELETE</button>
+                                    <button
+                                        type="button"
+                                        className="delete-button"
+                                        value="DELETE"
+                                        onClick={onSubmit}
+                                    >DELETE</button>
                                 </div>
-                                <p className="pet-name">{myPosts.pet_name}</p>
-                                <p className="pet-species">Species: {myPosts.pet_species}</p>
-                                <textarea className = "pet-description" rows = "9" cols = "60" value = {myPosts.description} disabled>      
-                                </textarea>
+                                <p className="pet-name">
+                                    {postDetails?.pet_name}
+                                </p>
+                                <p className="pet-species">
+                                    {postDetails?.pet_species}
+                                </p>
+                                <hr
+                                    style={{
+                                        width: "90%",
+                                        color: "#bbb",
+                                        "marginbottom": "1em"
+                                    }}
+                                ></hr>
+                                <p className="pet-description">
+                                    {postDetails?.description}
+                                </p>
                             </div>
                         </div>
-      
-                    </div>
+                    </form>
+                    <br />
+                    {/* end of posts */}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
                 ))}
                 {/* <div className = "posts-list">
                     <form method = "post">
@@ -232,3 +238,7 @@ export default function Profile({clearPermission}) {
         </>
     );
 }
+	
+			
+
+export default Profile;
