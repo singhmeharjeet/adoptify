@@ -13,36 +13,57 @@ import {
 	faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function Profile({ clearPermission }) {
+const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
+	const { userDetails, postsDetails } = useContext(GlobalContext);
+
+	/*
+		Stucture of myData and myPostsData is as follows:
+	
+		myData = { 
+			username: "harry.potter123@gmail.com", 
+			password: "password123",
+			firstname: "Harry", 
+			lastname: "Potter", 
+			phone: "778-023-1234", 
+			email: "harry.potter123@gmail.com", 
+			address: "Washington Street", 
+			profilepicture: "imageProfileURL", 
+			isadmin: "false" 
+		}
+		myPostsData = [
+			{ 
+				postid: "1",	
+				pet_name; "oreo",	
+				pet_species: "dog",	
+				pet_color: "black",	
+				images: ["imgLink1", "imgLink2", "imgLink3", ...],
+				description: "He is a big dog" ,
+				fk_username: "harry.potter123@gmail.com", 
+			},
+			{ 
+				...
+			}
+		]
+	*/
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
 
-    const [myData, setMyData] = useState({});
-    // const [myPostData, setMyPostData] = useState([]);
-    
-    
-    const { userDetails, userPosts } = useContext(GlobalContext);
-    
-    useEffect(() => {
-        setMyData(userDetails);
-        // setMyPostData(userPosts);
-    });
-
 	return (
 		<>
-			<NavBar handleLogout={handleLogout} username={myData.username} />
-			{/* 
-                Front end HTML portion of profile page:
-            */}
+			<NavBar
+				handleLogout={handleLogout}
+				username={userDetails.username}
+			/>
+
 			<div className="container">
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {myData.firstname} {myData.lastname}!
+							Hi, {userDetails.firstname} {userDetails.lastname}!
 						</p>
 						<br />
 						<br />
@@ -64,7 +85,8 @@ export default function Profile({ clearPermission }) {
 										icon={faUser}
 									></FontAwesomeIcon>{" "}
 									&nbsp; &nbsp; &nbsp; &nbsp;
-									{myData.firstname} {myData.lastname}
+									{userDetails.firstname}{" "}
+									{userDetails.lastname}
 								</p>
 							</div>
 							<div className="info-section">
@@ -74,7 +96,8 @@ export default function Profile({ clearPermission }) {
 										className="profile-icon"
 										icon={faEnvelope}
 									></FontAwesomeIcon>{" "}
-									&nbsp; &nbsp; &nbsp; &nbsp;{myData.email}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.email}
 								</p>
 							</div>
 							<div className="info-section">
@@ -84,7 +107,8 @@ export default function Profile({ clearPermission }) {
 										className="profile-icon"
 										icon={faMobileScreen}
 									></FontAwesomeIcon>{" "}
-									&nbsp; &nbsp; &nbsp; &nbsp;{myData.phone}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.phone}
 								</p>
 							</div>
 							<div className="info-section">
@@ -94,37 +118,12 @@ export default function Profile({ clearPermission }) {
 										className="profile-icon"
 										icon={faMapLocationDot}
 									></FontAwesomeIcon>{" "}
-									&nbsp; &nbsp; &nbsp; &nbsp;{myData.address}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.address}
 								</p>
 							</div>
 						</div>
 					</div>
-
-					{/*
-                <h7>Profile of: {myData.username}</h7>
-                <div>
-                    <p>First Name: {myData.firstname}</p>
-                    <p>Last Name: {myData.lastname}</p>
-                    <p>Email address: {myData.email}</p>
-                    <p>Phone Number: {myData.phone}</p>
-                    <label>Profile Picure: </label>
-                    <img src={myData.profilepicture} name="pfp"/>
-                </div>
-                 <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            padding: "0.5em",
-                        }}
-                    >
-                        <hr
-                            style={{
-                                width: "95%",
-                                height: "80%",
-                                opacity: "1",
-                            }}
-                        />
-                    </div> */}
 				</div>
 				<div className="posts-container">
 					<p className="posts-label">My Posts:</p>
@@ -155,42 +154,21 @@ export default function Profile({ clearPermission }) {
 											value="DELETE"
 										></input>
 									</div>
-                                    <p className="pet-name">Gunner</p>
-									<p className="pet-species">
-										Species: Black Dog
+									<p className="pet-name">
+										{postsDetails[0]?.pet_name}
 									</p>
+									<p className="pet-species">
+										{postsDetails[0]?.pet_species}
+									</p>
+									<hr
+										style={{
+											width: "90%",
+											color: "#bbb",
+											"margin-bottom": "1em"
+										}}
+									></hr>
 									<p className="pet-description">
-										Lorem Ipsum is simply dummy text of the
-										printing and typesetting industry. Lorem
-										Ipsum has been the industry's standard
-										dummy text ever since the 1500s, when an
-										unknown printer took a galley of type
-										and scrambled it to make a type specimen
-										book. It has survived not only five
-										centuries, but also the leap into
-										electronic typesetting, remaining
-										essentially unchanged. It was
-										popularised in the 1960s with the
-										release of Letraset sheets containing
-										Lorem Ipsum passages, and more recently
-										with desktop publishing software like
-										Aldus PageMaker including versions of
-										Lorem Ipsum.Lorem Ipsum is simply dummy
-										text of the printing and typesetting
-										industry. Lorem Ipsum has been the
-										industry's standard dummy text ever
-										since the 1500s, when an unknown printer
-										took a galley of type and scrambled it
-										to make a type specimen book. It has
-										survived not only five centuries, but
-										also the leap into electronic
-										typesetting, remaining essentially
-										unchanged. It was popularised in the
-										1960s with the release of Letraset
-										sheets containing Lorem Ipsum passages,
-										and more recently with desktop
-										publishing software like Aldus PageMaker
-										including versions of Lorem Ipsum."
+										{postsDetails[0]?.description}
 									</p>
 								</div>
 							</div>
@@ -206,4 +184,5 @@ export default function Profile({ clearPermission }) {
 			</div>
 		</>
 	);
-}
+};
+export default Profile;
