@@ -1,31 +1,35 @@
 const express = require("express"),
 	router = express.Router();
-const pool = require('../database.js')
-
-// app.use(express.json());
-// app.use(express.urlencoded({extended:false}));
+const pool = require("../database.js");
 
 //show the profile page
-module.exports = router.get('/:uname', async (req, res) => {
-    const username = req.params.uname
-    // console.log("username:", username)
-    const profileQuery = `SELECT * FROM users WHERE username='${username}'`;
-    // const profileQuery = `SELECT * FROM users`
-    const profileResponse = await pool.query(profileQuery, (error, result) => {
-        if (error) {
-            console.log(error)
-        }
-        else {
-            // console.log(result.rows)
+module.exports = router.get("/:uname", async (req, res) => {
+	const username = req.params.uname;
 
-            res.json(result)
-        } 
-    });
-    return;
-    // if (profileResponse.rows.length === 0) {
+	var userDetails = {};
+	var postsDetails = [];
+	const userDetailsQuery = `SELECT * FROM users WHERE username='${username}'`;
+    const postsDetailsQuery = `SELECT * FROM posts WHERE fk_username='${username}'`;
 
-    // }
-    // console.log(profileResponse)
-    // res.json(profileResponse)
+	await pool.query(userDetailsQuery, (error, result) => {
+		if (error) {
+			console.log(error);
+		} else {
+			userDetails = result.rows[0];
 
-})
+			// sending another Query---------
+            // This nesting of query is done to handel async await
+			pool.query(postsDetailsQuery, (error, result) => {
+				if (error) {
+					console.log("error", error);
+				} else {
+					postsDetails = result.rows;
+					res.json({
+						userDetails: userDetails,
+						postsDetails: postsDetails,
+					});
+				}
+			});
+		}
+	});
+});

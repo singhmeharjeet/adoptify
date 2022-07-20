@@ -12,12 +12,15 @@
 
 const Pool = require("pg").Pool;
 
-const pool = new Pool({
-  user: "postgres",
-  password: "root",
-  host: "localhost",
-  port: 5432,
-  database: "adoptify"
+
+module.exports = pool({
+	connectionString:
+		process.env.DATABASE_URL ||
+		"postgres://xexgimwa:J5U7ErIfY2algew3NcbEw2xqyCH1z-qA@heffalump.db.elephantsql.com/xexgimwa"
+		|| "postgres://postgres:root@localhost/adoptify",
+	// ssl: {
+	// 	rejectUnauthorized: false,
+	// },
 });
 
-module.exports = pool;
+

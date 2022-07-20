@@ -1,71 +1,188 @@
-import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../constants";
-import { useParams, useNavigate} from "react-router-dom"
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+import "./Profile.css";
+// import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
-import './Profile.css'
+import { GlobalContext } from "../../global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faUser,
+	faEnvelope,
+	faMobileScreen,
+	faMapLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
-export default function Profile({clearPermission}) {
-    const navigate = useNavigate();
+const Profile = ({ clearPermission }) => {
+	const navigate = useNavigate();
 
+	const { userDetails, postsDetails } = useContext(GlobalContext);
+
+	/*
+		Stucture of myData and myPostsData is as follows:
+	
+		myData = { 
+			username: "harry.potter123@gmail.com", 
+			password: "password123",
+			firstname: "Harry", 
+			lastname: "Potter", 
+			phone: "778-023-1234", 
+			email: "harry.potter123@gmail.com", 
+			address: "Washington Street", 
+			profilepicture: "imageProfileURL", 
+			isadmin: "false" 
+		}
+		myPostsData = [
+			{ 
+				postid: "1",	
+				pet_name; "oreo",	
+				pet_species: "dog",	
+				pet_color: "black",	
+				images: ["imgLink1", "imgLink2", "imgLink3", ...],
+				description: "He is a big dog" ,
+				fk_username: "harry.potter123@gmail.com", 
+			},
+			{ 
+				...
+			}
+		]
+	*/
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
-    const { username } = useParams();
 
-    const [myData, setMyData] = useState('');
-    useEffect(() => {
-    async function getData(username){
-        let result = "";
-        try {
-            const responseJSON = await (
-                await fetch(`${BASE_URL}/profile/${username}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                })
-            ).json();
-            // if response is sucessful
-            result = responseJSON; 
-        } catch (error) {
-            console.log("error", error);
-        }
-        setMyData(result.rows[0]);
-    }
-     getData(username);
-  }, [])
-    console.log("myData: ", myData)
-    return (
-        <>
-            <NavBar handleLogout={handleLogout}/>
-            <div className="profile-container">
-                <h1>Profile of: {myData.username}</h1>
-                <div>
-                    <p>First Name: {myData.firstname}</p>
-                    <p>Last Name: {myData.lastname}</p>
-                    <p>Email address: {myData.email}</p>
-                    <p>Phone Number: {myData.phone}</p>
-                    <label>Profile Picure: </label>
-                    <img src={myData.profilepicture} name="pfp"/>
-                </div>
-                {/* <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            padding: "0.5em",
-                        }}
-                    >
-                        <hr
-                            style={{
-                                width: "95%",
-                                height: "80%",
-                                opacity: "1",
-                            }}
-                        />
-                    </div> */}
-            </div>
+	return (
+		<>
+			<NavBar
+				handleLogout={handleLogout}
+				username={userDetails.username}
+			/>
 
-        </>
-    );
-}
+			<div className="container">
+				<div className="profile-container">
+					<div className="profile-contents">
+						<p className="profile-greeting">
+							Hi, {userDetails.firstname} {userDetails.lastname}!
+						</p>
+						<br />
+						<br />
+						<div className="profile-picture-container">
+							<img
+								className="profile-picture"
+								src="/sample-pic.jpg"
+							/>
+						</div>
+						<br />
+						<br />
+						<br />
+						<div className="profile-info-container">
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faUser}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.firstname}{" "}
+									{userDetails.lastname}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faEnvelope}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.email}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faMobileScreen}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.phone}
+								</p>
+							</div>
+							<div className="info-section">
+								<p className="profile-text">
+									{" "}
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faMapLocationDot}
+									></FontAwesomeIcon>{" "}
+									&nbsp; &nbsp; &nbsp; &nbsp;
+									{userDetails.address}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="posts-container">
+					<p className="posts-label">My Posts:</p>
+					<br />
+					<br />
+					{/* start of posts */}
+					<div className="posts-list">
+						<form method="post">
+							<div className="posts">
+								<div className="posts-image-container">
+									<img
+										className="posts-picture"
+										src="/sample-pic.jpg"
+									/>
+								</div>
+								<div className="posts-contents">
+									<br />
+									<div className="post-buttons">
+										<input
+											type="button"
+											className="edit-button"
+											value="EDIT"
+										></input>
+										&nbsp; &nbsp;
+										<input
+											type="button"
+											className="delete-button"
+											value="DELETE"
+										></input>
+									</div>
+									<p className="pet-name">
+										{postsDetails[0]?.pet_name}
+									</p>
+									<p className="pet-species">
+										{postsDetails[0]?.pet_species}
+									</p>
+									<hr
+										style={{
+											width: "90%",
+											color: "#bbb",
+											"margin-bottom": "1em"
+										}}
+									></hr>
+									<p className="pet-description">
+										{postsDetails[0]?.description}
+									</p>
+								</div>
+							</div>
+						</form>
+						<br />
+						{/* end of posts */}
+						<br />
+						<br />
+						<br />
+						<br />
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
+export default Profile;

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 :root {
     --login-page-height: calc(100vh);
 }
@@ -28,7 +28,7 @@
 
 .login-form-title {
     font-size: 4.5em;
-    font-family: 'Anton', sans-serif;
+    font-family: "Anton", sans-serif;
     margin-bottom: 1.5em;
     display: flex;
     justify-content: center;
