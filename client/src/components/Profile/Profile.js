@@ -162,13 +162,7 @@ const Profile = ({ clearPermission }) => {
 											<p className="pet-species">
 												{postInfo?.pet_species}
 											</p>
-											<hr
-												style={{
-													width: "90%",
-													color: "#bbb",
-													"margin-bottom": "1em",
-												}}
-											></hr>
+											<hr className = "posts-separator"></hr>
 											<p className="pet-description">
 												{postInfo?.description}
 											</p>
