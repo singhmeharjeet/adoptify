@@ -21,21 +21,21 @@ export default function CardList() {
 		}
 		
 		else if(pet === 'Dogs'){
-			const filtered = list.filter(list=>list.
-				pet_species === 'dog' || list.pet_species === 'Dog');
+			const filtered = list.filter(list=>
+				list.pet_species === 'dog' || list.pet_species === 'Dog');
 	
 			setFilteredList(filtered);
 		}
 		
 		else if(pet === 'Cats'){
-			const filtered = list.filter(list=>list.
-				pet_species === 'cat' || list.pet_species === 'Cat');
+			const filtered = list.filter(list=>
+				list.pet_species === 'cat' || list.pet_species === 'Cat');
 			setFilteredList(filtered);
 		}
 
 		else {
-			const filtered = list.filter(list=>list.
-				pet_species === 'Other' || list.pet_species === 'other');
+			const filtered = list.filter(list=>
+				list.pet_species !== 'dog' || list.pet_species !== 'cat');
 			setFilteredList(filtered);
 		}
 		

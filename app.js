@@ -11,7 +11,7 @@ const profile = require("./routers/profile.js");
 const post = require("./routers/post.js");
 const addUser = require("./routers/addUser.js");
 const admin = require("./routers/admin.js");
-
+const remove = require("./routers/delete.js");
 /* 
 	Setup Server app
 */
@@ -37,7 +37,7 @@ app.use("/addPost", addPost);
 app.use("/post",post);
 app.use("/addUser", addUser);
 app.use("/admin", admin);
-
+app.use("/delete", remove);
 /* 
 	Default Action
 */

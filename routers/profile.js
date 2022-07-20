@@ -3,6 +3,21 @@ const express = require("express"),
 const pool = require("../database.js");
 
 //show the profile page
+// module.exports = router.delete('/:uname/:postid', async (req,res) => {
+//     console.log("running");
+//     const postid = req.params.postid;
+//     // const deletePost = `DELETE * FROM posts WHERE postid='${postid}'`
+//     // const deleteResponse = await pool.query(deletePost, (error, result) => {
+//     //     if (error) {
+//     //         console.log(error)
+//     //     }
+//     //     else {
+//     //         res.json(result)
+//     //     }
+//     // });
+//     console.log("deleted");
+//     return;
+// })
 module.exports = router.get("/:uname", async (req, res) => {
 	const username = req.params.uname;
 
@@ -33,3 +48,4 @@ module.exports = router.get("/:uname", async (req, res) => {
 		}
 	});
 });
+
