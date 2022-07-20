@@ -52,7 +52,6 @@ const Profile = ({ clearPermission }) => {
 		navigate("/login");
 	};
 
-	const info = postsDetails[0];
 	return (
 		<>
 			<NavBar
@@ -64,7 +63,7 @@ const Profile = ({ clearPermission }) => {
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {userDetails.firstname + " " userDetails.lastname}!
+							Hi, {userDetails?.firstname + " " + userDetails?.lastname}!
 						</p>
 						<br />
 						<br />
