@@ -29,10 +29,9 @@ export default function CardList() {
 			);
 			setFilteredList(filtered);
 		} else {
-			const filtered = list.filter(
-				(list) =>
-					list.pet_species !== "dog" || list.pet_species !== "cat"
-			);
+			const filtered = list.filter(list=>list.
+				pet_species !=='dog' && list.pet_species !== 'cat' && list.pet_species !== 'Cat' 
+				&&  list.pet_species !== 'Dog');
 			setFilteredList(filtered);
 		}
 	};
