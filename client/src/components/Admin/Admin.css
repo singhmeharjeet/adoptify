@@ -1,0 +1,226 @@
+html, body{
+    height: 100%;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+}
+
+.admin-container{
+    display: flex;
+    height: 100%;
+}
+
+.menu-container{
+    width: 400px;
+    height: 100%;
+    margin-bottom: 50px;
+    min-height: 100%;
+    box-shadow: 2px 3px 4px rgba(0,0,0,0.2);
+}
+
+.users-container{
+    width: 100%;
+    margin-bottom: 0px;
+    padding-bottom: 70px;
+    overflow: auto;
+}
+
+.admin-greeting{
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.table-container{
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.users-table {
+    text-align: center;
+    vertical-align: middle;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.users-table thead tr {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.users-table th,
+.users-table td {
+    padding: 12px 15px;
+}
+
+.users-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.users-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.users-table tbody tr:last-of-type {
+    border-bottom: 2px solid #2b2b2b;
+    border-radius: 5px;
+}
+
+.checkbox-container{
+    vertical-align: middle !important;
+}
+
+.delete-button{
+    width: 100px;
+    background-color: #fff;
+    color: #2b2b2b;
+    font-weight: bold;
+    font-family: Georgia;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    border-color: #2b2b2b;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.admin-links{
+    text-align: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.admin-links a{
+    display: inline-block;
+    text-decoration: none;
+    padding: 2px 20px;
+    font-size: 0.9em;
+    color: black;
+    font-weight: 600;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+}
+
+.admin-links a:after {
+    display: block;
+    content: '';
+    border-bottom: solid 3px #000;  
+    transform: scaleX(0); 
+    transition: transform 350ms ease-in-out;
+    transform-origin: 0 0; /*50% 50% for middle -> full -> middle */
+    padding-top: 10px;
+  }
+
+  .admin-links a:hover:after { 
+    transform: scaleX(1);
+    transform-origin:50% 0;
+    padding-top: 10px;
+  }
+
+  .profile-icon{
+    font-size: 17px;
+  }
+
+  .site-info{
+    margin-top: 50px;
+    font-family: sans-serif;
+    text-align: center;
+  }
+
+  .site-info-header{
+    text-align: center;
+    justify-content: center;
+    font-size: 28px;
+    font-family: sans-serif;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .site-info-header:before{
+    content: "";
+    display: block;
+    background: #000;
+    width: 120px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 45%;
+    z-index: -2;
+  }
+
+  .site-info-header:after{
+    content: "";
+    display: block;
+    background: #000;
+    width: 120px;
+    height: 2px;
+    position: absolute;
+    right: 0;
+    top: 45%;
+    z-index: -2;
+  }
+
+  .header-bg{
+    background: #fff;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .site-info-subheader{
+    margin-top: 10px;
+    font-family: arial;
+    text-align: center;
+    font-weight: 550;
+    font-size: 15px;
+  }
+
+  .site-info-users-header{
+    margin-top: 50px;
+    font-family: arial;
+    text-align: center;
+    font-weight: 550;
+    font-size: 17px;
+    margin-bottom: 25px;
+  }
+
+  .site-info-posts-header{
+    margin-top: 40px;
+    font-family: arial;
+    text-align: center;
+    font-weight: 550;
+    font-size: 17px;
+    margin-bottom: 25px;
+  }
+  
+  .site-info-users-icon{
+    font-size: 25px;
+    margin-right: 20px;
+  }
+
+  .site-info-posts-icon{
+    font-size: 30px;
+    margin-right: 20px;
+  }
+
+  
