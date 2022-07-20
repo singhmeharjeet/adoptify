@@ -51,9 +51,11 @@ body::-webkit-scrollbar {
 }
 
 .info-section {
-    padding-top: 15px;
     margin: auto;
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1em 0 1em 4em;
+    overflow-x: scroll;
 }
 
 .profile-greeting {
@@ -78,7 +80,6 @@ body::-webkit-scrollbar {
 .profile-text {
     font-size: 18px;
     font-family: sans-serif;
-    padding-left: 90px;
 }
 
 .posts-label {

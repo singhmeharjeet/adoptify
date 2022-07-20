@@ -25,8 +25,6 @@ export default function NavBar({ handleLogout }) {
 					<a onClick={handleProfile} className="addPost button">
 						Profile
 					</a>
-				</div>
-				<div className="right">
 					<a onClick={handleLogout} className="profile button">
 						Sign Out
 					</a>
