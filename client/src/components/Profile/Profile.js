@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
-import './Profile.css';
+import "./Profile.css";
 
-import axios from 'axios'
+import axios from "axios";
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,8 +19,9 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
-    console.log("postdetails: ", postsDetails)
+	const { userDetails, postsDetails, putUserData, deletePostData } =
+		useContext(GlobalContext);
+	console.log("postdetails: ", postsDetails);
 	/*
 		Stucture of myData and myPostsData is as follows:
 	
@@ -55,15 +56,15 @@ const Profile = ({ clearPermission }) => {
 		navigate("/login");
 	};
 
-    const onSubmit = async(e) => {
-        e.preventDefault();
+	const onSubmit = async (e) => {
+		e.preventDefault();
 
-        const postId = e.currentTarget.value;
+		const postId = e.currentTarget.value;
 
-        deletePostData(postId);
-    }
+		deletePostData(postId);
+	};
 
-    return (
+	return (
 		<>
 			<NavBar
 				handleLogout={handleLogout}
@@ -74,7 +75,11 @@ const Profile = ({ clearPermission }) => {
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {userDetails?.firstname + " " + userDetails?.lastname}!
+							Hi,{" "}
+							{userDetails?.firstname +
+								" " +
+								userDetails?.lastname}
+							!
 						</p>
 						<br />
 						<br />
@@ -145,7 +150,10 @@ const Profile = ({ clearPermission }) => {
 						<div>
 							<form method="post" className="profile-form">
 								{postsDetails.map((postInfo) => (
-									<div className="posts" key={postInfo?.postid}>
+									<div
+										className="posts"
+										key={postInfo?.postid}
+									>
 										<div className="posts-image-container">
 											<img
 												className="posts-picture"
@@ -164,8 +172,10 @@ const Profile = ({ clearPermission }) => {
 												<button
 													className="delete-button"
 													value={postInfo?.postid}
-                                                    onClick={onSubmit}
-												>DELETE</button>
+													onClick={onSubmit}
+												>
+													DELETE
+												</button>
 											</div>
 											<p className="pet-name">
 												{postInfo?.pet_name}
@@ -173,7 +183,7 @@ const Profile = ({ clearPermission }) => {
 											<p className="pet-species">
 												{postInfo?.pet_species}
 											</p>
-											<hr className = "posts-separator"></hr>
+											<hr className="posts-separator"></hr>
 											<p className="pet-description">
 												{postInfo?.description}
 											</p>

@@ -76,10 +76,12 @@ export default function App() {
 						<Route
 							caseSensitive={false}
 							path="/admin"
-							element={<Admin 
-								clearPermission={clearTokenAtApp}
-								username={perm}
-							/>}
+							element={
+								<Admin
+									clearPermission={clearTokenAtApp}
+									username={perm}
+								/>
+							}
 						/>
 						<Route
 							path="*"

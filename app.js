@@ -12,6 +12,7 @@ const post = require("./routers/post.js");
 const addUser = require("./routers/addUser.js");
 const admin = require("./routers/admin.js");
 const remove = require("./routers/delete.js");
+
 /* 
 	Setup Server app
 */
@@ -25,8 +26,8 @@ app.use(cors()); // Handles cross orign request errors.
 app.use(upload()); // Handles image upload
 app.use(express.json()); //	Converts the request body into json object from string
 app.use(express.urlencoded({ extended: true })); // Understand fetch requests
-app.use(express.static("public/build")); //
-app.use(express.static("public"));
+app.use(express.static("public/build")); // for pushing onto heroku
+app.use(express.static("public")); // for pushing onto heroku
 
 /* 
 	Routing APIs
@@ -34,10 +35,11 @@ app.use(express.static("public"));
 app.use("/profile", profile);
 app.use("/login", authorize);
 app.use("/addPost", addPost);
-app.use("/post",post);
+app.use("/post", post);
 app.use("/addUser", addUser);
 app.use("/admin", admin);
 app.use("/delete", remove);
+
 /* 
 	Default Action
 */

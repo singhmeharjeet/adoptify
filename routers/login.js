@@ -28,4 +28,3 @@ module.exports = router.post("/", async (req, res) => {
 		});
 	}
 });
-
