@@ -17,6 +17,7 @@ export default function CardList() {
 		let pet = e.target.value;
 
 		if(pet ===  'All'){
+			console.log(list);
 			setFilteredList(list);
 		}
 		
@@ -86,7 +87,7 @@ export default function CardList() {
 					{filteredList.map(filteredList=> (
 						<div className="-fx-gal-item" key={filteredList.id}>
 							<div className="-fx-gal-image-thumb" tabIndex="1" >
-								<img alt="" src={filteredList.images} />
+								<img alt="" src={filteredList.images[0]} />
 							</div>
 							<div className="-fx-gal-image-text">
 								<ul>
