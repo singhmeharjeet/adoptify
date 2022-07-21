@@ -28,4 +28,5 @@ module.exports = router.post("/", async (req, res) => {
 
 	await pool.query(newUserQ);
 	console.log("New user added successfully!");
+	res.redirect("/");
 });
