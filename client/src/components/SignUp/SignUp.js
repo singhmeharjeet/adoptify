@@ -29,7 +29,7 @@ export default function SignUp() {
 		// userFormData.append("uImage", uImage);   IF we are having them insert their profile pic during sign up
 
 		try {
-			const res = await axios.post(`${BASE_URL}/addUser`, userFormData);
+			const res = await axios.post(`${BASE_URL}/addUser`, userFormData).then(alert("Signed up successfully!"));
 		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");
