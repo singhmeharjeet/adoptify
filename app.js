@@ -33,6 +33,7 @@ app.use(express.static("public")); // for pushing onto heroku
 /* 
 	Routing APIs
 */
+console.log("hello");
 app.use("/profile", profile);
 app.use("/login", authorize);
 app.use("/addPost", addPost);
