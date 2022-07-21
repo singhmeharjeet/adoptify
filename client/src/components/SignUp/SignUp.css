@@ -1,22 +1,49 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 .signup-page {
     display: flex;
+    height: 100vh;
 }
 
-.signup-backtologin {
-    width: 100%;
-    padding-top: 3em;
-    padding-left: 3em;
-    margin-bottom: 8em;
-    max-height: 3em;
+.signup-backtologin{
+    width: 160px;
+    margin-top: 15px;
+    margin-left: 35px;
+    margin-bottom: 6vh;
+}
+
+.back-to-login-link {
+    text-decoration: none;
+    font-size: 0.9em;
+    color: black;
+    font-weight: 600;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.back-to-login-link:after {
+    display: block;
+    content: "";
+    border-bottom: solid 3px #000;
+    transform: scaleX(0);
+    transition: transform 350ms ease-in-out;
+    transform-origin: 0 0;
+    padding-top: 10px;
+}
+
+.back-to-login-link:hover:after {
+    transform: scaleX(1);
+    transform-origin: 50% 0;
+    padding-top: 10px;
 }
 
 .signup-form-title {
     font-size: 4.5em;
     font-family: "Anton", sans-serif;
-    margin-bottom: 1em;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
+    align-content: center;
 }
 
 .signup-form-wrapper {
@@ -32,4 +59,9 @@
 
 .signup-form {
     max-width: 50%;
+    margin-bottom: 10px;
+}
+
+.signup-title{
+    width: 115vh;
 }
