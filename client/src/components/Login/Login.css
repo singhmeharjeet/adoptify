@@ -14,7 +14,7 @@
 }
 
 .login-title{
-    width: 75%;
+    width: 85%;
     height: 100%;
 }
 
@@ -35,7 +35,7 @@
 .login-form-title {
     font-size: 4.5em;
     font-family: "Anton", sans-serif;
-    margin-bottom: 1.5em;
+    margin-bottom: 40px;
     display: flex;
     justify-content: center;
 }
@@ -104,7 +104,7 @@
     text-transform: uppercase;
     color: black;
     background-color: white;
-    border-radius: 3px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     outline: none;
@@ -113,8 +113,7 @@
 }
 
 .login-form-button-wrapper>button:hover {
-    color: #b9134f;
-    background-color: darkcyan;
+    background-color: #202020;
     color: white;
 }
 
