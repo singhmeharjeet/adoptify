@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
+import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
-import "./Profile.css";
-
+import './Profile.css';
+import axios from 'axios'
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,9 +18,12 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, deletePostData } =
-		useContext(GlobalContext);
-	console.log("postdetails: ", postsDetails);
+	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
+	const [postState, setPostState] = useState(-1);
+	const postName = useRef('');
+	const postSpecies = useRef('');
+	const postDescription = useRef('');
+
 	/*
 		Stucture of myData and myPostsData is as follows:
 	
@@ -49,24 +53,52 @@ const Profile = ({ clearPermission }) => {
 			}
 		]
 	*/
+	// -1 as a post id means that it is not editing
+	const isPostEditing = (pid) => {
+		if(pid === postState){
+			return true;
+		}
+		return false;
+	}
+	
+	const editPost = (pid) => {
+		setPostState(pid);
+	}
+
+	const savePost = () => {
+		// postState has the current id, do not change until the end
+		const info = document.getElementById(postState).getElementsByTagName('input')
+		let post_name = info[0].value;
+		let post_species = info[1].value;
+		let post_description = info[2].value;
+		// console.log(post_name + "\n" + post_species + "\n" + post_description);
+
+		// do query stuff here
+		setPostState(-1);
+	}
+
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
-		const postId = e.currentTarget.value;
-		deletePostData(postId);
-	};
+    const onDelete = async(e) => {
+        e.preventDefault();
+        const postId = e.currentTarget.value;
+        deletePostData(postId);
+    }
 
-	return (
+	const changeVal = async(e) => {
+		
+	}
+
+
+    return (
 		<>
 			<NavBar
 				handleLogout={handleLogout}
 				username={userDetails.username}
 			/>
-
 			<div className="container">
 				<div className="profile-container">
 					<div className="profile-contents">
@@ -142,51 +174,87 @@ const Profile = ({ clearPermission }) => {
 					{/* start of posts */}
 					<div className="posts-list">
 						<div>
-							<form method="post" className="posts-form">
-								{postsDetails.map((postInfo) => (
-									<div
-										className="posts"
-										key={postInfo?.postid}
-									>
-										<div className="posts-image-container">
-											<img
-												className="posts-picture"
-												src={postInfo.images[0]}
-											/>
-										</div>
-										<div className="posts-contents">
-											<div className="post-content-upper">
-												<div className="post-title">
-													<p className="pet-name">
-														{postInfo?.pet_name}
-													</p>
-													<p className="pet-species">
-														{postInfo?.pet_species}
-													</p>
-												</div>
-												<div className="post-buttons">
-													<input
-														type="button"
-														className="post-edit-button"
-														value="EDIT"
-													></input>
-													<button
-														className="post-delete-button"
-														value={postInfo?.postid}
-														onClick={onSubmit}
-													>
-														DELETE
-													</button>
-												</div>
-											</div>
-											<hr className="posts-separator"></hr>
-											<p className="pet-description">
-												{postInfo?.description}
-											</p>
-										</div>
+							{postsDetails.map((postInfo) => (
+								<div key={postInfo?.postid} id={postInfo?.postid}>
+								{isPostEditing(postInfo?.postid) ?
+									<div className="posts">
+									<div className="posts-image-container">
+										<img
+											className="posts-picture"
+											src={postInfo.images[0]}
+										/>
 									</div>
+									<div className="posts-contents">
+										<br />
+										<div className="post-buttons">
+											<button onClick={savePost}
+											>SAVE</button>
+											
+											<button
+												className="delete-button"
+												value={postInfo?.postid}
+												onClick={onDelete}
+											>DELETE</button>
+										</div>
+										<input className="pet-name" defaultValue={postInfo?.pet_name}/>
+										<input className="pet-species" defaultValue={postInfo?.pet_species}/>
+										<hr
+											style={{
+												width: "90%",
+												color: "#bbb",
+												"marginbottom": "1em",
+											}}
+										></hr>
+										<input className="pet-description" defaultValue={postInfo?.description}/>
+									</div>
+								</div>
+									
+									: 
+
+								<div className="posts" key={postInfo?.postid}>
+									<div className="posts-image-container">
+										<img
+											className="posts-picture"
+											src={postInfo.images[0]}
+										/>
+									</div>
+									<div className="posts-contents">
+										<br />
+										<div className="post-buttons">
+											<button onClick={() => editPost(postInfo?.postid)}
+											>EDIT</button>
+											<button
+												className="delete-button"
+												value={postInfo?.postid}
+												onClick={onDelete}
+											>DELETE</button>
+										</div>
+										<p className="pet-name">
+											{postInfo?.pet_name}
+										</p>
+										<p className="pet-species">
+											{postInfo?.pet_species}
+										</p>
+										<hr
+											style={{
+												width: "90%",
+												color: "#bbb",
+												"marginbottom": "1em",
+											}}
+										></hr>
+										<p className="pet-description">
+											{postInfo?.description}
+										</p>
+									</div>
+								</div>
+								}
+								</div>
 								))}
-							</form>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
 						</div>
 					</div>
 				</div>

@@ -60,7 +60,7 @@ const GlobalContextProvider = ({ children }) => {
 	useEffect(() => {
 		putUserData(localStorage.getItem("token"));
 	}, []);
-
+	
 	return (
 		<GlobalContext.Provider
 			value={{

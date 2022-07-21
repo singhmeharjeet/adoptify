@@ -32,3 +32,8 @@ module.exports = router.get("/:uname", async (req, res) => {
 		}
 	});
 });
+
+// module.exports = router.post("/:pid", async (req, res) => {
+// 	const pid = req.params.pid;
+// 	const updatePostQuery = `UPDATE posts`
+// })
