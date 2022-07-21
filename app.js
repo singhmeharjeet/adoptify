@@ -37,17 +37,13 @@ app.use("/login", authorize);
 app.use("/addPost", addPost);
 app.use("/post", post);
 app.use("/addUser", addUser);
-app.use("/admin", admin);
+app.use("/allData", admin);
 app.use("/delete", remove);
 
 /* 
 	Default Action
 */
 app.get("*", (req, res) => {
-	console.log(
-		'path.resolve(__dirname, "public", "build", "index.html)"',
-		path.resolve(__dirname, "public", "build", "index.html")
-	);
 	res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
 });
 

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import { BASE_URL } from "../constants";
+import React, { useContext } from "react";
 import NavBar from "../NavBar/NavBar";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GlobalContext } from "../../global/GlobalContext";
 import {
@@ -12,54 +11,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Admin.css";
 
-// admin page should show all the users in the database, delete certain users
 export default function Admin({ clearPermission }) {
 
 	const navigate = useNavigate();
-	const {userDetails} = useContext(GlobalContext);
-	
+	const {userDetails, allUsers } = useContext(GlobalContext);
+	console.log('allUsers', allUsers);
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
-	const { username } = useParams();
-	
-	const [allUsers, setAllUsers] = useState([]);
+
 	
 	//if they are admin then show, if not redirect back to homepage
-	if (!userDetails?.isadmin) {
+	if (userDetails?.isadmin === false) {
 		navigate("/")
 	}
-
-	async function getAllUsers() {
-		let result = "";
-		try {
-			const responseJSON = await (
-				await fetch(`${BASE_URL}/admin`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-					},
-				})
-			).json();
-			// if response is sucessful
-			result = responseJSON;
-		} catch (error) {
-			console.log("error", error);
-		}
-		setAllUsers(result.rows);
-	}
-
-	useEffect(() => {
-		getAllUsers();
-	}, []);
-	console.log(allUsers)
 
 	//it runs like we expect on the first initial run but if we refresh, we get errors like
 	//'cannot read properties of undefined
 	return (
 		<>
-			<NavBar handleLogout={handleLogout} username={username} />
+			<NavBar handleLogout={handleLogout} username={userDetails?.username} />
 			<div className="container">
 				<div className="admin-container">
 					<div className="menu-container">

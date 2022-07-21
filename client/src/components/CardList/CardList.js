@@ -3,9 +3,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
 
 export default function CardList() {
-	const { postsDetails: list } = useContext(GlobalContext);
-	const [filteredList, setFilteredList] = useState([]);
+	const { allPosts: list } = useContext(GlobalContext);
+	const [filteredList, setFilteredList] = useState(list);
 
+	console.log('list', list);
 	useEffect(() => {
 		setFilteredList(list);
 	}, []);
