@@ -71,7 +71,7 @@ const Profile = ({ clearPermission }) => {
 		let post_name = info[0].value;
 		let post_species = info[1].value;
 		let post_description = info[2].value;
-		console.log(post_name + "\n" + post_species + "\n" + post_description);
+		// console.log(post_name + "\n" + post_species + "\n" + post_description);
 
 		// do query stuff here
 		setPostState(-1);
