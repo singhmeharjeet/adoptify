@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
-import './Profile.css';
-import axios from 'axios'
+import "./Profile.css";
+import axios from "axios";
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,11 +18,12 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
+	const { userDetails, postsDetails, putUserData, deletePostData } =
+		useContext(GlobalContext);
 	const [postState, setPostState] = useState(-1);
-	const postName = useRef('');
-	const postSpecies = useRef('');
-	const postDescription = useRef('');
+	const postName = useRef("");
+	const postSpecies = useRef("");
+	const postDescription = useRef("");
 
 	/*
 		Stucture of myData and myPostsData is as follows:
@@ -55,19 +56,21 @@ const Profile = ({ clearPermission }) => {
 	*/
 	// -1 as a post id means that it is not editing
 	const isPostEditing = (pid) => {
-		if(pid === postState){
+		if (pid === postState) {
 			return true;
 		}
 		return false;
-	}
-	
+	};
+
 	const editPost = (pid) => {
 		setPostState(pid);
-	}
+	};
 
 	const savePost = () => {
 		// postState has the current id, do not change until the end
-		const info = document.getElementById(postState).getElementsByTagName('input')
+		const info = document
+			.getElementById(postState)
+			.getElementsByTagName("input");
 		let post_name = info[0].value;
 		let post_species = info[1].value;
 		let post_description = info[2].value;
@@ -75,25 +78,22 @@ const Profile = ({ clearPermission }) => {
 
 		// do query stuff here
 		setPostState(-1);
-	}
+	};
 
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
 
-    const onDelete = async(e) => {
-        e.preventDefault();
-        const postId = e.currentTarget.value;
-        deletePostData(postId);
-    }
+	const onDelete = async (e) => {
+		e.preventDefault();
+		const postId = e.currentTarget.value;
+		deletePostData(postId);
+	};
 
-	const changeVal = async(e) => {
-		
-	}
+	const changeVal = async (e) => {};
 
-
-    return (
+	return (
 		<>
 			<NavBar
 				handleLogout={handleLogout}
@@ -172,89 +172,131 @@ const Profile = ({ clearPermission }) => {
 				<div className="posts-container">
 					<p className="posts-label">My Posts:</p>
 					{/* start of posts */}
-					<div className="posts-list">
-						<div>
+					<div className="posts-list-wrapper">
+						<div className="posts-list">
 							{postsDetails.map((postInfo) => (
-								<div key={postInfo?.postid} id={postInfo?.postid}>
-								{isPostEditing(postInfo?.postid) ?
-									<div className="posts">
-									<div className="posts-image-container">
-										<img
-											className="posts-picture"
-											src={postInfo.images[0]}
-										/>
-									</div>
-									<div className="posts-contents">
-										<br />
-										<div className="post-buttons">
-											<button onClick={savePost}
-											>SAVE</button>
-											
-											<button
-												className="delete-button"
-												value={postInfo?.postid}
-												onClick={onDelete}
-											>DELETE</button>
-										</div>
-										<input className="pet-name" defaultValue={postInfo?.pet_name}/>
-										<input className="pet-species" defaultValue={postInfo?.pet_species}/>
-										<hr
-											style={{
-												width: "90%",
-												color: "#bbb",
-												"marginbottom": "1em",
-											}}
-										></hr>
-										<input className="pet-description" defaultValue={postInfo?.description}/>
-									</div>
-								</div>
-									
-									: 
+								<div
+									key={postInfo?.postid}
+									id={postInfo?.postid}
+									style={{
+										width: "80%",
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+									}}
+								>
+									{isPostEditing(postInfo?.postid) ? (
+										<div className="posts">
+											<div className="posts-image-container">
+												<img
+													className="posts-picture"
+													src={postInfo.images[0]}
+												/>
+											</div>
+											<div className="posts-contents">
+												<div className="post-content-upper">
+													<div className="post-title">
+														<input
+															className="pet-name"
+															defaultValue={
+																postInfo?.pet_name
+															}
+														/>
+														<input
+															className="pet-species"
+															defaultValue={
+																postInfo?.pet_species
+															}
+														/>
+													</div>
+													<div className="post-buttons">
+														<button
+															className="post-edit-button"
+															onClick={savePost}
+														>
+															SAVE
+														</button>
 
-								<div className="posts" key={postInfo?.postid}>
-									<div className="posts-image-container">
-										<img
-											className="posts-picture"
-											src={postInfo.images[0]}
-										/>
-									</div>
-									<div className="posts-contents">
-										<br />
-										<div className="post-buttons">
-											<button onClick={() => editPost(postInfo?.postid)}
-											>EDIT</button>
-											<button
-												className="delete-button"
-												value={postInfo?.postid}
-												onClick={onDelete}
-											>DELETE</button>
+														<button
+															className="post-delete-button"
+															value={
+																postInfo?.postid
+															}
+															onClick={onDelete}
+														>
+															DELETE
+														</button>
+													</div>
+												</div>
+												<input
+													id="input-description"
+													className="pet-description"
+													defaultValue={
+														postInfo?.description
+													}
+												/>
+											</div>
 										</div>
-										<p className="pet-name">
-											{postInfo?.pet_name}
-										</p>
-										<p className="pet-species">
-											{postInfo?.pet_species}
-										</p>
-										<hr
-											style={{
-												width: "90%",
-												color: "#bbb",
-												"marginbottom": "1em",
-											}}
-										></hr>
-										<p className="pet-description">
-											{postInfo?.description}
-										</p>
-									</div>
+									) : (
+										<div
+											className="posts"
+											key={postInfo?.postid}
+										>
+											<div className="posts-image-container">
+												<img
+													className="posts-picture"
+													src={postInfo.images[0]}
+												/>
+											</div>
+											<div className="posts-contents">
+												<div className="post-content-upper">
+													<div className="post-title">
+														<p className="pet-name">
+															{postInfo?.pet_name}
+														</p>
+														<p className="pet-species">
+															{
+																postInfo?.pet_species
+															}
+														</p>
+													</div>
+													<div className="post-buttons">
+														<button
+															className="post-edit-button"
+															onClick={() =>
+																editPost(
+																	postInfo?.postid
+																)
+															}
+														>
+															EDIT
+														</button>
+														<button
+															className="post-delete-button"
+															value={
+																postInfo?.postid
+															}
+															onClick={onDelete}
+														>
+															DELETE
+														</button>
+													</div>
+												</div>
+												<hr
+													style={{
+														width: "90%",
+														color: "#bbb",
+														marginbottom: "1em",
+													}}
+												></hr>
+												<p className="pet-description">
+													{postInfo?.description}
+												</p>
+											</div>
+										</div>
+									)}
 								</div>
-								}
-								</div>
-								))}
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
+							))}
 						</div>
 					</div>
 				</div>

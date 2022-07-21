@@ -108,7 +108,7 @@ export default function CardList() {
 									className="-fx-gal-image-thumb"
 									tabIndex="1"
 								>
-									<img alt="" src={filteredList.images} />
+									<img alt="" src={filteredList.images[0]} />
 								</div>
 								<div className="-fx-gal-image-text">
 									<ul>
