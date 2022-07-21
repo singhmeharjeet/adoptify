@@ -1,46 +1,40 @@
-
 import "./CardList.css";
-import React, { useEffect, useState, useContext } from "react"
-import { GlobalContext } from "../../global/GlobalContext"
-
+import React, { useEffect, useState, useContext } from "react";
+import { GlobalContext } from "../../global/GlobalContext";
 
 export default function CardList() {
-
 	const { postsDetails: list } = useContext(GlobalContext);
-	const [filteredList,setFilteredList] = useState([]);
+	const [filteredList, setFilteredList] = useState([]);
 
 	useEffect(() => {
 		setFilteredList(list);
 	}, []);
-	 
-	const handleBtns=(e) => {
+
+	const handleBtns = (e) => {
 		let pet = e.target.value;
 
-		if(pet ===  'All'){
-			console.log(list);
+		if (pet === "All") {
 			setFilteredList(list);
-		}
-		
-		else if(pet === 'Dogs'){
-			const filtered = list.filter(list=>
-				list.pet_species === 'dog' || list.pet_species === 'Dog');
-	
-			setFilteredList(filtered);
-		}
-		
-		else if(pet === 'Cats'){
-			const filtered = list.filter(list=>
-				list.pet_species === 'cat' || list.pet_species === 'Cat');
-			setFilteredList(filtered);
-		}
+		} else if (pet === "Dogs") {
+			const filtered = list.filter(
+				(list) =>
+					list.pet_species === "dog" || list.pet_species === "Dog"
+			);
 
-		else {
-			const filtered = list.filter(list=>
-				list.pet_species !== 'dog' || list.pet_species !== 'cat');
+			setFilteredList(filtered);
+		} else if (pet === "Cats") {
+			const filtered = list.filter(
+				(list) =>
+					list.pet_species === "cat" || list.pet_species === "Cat"
+			);
+			setFilteredList(filtered);
+		} else {
+			const filtered = list.filter(list=>list.
+				pet_species !=='dog' && list.pet_species !== 'cat' && list.pet_species !== 'Cat' 
+				&&  list.pet_species !== 'Dog');
 			setFilteredList(filtered);
 		}
-		
-	}
+	};
 
 	return (
 		<>
@@ -61,10 +55,34 @@ export default function CardList() {
 					/>
 				</div>
 				<div className="display-bar">
-					<button className="display-bar-btn" value = "All" onClick ={handleBtns}>All</button>
-					<button className="display-bar-btn"  value = "Dogs" onClick ={handleBtns}>Dogs</button>
-					<button className="display-bar-btn"  value = "Cats" onClick ={handleBtns}>Cats</button>
-					<button className="display-bar-btn"  value = "Others" onClick ={handleBtns}>Others</button>
+					<button
+						className="display-bar-btn"
+						value="All"
+						onClick={handleBtns}
+					>
+						All
+					</button>
+					<button
+						className="display-bar-btn"
+						value="Dogs"
+						onClick={handleBtns}
+					>
+						Dogs
+					</button>
+					<button
+						className="display-bar-btn"
+						value="Cats"
+						onClick={handleBtns}
+					>
+						Cats
+					</button>
+					<button
+						className="display-bar-btn"
+						value="Others"
+						onClick={handleBtns}
+					>
+						Others
+					</button>
 				</div>
 				<div
 					style={{
@@ -82,27 +100,28 @@ export default function CardList() {
 					/>
 				</div>
 				<div className="card-list-container">
-				
-					<div className="-fx-image-gal"  >
-					{filteredList.map(filteredList=> (
-						<div className="-fx-gal-item" key={filteredList.id}>
-							<div className="-fx-gal-image-thumb" tabIndex="1" >
-								<img alt="" src={filteredList.images[0]} />
+					<div className="-fx-image-gal">
+						{filteredList.map((filteredList) => (
+							<div className="-fx-gal-item" key={filteredList.id}>
+								<div
+									className="-fx-gal-image-thumb"
+									tabIndex="1"
+								>
+									<img alt="" src={filteredList.images} />
+								</div>
+								<div className="-fx-gal-image-text">
+									<ul>
+										<li>{filteredList.pet_name}</li>
+										<li>{filteredList.pet_color}</li>
+									</ul>
+									<p className="-fx-gal-image-text-description">
+										{filteredList.description}
+									</p>
+								</div>
 							</div>
-							<div className="-fx-gal-image-text">
-								<ul>
-									<li>{filteredList.pet_name}</li>
-									<li>{filteredList.pet_color}</li>
-								</ul>
-								<p className="-fx-gal-image-text-description">
-									{filteredList.description}
-								</p>
-							</div>
-						</div>
 						))}
 					</div>
-					
-				</div>	
+				</div>
 				<div
 					style={{
 						display: "flex",
@@ -121,5 +140,4 @@ export default function CardList() {
 			</div>
 		</>
 	);
-
 }

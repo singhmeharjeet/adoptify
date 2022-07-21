@@ -2,29 +2,13 @@ const express = require("express"),
 	router = express.Router();
 const pool = require("../database.js");
 
-//show the profile page
-// module.exports = router.delete('/:uname/:postid', async (req,res) => {
-//     console.log("running");
-//     const postid = req.params.postid;
-//     // const deletePost = `DELETE * FROM posts WHERE postid='${postid}'`
-//     // const deleteResponse = await pool.query(deletePost, (error, result) => {
-//     //     if (error) {
-//     //         console.log(error)
-//     //     }
-//     //     else {
-//     //         res.json(result)
-//     //     }
-//     // });
-//     console.log("deleted");
-//     return;
-// })
 module.exports = router.get("/:uname", async (req, res) => {
 	const username = req.params.uname;
 
 	var userDetails = {};
 	var postsDetails = [];
 	const userDetailsQuery = `SELECT * FROM users WHERE username='${username}'`;
-    const postsDetailsQuery = `SELECT * FROM posts WHERE fk_username='${username}'`;
+	const postsDetailsQuery = `SELECT * FROM posts WHERE fk_username='${username}'`;
 
 	await pool.query(userDetailsQuery, (error, result) => {
 		if (error) {
@@ -33,7 +17,7 @@ module.exports = router.get("/:uname", async (req, res) => {
 			userDetails = result.rows[0];
 
 			// sending another Query---------
-            // This nesting of query is done to handel async await
+			// This nesting of query is done to handel async await
 			pool.query(postsDetailsQuery, (error, result) => {
 				if (error) {
 					console.log("error", error);

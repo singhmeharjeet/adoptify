@@ -103,7 +103,11 @@ const Profile = ({ clearPermission }) => {
 				<div className="profile-container">
 					<div className="profile-contents">
 						<p className="profile-greeting">
-							Hi, {userDetails?.firstname + " " + userDetails?.lastname}!
+							Hi,{" "}
+							{userDetails?.firstname +
+								" " +
+								userDetails?.lastname}
+							!
 						</p>
 						<br />
 						<br />
@@ -167,8 +171,6 @@ const Profile = ({ clearPermission }) => {
 				</div>
 				<div className="posts-container">
 					<p className="posts-label">My Posts:</p>
-					<br />
-					<br />
 					{/* start of posts */}
 					<div className="posts-list">
 						<div>

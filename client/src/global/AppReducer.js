@@ -6,7 +6,6 @@ import {
 
 const AppReducer = (state, action) => {
 	switch (action.type) {
-
 		case INSERT_USER_DATA:
 			return {
 				userDetails: action?.payload?.userDetails,

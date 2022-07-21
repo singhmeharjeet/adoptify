@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../database");
 
-
 module.exports = router.get("/", async (req, res) => {
 	//var allusersquery = 'SELECT * FROM users INNER JOIN posts ON users.userid = posts.fk_userid';
 	var allusersquery = "SELECT * FROM users";

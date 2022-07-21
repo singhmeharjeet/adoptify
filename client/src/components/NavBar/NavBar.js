@@ -12,7 +12,7 @@ export default function NavBar({ handleLogout }) {
 					</Link>
 				</div>
 				<div className="center">
-					<Link to="/"className="home button">
+					<Link to="/" className="home button">
 						Home
 					</Link>
 					<Link to="/add" className="addPost button">

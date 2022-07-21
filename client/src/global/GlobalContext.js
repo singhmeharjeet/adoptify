@@ -33,14 +33,13 @@ const GlobalContextProvider = ({ children }) => {
 			});
 	}
 	function deletePostData(id) {
-
-        try {
-            const res = fetch(`${BASE_URL}/delete/${id}`,{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
+		try {
+			const res = fetch(`${BASE_URL}/delete/${id}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 			// dispatch({
 			// 	type: DELETE_POST,
 			// 	payload: {
@@ -49,12 +48,12 @@ const GlobalContextProvider = ({ children }) => {
 			// 	}
 			// })
 			putUserData(localStorage.getItem("token"));
-        } catch (err) {
+		} catch (err) {
 			if (err) {
 				console.log("There was a problem with the server");
 			} else {
 				console.log("success");
-                putUserData(localStorage.getItem("token"));
+				putUserData(localStorage.getItem("token"));
 			}
 		}
 	}
@@ -68,7 +67,7 @@ const GlobalContextProvider = ({ children }) => {
 				userDetails: state.userDetails,
 				postsDetails: state.postsDetails,
 				putUserData,
-				deletePostData
+				deletePostData,
 			}}
 		>
 			{children}
