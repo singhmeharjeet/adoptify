@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext } from "../../global/GlobalContext";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
 export default function NavBar({ handleLogout }) {
+	const { userDetails } = useContext(GlobalContext);
 	return (
 		<>
 			<nav className="nav">
@@ -18,6 +20,11 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/add" className="addPost button">
 						Add Post
 					</Link>
+					{userDetails?.isadmin ? (
+						<Link to="/admin" className="addPost button">
+							Admin
+						</Link>
+					) : null}
 					<Link to="/profile" className="addPost button">
 						Profile
 					</Link>

@@ -91,7 +91,7 @@ export default function Login({ setPermission, permission }) {
 									src={images["login-lock-icon"]}
 								/>
 								<input
-									type="text"
+									type="password"
 									placeholder="Password"
 									required
 									onChange={(e) => {

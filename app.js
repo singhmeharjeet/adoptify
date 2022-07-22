@@ -11,7 +11,9 @@ const profile = require("./routers/profile.js");
 const post = require("./routers/post.js");
 const addUser = require("./routers/addUser.js");
 const admin = require("./routers/admin.js");
-const remove = require("./routers/delete.js");
+const removePost = require("./routers/deletePost.js");
+const removeUser = require("./routers/deleteUser.js");
+const editPost = require("./routers/editPost.js");
 
 /* 
 	Setup Server app
@@ -29,18 +31,19 @@ app.use(express.urlencoded({ extended: true })); // Understand fetch requests
 app.use(express.static("public/build")); // for pushing onto heroku
 app.use(express.static("public")); // for pushing onto heroku
 
-// empty comment
+
 /* 
 	Routing APIs
 */
-console.log("hello");
 app.use("/profile", profile);
 app.use("/login", authorize);
 app.use("/addPost", addPost);
 app.use("/post", post);
 app.use("/addUser", addUser);
 app.use("/allData", admin);
-app.use("/delete", remove);
+app.use("/delete", removePost);
+app.use("/deleteUser", removeUser);
+app.use("/editPost", editPost);
 
 /* 
 	Default Action
