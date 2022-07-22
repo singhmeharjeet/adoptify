@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
-import { BASE_URL } from "../constants";
 import NavBar from "../NavBar/NavBar";
-import './Profile.css';
-import axios from 'axios'
+import "./Profile.css";
+
 import { GlobalContext } from "../../global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,12 +17,9 @@ import {
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, putUserData, deletePostData } = useContext(GlobalContext);
+	const { userDetails, postsDetails, deletePostData, editUserPost } =
+		useContext(GlobalContext);
 	const [postState, setPostState] = useState(-1);
-	const postName = useRef('');
-	const postSpecies = useRef('');
-	const postDescription = useRef('');
-
 	/*
 		Stucture of myData and myPostsData is as follows:
 	
@@ -63,9 +59,10 @@ const Profile = ({ clearPermission }) => {
 	
 	const editPost = (pid) => {
 		setPostState(pid);
-	}
+	}; 
 
-	const savePost = () => {
+	const savePost = async (e) => {
+		e.preventDefault();
 		// postState has the current id, do not change until the end
 		const info = document.getElementById(postState).getElementsByTagName('input')
 		let post_name = info[0].value;
@@ -73,27 +70,23 @@ const Profile = ({ clearPermission }) => {
 		let post_description = info[2].value;
 		// console.log(post_name + "\n" + post_species + "\n" + post_description);
 
+		editUserPost(postState, post_name, post_species, post_description);
 		// do query stuff here
-		setPostState(-1);
-	}
+		
+		setTimeout(() => window.location.reload(), 500);
+	};
 
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
 	};
 
-    const onDelete = async(e) => {
-        e.preventDefault();
-        const postId = e.currentTarget.value;
-        deletePostData(postId);
-    }
-
-	const changeVal = async(e) => {
-		
-	}
-
-
-    return (
+	const onDelete = async (e) => {
+		e.preventDefault();
+		const postId = e.currentTarget.value;
+		deletePostData(postId);
+	};
+	return (
 		<>
 			<NavBar
 				handleLogout={handleLogout}
@@ -109,17 +102,12 @@ const Profile = ({ clearPermission }) => {
 								userDetails?.lastname}
 							!
 						</p>
-						<br />
-						<br />
 						<div className="profile-picture-container">
 							<img
 								className="profile-picture"
 								src="/sample-pic.jpg"
 							/>
 						</div>
-						<br />
-						<br />
-						<br />
 						<div className="profile-info-container">
 							<div className="info-section">
 								<p className="profile-text">
