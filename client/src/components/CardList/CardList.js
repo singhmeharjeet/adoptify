@@ -19,20 +19,20 @@ export default function CardList() {
 		} else if (pet === "Dogs") {
 			const filtered = list.filter(
 				(list) =>
-					list.pet_species === "dog" || list.pet_species === "Dog"
+					list.pet_species.toLowerCase() === "dog" || list.pet_species.toLowerCase() === "dogs"
 			);
 
 			setFilteredList(filtered);
 		} else if (pet === "Cats") {
 			const filtered = list.filter(
 				(list) =>
-					list.pet_species === "cat" || list.pet_species === "Cat"
+					list.pet_species.toLowerCase() === "cat" || list.pet_species.toLowerCase() === "cats"
 			);
 			setFilteredList(filtered);
 		} else {
-			const filtered = list.filter(list=>list.
-				pet_species !=='dog' && list.pet_species !== 'cat' && list.pet_species !== 'Cat' 
-				&&  list.pet_species !== 'Dog');
+			const filtered = list.filter(list => 
+				list.pet_species.toLowerCase() !== 'dog' && list.pet_species.toLowerCase() !== 'dogs' && 
+				list.pet_species.toLowerCase() !== 'cat' &&  list.pet_species.toLowerCase() !== 'cats');
 			setFilteredList(filtered);
 		}
 	};
