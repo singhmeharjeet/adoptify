@@ -1,32 +1,18 @@
 .background {
     display: flex;
-    min-height: 100vh;
 }
 
 .form-container {
-    flex: 0 1 700px;
-    max-width: 70vw;
-    margin: auto;
+    margin-top: 5vh;
+    width: 70vw;
     padding: 10px;
 }
 
 .screen {
-    position: relative;
-    background: #ffffff;
-    border-radius: 15px;
-}
-
-.screen:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    bottom: 0;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    z-index: -1;
+    background: var(--kinda-white);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    border-radius: 10px;
+    padding: 1em;
 }
 
 .screen-body {
@@ -34,8 +20,9 @@
 }
 
 .screen-body-item {
-    flex: 1;
-    padding: 50px;
+    /* border: 1px solid black; */
+    padding: 1em;
+    width: 35vw;
 }
 
 .screen-body-item.left {
@@ -47,23 +34,22 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    color: darkcyan;
-    font-size: 6vmin;
+    color: var(--navyblue);
+    font-size: 7vmin;
+    padding: 1em 0 0.1em 0.5em;
+    font-weight: 600;
 }
 
-.app-title:after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    width: 40%;
-    height: 4px;
-    background: darkcyan;
+.app-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1em 0 1em;
 }
 
 .app-form-group {
     margin-bottom: 15px;
+    border-bottom: 2px solid rgb(154, 154, 154);
 }
 
 .app-form-group.message {
@@ -76,7 +62,6 @@
     padding: 10px 0;
     background: none;
     border: none;
-    border-bottom: 2px solid rgb(154, 154, 154);
     color: rgb(36, 36, 36);
     font-size: 14px;
     outline: none;
@@ -87,7 +72,7 @@
     color: #666;
 }
 
-.app-form-control:focus {
+.app-form-group:focus-within {
     border-bottom-color: rgb(36, 36, 36);
     transform: scale(1.05);
 }
@@ -109,7 +94,7 @@
     letter-spacing: 0.9px;
     font-weight: 550;
     color: black;
-    background-color: white;
+    background-color: inherit;
     border-radius: 3px;
     border: none;
     transition: all 0.3s ease 0s;
@@ -119,26 +104,18 @@
 }
 
 .app-form-button:hover {
-    color: #b9134f;
-    background-color: darkcyan;
     color: white;
+    background-color: var(--brown);
 }
 
 #input {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     padding: 10px 0;
-    background: none;
-    border: none;
-    border-bottom: 2px solid rgb(154, 154, 154);
-    color: rgb(36, 36, 36);
-    font-size: 14px;
-    outline: none;
-    transition: all 0.3s ease-in-out;
 }
 
 #input>label {
     text-transform: uppercase;
     color: rgba(102, 102, 102, 0.647);
+    font-size: 14px;
 }

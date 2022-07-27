@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 .signup-page {
     display: flex;
     height: 100vh;
 }
 
-.signup-backtologin{
+.signup-backtologin {
     width: 160px;
     margin-top: 15px;
     margin-left: 35px;
@@ -62,6 +61,6 @@
     margin-bottom: 10px;
 }
 
-.signup-title{
+.signup-title {
     width: 115vh;
 }

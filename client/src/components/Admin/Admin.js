@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import NavBar from "../NavBar/NavBar";
+import UsersTable from "./UsersTable";
+import PostsTable from "./PostsTable";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GlobalContext } from "../../global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faUser,
 	faPaw,
@@ -13,7 +15,9 @@ import "./Admin.css";
 
 export default function Admin({ clearPermission }) {
 	const navigate = useNavigate();
-	const { userDetails, allUsers, allPosts, deleteUserData } = useContext(GlobalContext);
+	const [showUsers, setShowUsers] = useState(true);
+	const { userDetails, allUsers, allPosts, deleteUserData, deletePostData } =
+		useContext(GlobalContext);
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
@@ -28,35 +32,30 @@ export default function Admin({ clearPermission }) {
 	//'cannot read properties of undefined
 	return (
 		<>
-			<NavBar
-				handleLogout={handleLogout}
-			/>
+			<NavBar handleLogout={handleLogout} />
 			<div className="container">
 				<div className="admin-container">
 					<div className="menu-container">
 						<p className="admin-greeting">Hi, Admin!</p>
-						{/* 
-                        // add in links for users and posts
-                    */}
-
 						<div className="admin-links">
-							<a href="#">
-								{" "}
+							<p
+								onClick={() => setShowUsers(true)}
+							>
 								<FontAwesomeIcon
 									className="profile-icon"
 									icon={faUser}
-								></FontAwesomeIcon>{" "}
-								&nbsp; List of Users
-							</a>
-							<br />
-							<a href="#">
-								{" "}
+								></FontAwesomeIcon>
+								List of Users
+							</p>
+							<p
+								onClick={() => setShowUsers(false)}
+							>
 								<FontAwesomeIcon
 									className="profile-icon"
 									icon={faPaw}
-								></FontAwesomeIcon>{" "}
-								&nbsp; List of Posts
-							</a>
+								></FontAwesomeIcon>
+								List of Posts
+							</p>
 						</div>
 						<div className="site-info">
 							<div className="site-info-header-container">
@@ -88,63 +87,30 @@ export default function Admin({ clearPermission }) {
 										className="site-info-posts-icon"
 										icon={faShieldDog}
 									></FontAwesomeIcon>
-									<span className="num-posts">{allPosts.length}</span>
+									<span className="num-posts">
+										{allPosts.length}
+									</span>
 								</p>
 							</div>
 						</div>
 					</div>
-					<div className="users-container">
-						{/* 
-                        // add in users table heading
-                        // add in users
-                    */}
-						<p className="admin-greeting">List of Users</p>
-
-						<div className="table-container">
-							<table className="users-table">
-								<thead className="table-header">
-									<tr>
-										<th>Username</th>
-										<th>Password</th>
-										<th>Name</th>
-										<th>Phone</th>
-										<th>Email</th>
-										<th>Address</th>
-										<th></th>
-									</tr>
-								</thead>
-								{allUsers.map((user) => (
-									<tbody key={user?.username}>
-										<tr>
-											<td>{user.username}</td>
-											<td>{user.password}</td>
-											<td>
-												{user.firstname +
-													" " +
-													user.lastname}
-											</td>
-											<td>{user.phone}</td>
-											<td>{user.email}</td>
-											<td>{user.address}</td>
-											<td>
-												<input
-													type="button"
-													className="delete-button"
-													value="Delete"
-													onClick={() => {
-														deleteUserData(
-															user?.username
-														);
-														setTimeout(() => window.location.reload(),500);
-													}}
-												/>
-											</td>
-										</tr>
-									</tbody>
-								))}
-							</table>
+					{showUsers ? (
+						<div className="users-container">
+							<p className="admin-greeting">List of Users</p>
+							<UsersTable
+								allUsers={allUsers}
+								deleteUserData={deleteUserData}
+							/>
 						</div>
-					</div>
+					) : (
+						<div className="users-container">
+							<p className="admin-greeting">List of Posts</p>
+							<PostsTable
+								allPosts={allPosts}
+								deletePostData={deletePostData}
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 		</>

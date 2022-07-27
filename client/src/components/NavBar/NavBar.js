@@ -9,7 +9,7 @@ export default function NavBar({ handleLogout }) {
 		<>
 			<nav className="nav">
 				<div className="left">
-					<Link to="/" className="logo button">
+					<Link to="/" className="logo">
 						Adoptify
 					</Link>
 				</div>

@@ -22,7 +22,7 @@ module.exports = router.post("/", async (req, res) => {
 	const petImage = req.files.petImage;
 	petImage.mv(
 		`${__dirname}/../uploadedImages/${petImage.name}`,
-		async (err) => {
+		(err) => {
 			if (err) {
 				console.error(err);
 				return res

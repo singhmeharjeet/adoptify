@@ -1,17 +1,11 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .nav {
     height: 3em;
     width: 100vw;
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
-    border-bottom: 3px solid black;
     padding: 0.2em;
+    background-color: var(--navyblue);
 }
 
 .left,
@@ -30,7 +24,8 @@
 }
 
 .left .button,
-.center .button {
+.center .button,
+.logo {
     min-width: 10em;
     display: flex;
     justify-content: center;
@@ -41,8 +36,8 @@
     text-transform: uppercase;
     letter-spacing: 0.9px;
     font-weight: 550;
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: none;
     border-radius: 3px;
     border: none;
     transition: all 0.3s ease 0s;
@@ -53,6 +48,6 @@
 
 .left .button:hover,
 .center .button:hover {
-    background-color: darkcyan;
-    color: white;
+    background-color: var(--kinda-white);
+    color: var(--navyblue);
 }

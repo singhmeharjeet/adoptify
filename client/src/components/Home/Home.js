@@ -16,13 +16,16 @@ export default function Home({ clearPermission }) {
 		navigate("/login");
 	}
 
+	// let btn = document.getElementById("card-list-all-button");
+	// btn.click();
+
 	return (
 		<>
 			<NavBar handleLogout={handleLogout} username={token} />
 			<div className="home-container">
 				<div className="home-left"></div>
 				<div className="home-center">
-					<div className="home-center-heading">find my new pet.</div>
+					<div className="home-center-heading">Your New Companion.</div>
 					<CardList />
 				</div>
 				<div className="home-right"></div>

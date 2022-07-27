@@ -1,12 +1,15 @@
 import "./CardList.css";
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
-
 export default function CardList() {
 	const { allPosts: list } = useContext(GlobalContext);
-	const [filteredList, setFilteredList] = useState(list);
+	const [filteredList, setFilteredList] = useState([]);
 
-	console.log('list', list);
+	window.onload = () => {
+		document.getElementById("card-list-all-button").focus();
+		document.getElementById("card-list-all-button").click();
+	}
+
 	useEffect(() => {
 		setFilteredList(list);
 	}, []);
@@ -40,23 +43,9 @@ export default function CardList() {
 	return (
 		<>
 			<div className="card-list-all">
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						padding: "0.5em",
-					}}
-				>
-					<hr
-						style={{
-							width: "95%",
-							height: "80%",
-							opacity: "0",
-						}}
-					/>
-				</div>
 				<div className="display-bar">
 					<button
+						id="card-list-all-button"
 						className="display-bar-btn"
 						value="All"
 						onClick={handleBtns}
@@ -85,58 +74,30 @@ export default function CardList() {
 						Others
 					</button>
 				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						padding: "0.5em",
-					}}
-				>
-					<hr
-						style={{
-							width: "90%",
-							height: "80%",
-							color: "#bbb",
-						}}
-					/>
-				</div>
 				<div className="card-list-container">
 					<div className="-fx-image-gal">
 						{filteredList.map((filteredList) => (
 							<div className="-fx-gal-item" key={filteredList.id}>
-								<div
-									className="-fx-gal-image-thumb"
-									tabIndex="1"
-								>
-									<img alt="" src={filteredList.images} />
+								<div className="-fx-gal-image-thumb">
+									<img
+										alt="No Image"
+										src={filteredList.images[0]}
+										style={{ "max-width": "100%" }}
+									/>
 								</div>
 								<div className="-fx-gal-image-text">
 									<ul>
-										<li>{filteredList.pet_name}</li>
-										<li>{filteredList.pet_color}</li>
+										<li>
+											<h2>{filteredList.pet_name}</h2>
+										</li>
+										<li>
+											<p>{filteredList.pet_species}</p>
+										</li>
 									</ul>
-									<p className="-fx-gal-image-text-description">
-										{filteredList.description}
-									</p>
 								</div>
 							</div>
 						))}
 					</div>
-				</div>
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						padding: "0.5em",
-					}}
-				>
-					<hr
-						style={{
-							width: "90%",
-							height: "80%",
-							opacity: "0",
-						}}
-					/>
 				</div>
 			</div>
 		</>
