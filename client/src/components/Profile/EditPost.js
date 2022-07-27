@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function EditPost({ postInfo, savePost, onDelete }) {
+export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
 	return (
 		<>
 			<div className="post">
@@ -25,6 +25,12 @@ export default function EditPost({ postInfo, savePost, onDelete }) {
 								onClick={savePost}
 							>
 								SAVE
+							</button>
+							<button
+								className="post-edit-button"
+								onClick={cancelEdit}
+							>
+								CANCEL
 							</button>
 
 							<button

@@ -44,12 +44,9 @@ const Profile = ({ clearPermission }) => {
 			.getElementsByTagName("textarea");
 		
 		let post_description = infoTextArea[0].value;
-		// console.log(post_name + "\n" + post_species + "\n" + post_description);
 
 		editUserPost(postState, post_name, post_species, post_description);
-		// do query stuff here
-
-		setTimeout(() => window.location.reload(), 500);
+		setTimeout(() => window.location.reload(), 700);
 	};
 
 	const handleLogout = () => {
@@ -62,6 +59,10 @@ const Profile = ({ clearPermission }) => {
 		const postId = e.currentTarget.value;
 		deletePostData(postId);
 	};
+
+	const cancelEdit = async (e) => {
+		editPost(-1);
+	}
 	return (
 		<>
 			<NavBar
@@ -108,6 +109,7 @@ const Profile = ({ clearPermission }) => {
 											postInfo={postInfo}
 											savePost={savePost}
 											onDelete={onDelete}
+											cancelEdit={cancelEdit}
 										/>
 									) : (
 										<Post
