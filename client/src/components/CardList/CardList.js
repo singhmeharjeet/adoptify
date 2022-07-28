@@ -1,9 +1,13 @@
 import "./CardList.css";
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
+import Modal from "../Modal/Modal";
+import e from "cors";
 export default function CardList() {
 	const { allPosts: list } = useContext(GlobalContext);
 	const [filteredList, setFilteredList] = useState([]);
+	const [modalData, setModalData] = useState(null);
+	const [isOpen, setIsOpen] = useState(false);
 
 	window.onload = () => {
 		document.getElementById("card-list-all-button").focus();
@@ -39,6 +43,12 @@ export default function CardList() {
 			setFilteredList(filtered);
 		}
 	};
+
+	const openModal = (data) => {
+		setModalData(data)
+		setIsOpen(true)
+	}
+
 
 	return (
 		<>
@@ -77,7 +87,8 @@ export default function CardList() {
 				<div className="card-list-container">
 					<div className="-fx-image-gal">
 						{filteredList.map((filteredList) => (
-							<div className="-fx-gal-item" key={filteredList.id}>
+							<div className="-fx-gal-item" key={filteredList.postid}
+							 onClick={()=> openModal(filteredList)}>
 								<div className="-fx-gal-image-thumb">
 									<img
 										alt="No Image"
@@ -98,6 +109,9 @@ export default function CardList() {
 							</div>
 						))}
 					</div>
+					{isOpen ? <Modal postInfo={modalData} closeModal={() => setIsOpen(false)}>
+						Modal
+					</Modal> : ""}
 				</div>
 			</div>
 		</>
