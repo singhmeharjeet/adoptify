@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./Messages.css"
+import "./MessagesPage.css"
 import NavBar from "../NavBar/NavBar";
 import Contacts from "./Contacts";
 import Conversation from "./Conversation";
 
-export default function Messages({ clearPermission }) {
+export default function MessagesPage({ clearPermission }) {
 	const navigate = useNavigate();
 
 	function handleLogout() {

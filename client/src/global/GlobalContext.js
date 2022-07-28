@@ -1,8 +1,8 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
 import { BASE_URL } from "../../src/components/constants";
-import { INSERT_USER_DATA, INSERT_ALL_DATA } from "./Types.js";
-import axios from "axios"
+import { INSERT_USER_DATA, INSERT_ALL_DATA, DELETE_POST, UPDATE_POST } from "./Types.js";
+import axios from "axios";
 
 // Initial state
 const initialState = {
@@ -52,7 +52,6 @@ const GlobalContextProvider = ({ children }) => {
 						postsDetails: data.postsDetails,
 					},
 				});
-				
 			})
 			.catch((error) => {
 				console.log("error", error);
@@ -65,8 +64,18 @@ const GlobalContextProvider = ({ children }) => {
 				headers: {
 					"Content-Type": "application/json",
 				},
-			});
-			putUserData(localStorage.getItem("token"));
+			})
+				.then((r) => r.json())
+				.then((data) => {
+					if (data.status) {	
+						dispatch({ 
+							type: DELETE_POST,
+							payload: {
+								postid: id,
+							}
+						})
+					}
+				});
 		} catch (err) {
 			if (err) {
 				console.log("There was a problem with the server");
@@ -96,21 +105,46 @@ const GlobalContextProvider = ({ children }) => {
 	}
 	async function editUserPost(id, name, species, des) {
 		try {
-			let formData = new FormData();
-			formData.append("id", id);
-			formData.append("name", name);
-			formData.append("species", species);
-			formData.append("des", des);
-			await axios.post(`${BASE_URL}/editPost`, formData);
-			putUserData(localStorage.getItem("token"));
-		} catch (err) {
-			if (err) {
-				console.log("There was a problem with the server");
-			} else {
-				console.log("success");
-				putUserData(localStorage.getItem("token"));
+			const responseJSON = await (
+				await fetch(`${BASE_URL}/editPost`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						id, name, species, des
+					}),
+				})
+			).json();
+			if (responseJSON.status) {
+				dispatch({
+					type: UPDATE_POST,
+					payload: {
+						post: responseJSON?.data
+					},
+				});
 			}
+			console.log('responseJSON', responseJSON);
+		} catch (error) {
+			console.log("error", error);
 		}
+		
+		// try {
+		// 	let formData = new FormData();
+		// 	formData.append("id", id);
+		// 	formData.append("name", name);
+		// 	formData.append("species", species);
+		// 	formData.append("des", des);
+		// 	await axios.post(`${BASE_URL}/editPost`, formData);
+		// 	putUserData(localStorage.getItem("token"));
+		// } catch (err) {
+		// 	if (err) {
+		// 		console.log("There was a problem with the server");
+		// 	} else {
+		// 		console.log("success");
+		// 		putUserData(localStorage.getItem("token"));
+		// 	}
+		// }
 	}
 	useEffect(() => {
 		putAllData();
@@ -127,7 +161,7 @@ const GlobalContextProvider = ({ children }) => {
 				putUserData,
 				deleteUserData,
 				deletePostData,
-				editUserPost
+				editUserPost,
 			}}
 		>
 			{children}

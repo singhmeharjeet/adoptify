@@ -25,7 +25,7 @@ export default function Conversation() {
 					</div>
 				</div>
 				<div className="msgInput">
-					<textarea name="messageInput" rows="1" ></textarea>
+					<textarea name="messageInput" rows="1" placeholder="Enter Your Message" ></textarea>
 					<button type="submit">Send</button>
 				</div>
 			</div>

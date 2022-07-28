@@ -31,22 +31,23 @@ const Profile = ({ clearPermission }) => {
 
 	const savePost = async (e) => {
 		e.preventDefault();
+
 		// postState has the current id, do not change until the end
 		const infoInput = document
 			.getElementById(postState)
 			.getElementsByTagName("input");
-		console.log('infoInput', infoInput);
+		console.log("infoInput", infoInput);
 		let post_name = infoInput[0].value;
 		let post_species = infoInput[1].value;
 
 		const infoTextArea = document
 			.getElementById(postState)
 			.getElementsByTagName("textarea");
-		
+
 		let post_description = infoTextArea[0].value;
 
 		editUserPost(postState, post_name, post_species, post_description);
-		setTimeout(() => window.location.reload(), 700);
+		setPostState(-1);
 	};
 
 	const handleLogout = () => {
@@ -62,7 +63,7 @@ const Profile = ({ clearPermission }) => {
 
 	const cancelEdit = async (e) => {
 		editPost(-1);
-	}
+	};
 	return (
 		<>
 			<NavBar

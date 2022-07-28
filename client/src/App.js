@@ -15,7 +15,7 @@ import PageNotFound from "./components/PageNotFound/PageNotFound";
 import Profile from "./components/Profile/Profile";
 import Admin from "./components/Admin/Admin";
 import GlobalContextProvider from "./global/GlobalContext";
-import Messages from "./components/Messages/Messages"
+import MessagesPage from "./components/Messages/MessagesPage"
 
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
@@ -82,7 +82,7 @@ export default function App() {
 							caseSensitive={false}
 							path="/messages"
 							element={
-								<Messages clearPermission={clearTokenAtApp} />
+								<MessagesPage clearPermission={clearTokenAtApp} />
 							}
 						/>
 						<Route
