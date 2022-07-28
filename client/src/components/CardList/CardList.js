@@ -1,21 +1,22 @@
 import "./CardList.css";
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
 import images from "../../images.json";
 export default function CardList() {
 	const { allPosts: list } = useContext(GlobalContext);
 	const [filteredList, setFilteredList] = useState([]);
-	const allRef = useRef(null);
 	const acceptedURLS = [
-		"adoptify", "media.istockphoto.com", "images.unsplash.com"
-	]
+		"adoptify",
+		"media.istockphoto.com",
+		"images.unsplash.com",
+	];
 
 	function checkForAcceptedURLS(imgURL) {
 		// some will megre bool values with ||
 		// every will merge bool values with &&
 		return acceptedURLS.some((correctLink) => {
 			return imgURL.includes(correctLink);
-		})
+		});
 	}
 	useEffect(() => {
 		setFilteredList(list);
@@ -99,17 +100,20 @@ export default function CardList() {
 						{filteredList.map((filteredList, index) => (
 							<div className="-fx-gal-item" key={index}>
 								<div className="-fx-gal-image-thumb">
-									{ checkForAcceptedURLS(filteredList.images[0])? (
+									{checkForAcceptedURLS(
+										filteredList.images[0]
+									) ? (
 										<img
-											alt="No Image"
+											alt="Pet Image"
 											src={filteredList.images[0]}
 										/>
 									) : (
 										<img
+											alt="Image Placeholder"
 											src={images["image-placeholder"]}
 											style={{
 												maxWidth: "100%",
-												padding: "3em",
+												padding: "4em",
 											}}
 										/>
 									)}

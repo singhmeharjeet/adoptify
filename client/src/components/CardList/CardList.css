@@ -57,6 +57,7 @@
     padding: 2em 0 2em 0;
     border-radius: 10px;
     gap: 0.7em;
+    border: 0.15em solid var(--navyblue);
 }
 
 .-fx-gal-item {
@@ -70,7 +71,7 @@
     flex-direction: column;
     cursor: pointer;
     background-color: white;
-    border: 0.01rem solid rgb(232, 232, 232);
+    border: 0.01em solid var(--kinda-grey);
 }
 
 .-fx-gal-item:hover {
@@ -101,7 +102,7 @@
     justify-content: space-evenly;
     align-items: flex-start;
     transition: all 0.3s ease-in-out;
-    border-radius: 10px;
+    border-top: 0.01em solid var(--kinda-grey);
 }
 
 .-fx-gal-image-text>ul {

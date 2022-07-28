@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./SignUp.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faCaretLeft
-} from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
 	const [uFirstName, setFirstName] = useState("");
@@ -29,7 +28,9 @@ export default function SignUp() {
 		// userFormData.append("uImage", uImage);   IF we are having them insert their profile pic during sign up
 
 		try {
-			const res = await axios.post(`${BASE_URL}/addUser`, userFormData).then(alert("Signed up successfully!"));
+			const res = await axios
+				.post(`${BASE_URL}/addUser`, userFormData)
+				.then(alert("Signed up successfully!"));
 		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");
@@ -46,15 +47,15 @@ export default function SignUp() {
 				</div>
 				<div className="signup-form-wrapper">
 					<div className="signup-backtologin">
-						<a className = "back-to-login-link" href="/login">
+						<Link className="back-to-login-link" to="/login">
 							<FontAwesomeIcon
-									className="profile-icon"
-									icon={faCaretLeft}
-							></FontAwesomeIcon>
-							&nbsp; Back to Login
-						</a>
+								className="profile-icon"
+								icon={faCaretLeft}
+							></FontAwesomeIcon>{" "}
+							Login
+						</Link>
 					</div>
-					<div className = "sign-up-form-container">
+					<div className="sign-up-form-container">
 						<div className="signup-form-title">Adoptify</div>
 						<div className="signup-form-outline">
 							<form
@@ -75,7 +76,9 @@ export default function SignUp() {
 										placeholder="First Name"
 										required
 										onChange={(event) => {
-											return setFirstName(event.target.value);
+											return setFirstName(
+												event.target.value
+											);
 										}}
 									/>
 								</div>
@@ -91,7 +94,9 @@ export default function SignUp() {
 										placeholder="Last Name"
 										required
 										onChange={(event) => {
-											return setLastName(event.target.value);
+											return setLastName(
+												event.target.value
+											);
 										}}
 									/>
 								</div>
@@ -108,7 +113,9 @@ export default function SignUp() {
 										placeholder="Phone"
 										required
 										onChange={(event) => {
-											return setPhoneNum(event.target.value);
+											return setPhoneNum(
+												event.target.value
+											);
 										}}
 									/>
 								</div>
@@ -124,7 +131,9 @@ export default function SignUp() {
 										placeholder="Address"
 										required
 										onChange={(event) => {
-											return setAddress(event.target.value);
+											return setAddress(
+												event.target.value
+											);
 										}}
 									/>
 								</div>
@@ -157,7 +166,9 @@ export default function SignUp() {
 										placeholder="Password"
 										required
 										onChange={(event) => {
-											return setPassword(event.target.value);
+											return setPassword(
+												event.target.value
+											);
 										}}
 									/>{" "}
 								</div>
