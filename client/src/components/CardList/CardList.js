@@ -1,17 +1,12 @@
 import "./CardList.css";
 import React, { useEffect, useState, useContext } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
-<<<<<<< HEAD
 import Modal from "../Modal/Modal";
-import e from "cors";
+import images from "../../images.json";
+
 export default function CardList() {
-	const { allPosts: list } = useContext(GlobalContext);
-	const [filteredList, setFilteredList] = useState([]);
 	const [modalData, setModalData] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
-=======
-import images from "../../images.json";
-export default function CardList() {
 	const { allPosts: list } = useContext(GlobalContext);
 	const [filteredList, setFilteredList] = useState([]);
 	const acceptedURLS = [
@@ -19,7 +14,6 @@ export default function CardList() {
 		"media.istockphoto.com",
 		"images.unsplash.com",
 	];
->>>>>>> df9b5f6818b3258fe89a2cc3af2689401479563f
 
 	function checkForAcceptedURLS(imgURL) {
 		// some will megre bool values with ||
@@ -113,14 +107,9 @@ export default function CardList() {
 				</div>
 				<div className="card-list-container">
 					<div className="-fx-image-gal">
-<<<<<<< HEAD
 						{filteredList.map((filteredList) => (
 							<div className="-fx-gal-item" key={filteredList.postid}
 							 onClick={()=> openModal(filteredList)}>
-=======
-						{filteredList.map((filteredList, index) => (
-							<div className="-fx-gal-item" key={index}>
->>>>>>> df9b5f6818b3258fe89a2cc3af2689401479563f
 								<div className="-fx-gal-image-thumb">
 									{checkForAcceptedURLS(
 										filteredList.images[0]
