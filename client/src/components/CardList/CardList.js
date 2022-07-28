@@ -1,41 +1,60 @@
 import "./CardList.css";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
+import images from "../../images.json";
 export default function CardList() {
 	const { allPosts: list } = useContext(GlobalContext);
 	const [filteredList, setFilteredList] = useState([]);
+	const allRef = useRef(null);
+	const acceptedURLS = [
+		"adoptify", "media.istockphoto.com", "images.unsplash.com"
+	]
 
-	window.onload = () => {
-		document.getElementById("card-list-all-button").focus();
-		document.getElementById("card-list-all-button").click();
+	function checkForAcceptedURLS(imgURL) {
+		// some will megre bool values with ||
+		// every will merge bool values with &&
+		return acceptedURLS.some((correctLink) => {
+			return imgURL.includes(correctLink);
+		})
 	}
-
 	useEffect(() => {
 		setFilteredList(list);
 	}, []);
 
+	useEffect(() => {
+		if (list.length) {
+			handleBtns();
+		}
+	}, [list]);
+
 	const handleBtns = (e) => {
-		let pet = e.target.value;
+		let pet = e?.target?.value ?? "All";
 
 		if (pet === "All") {
 			setFilteredList(list);
 		} else if (pet === "Dogs") {
 			const filtered = list.filter(
 				(list) =>
-					list.pet_species.toLowerCase() === "dog" || list.pet_species.toLowerCase() === "dogs"
+					list.pet_species.toLowerCase() === "dog" ||
+					list.pet_species.toLowerCase() === "dogs"
 			);
 
 			setFilteredList(filtered);
 		} else if (pet === "Cats") {
 			const filtered = list.filter(
 				(list) =>
-					list.pet_species.toLowerCase() === "cat" || list.pet_species.toLowerCase() === "cats"
+					list.pet_species.toLowerCase() === "cat" ||
+					list.pet_species.toLowerCase() === "cats"
 			);
 			setFilteredList(filtered);
 		} else {
-			const filtered = list.filter(list => 
-				list.pet_species.toLowerCase() !== 'dog' && list.pet_species.toLowerCase() !== 'dogs' && 
-				list.pet_species.toLowerCase() !== 'cat' &&  list.pet_species.toLowerCase() !== 'cats');
+			const filtered = list.filter(
+				(list) =>
+					list.pet_species.toLowerCase() !== "dog" &&
+					list.pet_species.toLowerCase() !== "dogs" &&
+					list.pet_species.toLowerCase() !== "cat" &&
+					list.pet_species.toLowerCase() !== "cats"
+			);
 			setFilteredList(filtered);
 		}
 	};
@@ -45,6 +64,7 @@ export default function CardList() {
 			<div className="card-list-all">
 				<div className="display-bar">
 					<button
+						// ref={allRef}
 						id="card-list-all-button"
 						className="display-bar-btn"
 						value="All"
@@ -76,14 +96,23 @@ export default function CardList() {
 				</div>
 				<div className="card-list-container">
 					<div className="-fx-image-gal">
-						{filteredList.map((filteredList) => (
-							<div className="-fx-gal-item" key={filteredList.id}>
+						{filteredList.map((filteredList, index) => (
+							<div className="-fx-gal-item" key={index}>
 								<div className="-fx-gal-image-thumb">
-									<img
-										alt="No Image"
-										src={filteredList.images[0]}
-										style={{ "max-width": "100%" }}
-									/>
+									{ checkForAcceptedURLS(filteredList.images[0])? (
+										<img
+											alt="No Image"
+											src={filteredList.images[0]}
+										/>
+									) : (
+										<img
+											src={images["image-placeholder"]}
+											style={{
+												maxWidth: "100%",
+												padding: "3em",
+											}}
+										/>
+									)}
 								</div>
 								<div className="-fx-gal-image-text">
 									<ul>

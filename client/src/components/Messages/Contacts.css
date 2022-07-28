@@ -1,0 +1,74 @@
+.contact-search-bar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 1em;
+    gap: 0.5em;
+    border-bottom: 1px solid var(--kinda-grey);
+}
+
+.contact-search-bar input {
+    width: 100%;
+    border-radius: 3px;
+    height: 2.5em;
+    outline: none;
+    border: 2px solid var(--kinda-grey);
+    font-size: 15px;
+    padding: 0 1em 0 1em;
+}
+
+.contact-search-bar input:focus {
+    outline: none;
+}
+
+.contact-search-bar button {
+    width: 20%;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    font-weight: 550;
+    color: black;
+    background-color: inherit;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+}
+
+.contact-search-bar button:hover {
+    color: white;
+    background-color: var(--brown);
+}
+
+.contacts {
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.contact {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.7em;
+    border-bottom: 1px solid var(--kinda-grey);
+}
+
+.contact:hover {
+    background-color: var(--navyblue);
+    color: white;
+}
+
+.contact-img img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
