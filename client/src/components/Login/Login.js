@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import "./Login.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
@@ -112,7 +112,7 @@ export default function Login({ setPermission, permission }) {
 							</div>
 							<div className="login-form-signup">
 								<p>Not a user?</p>
-								<a href="/signup">Sign Up</a>
+								<Link to="/signup">Sign Up</Link>
 							</div>
 						</form>
 					</div>

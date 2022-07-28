@@ -20,6 +20,9 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/add" className="addPost button">
 						Add Post
 					</Link>
+					<Link to="/messages" className="addPost button">
+						Messages
+					</Link>
 					{userDetails?.isadmin ? (
 						<Link to="/admin" className="addPost button">
 							Admin

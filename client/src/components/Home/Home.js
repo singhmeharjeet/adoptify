@@ -21,7 +21,7 @@ export default function Home({ clearPermission }) {
 
 	return (
 		<>
-			<NavBar handleLogout={handleLogout} username={token} />
+			<NavBar handleLogout={handleLogout} />
 			<div className="home-container">
 				<div className="home-left"></div>
 				<div className="home-center">
