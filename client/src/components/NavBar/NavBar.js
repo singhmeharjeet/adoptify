@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../global/GlobalContext";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
+import NavModal from "../NavModal/NavModal";
 
 export default function NavBar({ handleLogout }) {
 	const { userDetails } = useContext(GlobalContext);
+	const [confirm, setConfirm] = useState(false)
 	return (
 		<>
 			<nav className="nav">
@@ -31,9 +33,11 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/profile" className="addPost button">
 						Profile
 					</Link>
-					<a onClick={handleLogout} className="profile button">
+					<a onClick={() => setConfirm(true)} className="profile button">
 						Sign Out
 					</a>
+					{confirm ? 
+					<NavModal handleLogout={handleLogout} exit={() => setConfirm(false)}/> : ""}
 				</div>
 			</nav>
 		</>

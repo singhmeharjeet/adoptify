@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDom from 'react-dom'
+import { useNavigate } from "react-router-dom";
 
 const overlay = {
     position: 'fixed',
@@ -23,18 +24,10 @@ const modal = {
 
 export default function Modal({postInfo, closeModal}) {
 
+	const navigate = useNavigate();
     
-    // console.log(postData)
     return (
         <>
-            {/* <div style={overlay}/>
-            <div style={modal}>
-                <div>{postData.postid}</div>
-                <div>{postData.pet_name}</div>
-                <div>{postData.pet_species}</div>
-                <div>{postData.description}</div>
-                <button onClick={closeModal}>CLOSE MODAL</button>
-            </div> */}
             <div style={overlay} onClick={closeModal}/>
             <div style={modal}>
                 <div className="post" key={postInfo?.postid}>
@@ -55,6 +48,12 @@ export default function Modal({postInfo, closeModal}) {
 								onClick={closeModal}
 							>
 								CLOSE
+							</button>
+                            <button
+								className="post-edit-button"
+								onClick={() => navigate("/messages")}
+							>
+								MESSAGE
 							</button>
 						</div>
                         </div>
