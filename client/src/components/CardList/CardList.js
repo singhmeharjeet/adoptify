@@ -1,6 +1,6 @@
 import "./CardList.css";
 import React, { useEffect, useState, useContext } from "react";
-import { GlobalContext } from "../../global/GlobalContext";
+import { GlobalContext } from "../../Context/global/GlobalContext";
 import Modal from "../Modal/Modal";
 import images from "../../images.json";
 

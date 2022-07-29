@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../../global/GlobalContext";
+import { GlobalContext } from "../../Context/global/GlobalContext";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import NavModal from "../NavModal/NavModal";

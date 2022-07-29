@@ -9,7 +9,7 @@ module.exports = router.post("/:id", async (req, res) => {
 		if (error) {
 			res.json({ status: false, message: "error" }).status(400);
 		} else {
-			res.json({ status: true, message: "deleted" }).status(200);
+			res.json({ status: true, message: "deleted"}).status(200);
 		}
 	});
 });

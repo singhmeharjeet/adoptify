@@ -1,58 +1,8 @@
 import React from "react";
+import images from "../../images.json";
 import "./Contacts.css";
 
-export default function Contacts() {
-	let allContacts = [
-		{
-			image: "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2053&q=80",
-			name: "Jane Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2053&q=80",
-			name: "Jane Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2053&q=80",
-			name: "Jane Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2053&q=80",
-			name: "Jane Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-		{
-			image: "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=999&q=80",
-			name: "John Doe",
-		},
-	];
-
+export default function Contacts({ allContacts, createContact }) {
 	return (
 		<>
 			<div className="contact-search-bar">
@@ -63,9 +13,19 @@ export default function Contacts() {
 				{allContacts.map((contact, index) => (
 					<div className="contact" key={index}>
 						<div className="contact-img">
-							<img src={`${contact.image}`} alt="Contact Image" />
+							{contact.profilepicture ? (
+								<img
+									src={`${contact.profilepicture}`}
+									alt="Contact Image"
+								/>
+							) : (
+								<img
+									src={`${images["profile-placeholder"]}`}
+									alt="img"
+								/>
+							)}
 						</div>
-						<div className="contact-name">{`${contact.name}`}</div>
+						<div className="contact-name">{`${contact.firstname} ${contact.lastname}`}</div>
 					</div>
 				))}
 			</div>

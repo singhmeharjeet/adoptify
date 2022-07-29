@@ -3,7 +3,7 @@ import NavBar from "../NavBar/NavBar";
 import UsersTable from "./UsersTable";
 import PostsTable from "./PostsTable";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../global/GlobalContext";
+import { GlobalContext } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faUser,

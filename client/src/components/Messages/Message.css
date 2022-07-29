@@ -1,5 +1,6 @@
 .conversation {
     height: var(--page-height-with-navbar);
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -9,6 +10,7 @@
 .allMsgWrap {
     padding: 1em 0 0 0;
     height: 90%;
+    width: 100%;
 }
 
 .allMsg {
@@ -24,8 +26,8 @@
 .msgWrap {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
     align-items: flex-start;
 }
 

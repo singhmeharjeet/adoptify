@@ -14,8 +14,9 @@ import SignUp from "./components/SignUp/SignUp";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import Profile from "./components/Profile/Profile";
 import Admin from "./components/Admin/Admin";
-import GlobalContextProvider from "./global/GlobalContext";
-import MessagesPage from "./components/Messages/MessagesPage"
+import MessagesPage from "./components/Messages/MessagesPage";
+import GlobalContextProvider from "./Context/global/GlobalContext";
+import ContactsContextProvider from "./Context/Contacts/ContactsContext";
 
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
@@ -24,6 +25,14 @@ export default function App() {
 		setPerm("");
 		clearPermission();
 	};
+
+	const messagesPage = (
+		<ContactsContextProvider>
+			{/* <ConversationsContextProvider>
+			</ConversationsContextProvider> */}
+				<MessagesPage clearPermission={clearTokenAtApp} />
+		</ContactsContextProvider>
+	);
 
 	return (
 		<div className="App">
@@ -81,9 +90,7 @@ export default function App() {
 						<Route
 							caseSensitive={false}
 							path="/messages"
-							element={
-								<MessagesPage clearPermission={clearTokenAtApp} />
-							}
+							element={messagesPage}
 						/>
 						<Route
 							path="*"

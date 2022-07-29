@@ -4,7 +4,7 @@
     --page-height-with-navbar: calc(100vh - 3em);
     --navyblue: #002040;
     --brown: #7b4935;
-    --light-brown: #EBC7B2;
+    --light-brown: #ebc7b2;
     --kinda-white: #f5f5f5;
     --kinda-grey: #c1c1c1;
     --dark-grey: #c4c2c2;
@@ -13,7 +13,7 @@
 * {
     /* Scrollbars */
     /* -ms-overflow-style: none; */
-    /* scrollbar-width: none; */
+    scrollbar-width: 10px;
     /* overflow-y: scroll; */
     transition: all 0.3s ease-in-out;
     /* element styling */
@@ -22,16 +22,14 @@
     box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     height: 100%;
     width: 100%;
 }
-
-
-/* 
-*::-webkit-scrollbar {
-    display: none;
-} */
 
 .add-outer {
     width: 100vw;

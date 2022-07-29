@@ -1,6 +1,8 @@
 import React from "react";
 import Message from "./Message";
+
 export default function Conversation() {
+	
 	return (
 		<>
 			<div className="conversation">

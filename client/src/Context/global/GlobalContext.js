@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import AppReducer from "./AppReducer";
-import { BASE_URL } from "../../src/components/constants";
+import { BASE_URL } from "../../components/constants";
 import { INSERT_USER_DATA, INSERT_ALL_DATA, DELETE_POST, UPDATE_POST } from "./Types.js";
 import axios from "axios";
 
@@ -128,23 +128,6 @@ const GlobalContextProvider = ({ children }) => {
 		} catch (error) {
 			console.log("error", error);
 		}
-		
-		// try {
-		// 	let formData = new FormData();
-		// 	formData.append("id", id);
-		// 	formData.append("name", name);
-		// 	formData.append("species", species);
-		// 	formData.append("des", des);
-		// 	await axios.post(`${BASE_URL}/editPost`, formData);
-		// 	putUserData(localStorage.getItem("token"));
-		// } catch (err) {
-		// 	if (err) {
-		// 		console.log("There was a problem with the server");
-		// 	} else {
-		// 		console.log("success");
-		// 		putUserData(localStorage.getItem("token"));
-		// 	}
-		// }
 	}
 	useEffect(() => {
 		putAllData();

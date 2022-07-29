@@ -8,7 +8,7 @@ import EditPost from "./EditPost";
 import Info from "./Info.js";
 import "./Profile.css";
 
-import { GlobalContext } from "../../global/GlobalContext";
+import { GlobalContext } from "../../Context/global/GlobalContext";
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();

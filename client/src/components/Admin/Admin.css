@@ -40,7 +40,7 @@
     background-color: var(--kinda-white);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px, rgba(0, 0, 0, 0.3) 0px 5px 10px;
     border-radius: 10px;
-    overflow: hidden;
+    overflow-x: scroll;
 }
 
 .users-table {

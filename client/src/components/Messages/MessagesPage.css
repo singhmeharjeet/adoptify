@@ -1,11 +1,10 @@
 .messages-container {
     display: flex;
-    flex-grow: 1;
 }
 
 .contacts-container {
     height: var(--page-height-with-navbar);
-    width: 500px;
+    width: 40vw;
     display: flex;
     align-items: center;
     flex-direction: column;
