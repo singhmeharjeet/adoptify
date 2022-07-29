@@ -31,6 +31,8 @@ async function authenticate(username, password) {
 export default function Login({ setPermission, permission }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [passwordType, setPasswordType] = useState("password")
+
 	let navigate = useNavigate();
 
 	if (permission) return <Navigate to="/"></Navigate>;
@@ -57,6 +59,14 @@ export default function Login({ setPermission, permission }) {
 		// Allow the user to go to the home page
 		navigate("/", { replace: true });
 	};
+
+	const handleEyeClick = () => {
+		if (passwordType === "password") {
+			setPasswordType("text");
+		} else {
+			setPasswordType("password");
+		}
+	}
 
 	return (
 		<>
@@ -91,16 +101,24 @@ export default function Login({ setPermission, permission }) {
 									src={images["login-lock-icon"]}
 								/>
 								<input
-									type="password"
+									type={passwordType}
 									placeholder="Password"
 									required
 									onChange={(e) => {
 										setPassword(e.target.value);
 									}}
+<<<<<<< HEAD
 								
 								/>{" "}
 								<span></span>
 								
+=======
+								/>
+								<i onClick={handleEyeClick}>
+									{passwordType === "password" ? <img id="passEye" src={images["password-eye"]}/> : <img id="passEyeSlash" src={images["password-eye-slash"]}/>}
+								</i>
+								{" "}
+>>>>>>> c949c45689d580650790a09798e443697e6842bc
 							</div>
 
 							<div>
