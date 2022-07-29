@@ -30,12 +30,11 @@ export default function SignUp() {
 		try {
 			const res = await axios
 				.post(`${BASE_URL}/addUser`, userFormData)
+				.then(response => console.log(response))
 				.then(alert("Signed up successfully!"));
 		} catch (err) {
-			if (err.response.status === 500) {
-				console.log("There was a problem with the server");
-			} else {
-				console.log(err.response.data.msg);
+			if(err){ 
+				console.log(err);
 			}
 		}
 	};
