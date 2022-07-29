@@ -97,7 +97,10 @@ export default function Login({ setPermission, permission }) {
 									onChange={(e) => {
 										setPassword(e.target.value);
 									}}
+								
 								/>{" "}
+								<span></span>
+								
 							</div>
 
 							<div>
