@@ -6,6 +6,7 @@ import NavBar from "../NavBar/NavBar";
 import Post from "./Post";
 import EditPost from "./EditPost";
 import Info from "./Info.js";
+import images from "../../images.json";
 import "./Profile.css";
 
 import { GlobalContext } from "../../Context/global/GlobalContext";
@@ -64,6 +65,11 @@ const Profile = ({ clearPermission }) => {
 	const cancelEdit = async (e) => {
 		editPost(-1);
 	};
+
+	function profilePictureExists(imgURL) {
+		if (imgURL) return imgURL.includes("adoptify");
+		else return false;
+	}
 	return (
 		<>
 			<NavBar
@@ -79,10 +85,19 @@ const Profile = ({ clearPermission }) => {
 							{userDetails.lastname ? userDetails.lastname : ""}!
 						</p>
 						<div className="profile-picture-container">
-							<img
-								className="profile-picture"
-								src="/sample-pic.jpg"
-							/>
+							{profilePictureExists(
+								userDetails.profilepicture
+							) ? (
+								<img
+									className="profile-picture"
+									src={userDetails?.profilepicture}
+								/>
+							) : (
+								<img
+									className="profile-picture"
+									src={images["profile-placeholder"]}
+								/>
+							)}
 						</div>
 						<div className="profile-info-container">
 							<Info userDetails={userDetails} />
