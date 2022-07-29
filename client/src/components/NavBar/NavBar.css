@@ -23,8 +23,7 @@
     gap: 0.5em;
 }
 
-.left .button,
-.center .button,
+.button,
 .logo {
     min-width: 10em;
     display: flex;
@@ -46,8 +45,47 @@
     text-decoration: none;
 }
 
-.left .button:hover,
-.center .button:hover {
+.button:hover {
     background-color: var(--kinda-white);
     color: var(--navyblue);
+}
+
+.confirm-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 2em;
+    height: 3em;
+    align-items: center;
+}
+
+.confirm-row>button {
+    background-color: var(--navyblue);
+}
+
+.navModal {
+    transition: all 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--kinda-grey);
+    z-index: 1000;
+    padding: 3em;
+    gap: 1em;
+    border-radius: 10px;
+}
+
+.navModal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }

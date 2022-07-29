@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../Context/global/GlobalContext";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
-import NavModal from "../NavModal/NavModal";
+import NavModal from "./NavModal";
 
 export default function NavBar({ handleLogout }) {
 	const { userDetails } = useContext(GlobalContext);
