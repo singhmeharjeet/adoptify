@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 import {
 	faCaretLeft,
 	faEye,
@@ -18,7 +19,9 @@ export default function SignUp() {
 	const [uAddress, setAddress] = useState("");
 	const [uEmail, setEmail] = useState("");
 	const [uPassword, setPassword] = useState("");
-	const [passwordType, setPasswordType] = useState("password")
+	const [passwordType, setPasswordType] = useState("password");
+	const {allUsers} = useGlobalData();
+	const [isDisabled, setDisabled] = useState(false);
 
 	const handleEyeClick = () => {
 		if (passwordType === "password") {
@@ -26,6 +29,17 @@ export default function SignUp() {
 		} else {
 			setPasswordType("password");
 		}
+	}
+
+	const checkUsername = (email) => {
+		const tempUsernames = allUsers.map(d => d.username)
+		if(tempUsernames.includes(email)){
+			// window.alert("Warning: This email is already taken. Please enter another email.")
+			setDisabled(true);	
+		}else{
+			setDisabled(false);
+		}
+		console.log(tempUsernames);
 	}
 
 	const onSubmit = async (e) => {
@@ -72,7 +86,7 @@ export default function SignUp() {
 						<div className="signup-form-outline">
 							<form
 								className="signup-form"
-								onSubmit={onSubmit}
+								// onSubmit={onSubmit}
 								// action="/login"
 								// method="post"
 							>
@@ -149,7 +163,11 @@ export default function SignUp() {
 										}}
 									/>
 								</div>
-								<div className="form-field">
+								<div className="form-field" onBlur={(event) => {
+											checkUsername(
+												event.target.value
+											);
+										}}>
 									<img
 										alt=""
 										id="user"
@@ -191,7 +209,8 @@ export default function SignUp() {
 
 								<div>
 									<div className="login-form-button-wrapper">
-										<button type="submit">Sign Up</button>
+										<button type="submit" id = "sign-up-button" disabled={isDisabled}
+										 >Sign Up</button>
 									</div>
 								</div>
 							</form>
