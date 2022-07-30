@@ -9,13 +9,13 @@ import Info from "./Info.js";
 import images from "../../images.json";
 import "./Profile.css";
 
-import { GlobalContext } from "../../Context/global/GlobalContext";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
 	const { userDetails, postsDetails, deletePostData, editUserPost } =
-		useContext(GlobalContext);
+		useGlobalData();
 	const [postState, setPostState] = useState(-1);
 
 	// -1 as a post id means that it is not editing

@@ -1,12 +1,15 @@
-import React, { useContext, useState } from "react";
-import { GlobalContext } from "../../Context/global/GlobalContext";
+import React, { useState } from "react";
+import { useGlobalData } from "../../Context/global/GlobalContext";
+import { useContacts } from "../../Context/Contacts/ContactsContext";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import NavModal from "./NavModal";
 
 export default function NavBar({ handleLogout }) {
-	const { userDetails } = useContext(GlobalContext);
-	const [confirm, setConfirm] = useState(false)
+	const { userDetails } = useGlobalData();
+	const { contacts } = useContacts();
+	const [confirm, setConfirm] = useState(false);
+
 	return (
 		<>
 			<nav className="nav">
@@ -22,9 +25,11 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/add" className="addPost button">
 						Add Post
 					</Link>
-					<Link to="/messages" className="addPost button">
-						Messages
-					</Link>
+					{contacts.length === 0 ? null : (
+						<Link to="/messages" className="addPost button">
+							Messages
+						</Link>
+					)}
 					{userDetails?.isadmin ? (
 						<Link to="/admin" className="addPost button">
 							Admin
@@ -33,11 +38,20 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/profile" className="addPost button">
 						Profile
 					</Link>
-					<a onClick={() => setConfirm(true)} className="profile button">
+					<a
+						onClick={() => setConfirm(true)}
+						className="profile button"
+					>
 						Sign Out
 					</a>
-					{confirm ? 
-					<NavModal handleLogout={handleLogout} exit={() => setConfirm(false)}/> : ""}
+					{confirm ? (
+						<NavModal
+							handleLogout={handleLogout}
+							exit={() => setConfirm(false)}
+						/>
+					) : (
+						""
+					)}
 				</div>
 			</nav>
 		</>

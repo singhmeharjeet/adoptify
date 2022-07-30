@@ -61,6 +61,9 @@ export default function Login({ setPermission, permission }) {
 		// When we receive the token from the server, we set it to the local storage of the browser
 		setPermission(isAuthenticated);
 
+		// Refresh before signing in to avoid previous session login bug
+		window.location.reload();
+		
 		// Allow the user to go to the home page
 		navigate("/", { replace: true });
 	};

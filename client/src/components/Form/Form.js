@@ -110,6 +110,7 @@ export default function Form({ username }) {
 									<div className="app-form-group message">
 										<textarea
 											type="text"
+											style={{ resize: "none" }}
 											name="description"
 											className="app-form-control"
 											placeholder="PET'S DESCRIPTION"

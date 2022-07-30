@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useContext } from "react";
 import AppReducer from "./AppReducer";
 import { BASE_URL } from "../../components/constants";
 import { INSERT_USER_DATA, INSERT_ALL_DATA, DELETE_POST, UPDATE_POST } from "./Types.js";
@@ -13,8 +13,11 @@ const initialState = {
 };
 
 // Create context
-export const GlobalContext = createContext(initialState);
+const GlobalContext = createContext(initialState);
 
+export function useGlobalData() {
+	return useContext(GlobalContext);
+}
 // Provider component
 const GlobalContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
@@ -103,6 +106,9 @@ const GlobalContextProvider = ({ children }) => {
 			}
 		}
 	}
+	function getUserDetailsFromUsername(username) {
+		return state.allUsers.find((user) => user.username === username)
+	}
 	async function editUserPost(id, name, species, des) {
 		try {
 			const responseJSON = await (
@@ -145,6 +151,7 @@ const GlobalContextProvider = ({ children }) => {
 				deleteUserData,
 				deletePostData,
 				editUserPost,
+				getUserDetailsFromUsername
 			}}
 		>
 			{children}

@@ -102,7 +102,7 @@
     justify-content: space-evenly;
     align-items: flex-start;
     transition: all 0.3s ease-in-out;
-    border-top: 0.01em solid var(--kinda-grey);
+    /* border-top: 0.01em solid var(--kinda-grey); */
 }
 
 .-fx-gal-image-text>ul {

@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import UsersTable from "./UsersTable";
 import PostsTable from "./PostsTable";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../Context/global/GlobalContext";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faUser,
@@ -16,8 +16,7 @@ import "./Admin.css";
 export default function Admin({ clearPermission }) {
 	const navigate = useNavigate();
 	const [showUsers, setShowUsers] = useState(true);
-	const { userDetails, allUsers, allPosts, deleteUserData, deletePostData } =
-		useContext(GlobalContext);
+	const { userDetails, allUsers, allPosts, deleteUserData, deletePostData } = useGlobalData();
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");

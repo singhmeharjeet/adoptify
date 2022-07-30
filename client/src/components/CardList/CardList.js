@@ -1,13 +1,13 @@
 import "./CardList.css";
-import React, { useEffect, useState, useContext } from "react";
-import { GlobalContext } from "../../Context/global/GlobalContext";
+import React, { useEffect, useState } from "react";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 import Modal from "../Modal/Modal";
 import images from "../../images.json";
 
 export default function CardList() {
 	const [modalData, setModalData] = useState(null);
 	const [isOpen, setIsOpen] = useState(false);
-	const { allPosts: list } = useContext(GlobalContext);
+	const { allPosts: list } = useGlobalData();
 	const [filteredList, setFilteredList] = useState([]);
 	const acceptedURLS = [
 		"adoptify",
@@ -26,6 +26,11 @@ export default function CardList() {
 		setFilteredList(list);
 	}, []);
 
+	// Bug Ask Ananat
+	// Home page doesn't change 
+	useEffect(() => {
+
+	},[list])
 	useEffect(() => {
 		if (list.length) {
 			handleBtns();
