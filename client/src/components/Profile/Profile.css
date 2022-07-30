@@ -207,8 +207,8 @@
     min-width: 7em;
     padding: 0.5em;
     background-color: #fff;
-    color: #2b2b2b;
-    border-color: #2b2b2b;
+    color: var(--navyblue);
+    border-color: var(--navyblue);
     border-radius: 3px;
     font-family: Georgia;
     font-size: 13px;
@@ -223,8 +223,8 @@
 
 .post-delete-button:hover,
 .post-edit-button:hover {
-    border-color: black;
-    background-color: black;
+    border-color: var(--navyblue);
+    background-color: var(--navyblue);
     color: white;
     transition: 0.4s;
 }
