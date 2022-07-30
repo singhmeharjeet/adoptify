@@ -22,7 +22,9 @@ export default function SignUp() {
 	const [passwordType, setPasswordType] = useState("password");
 	const {allUsers} = useGlobalData();
 	const [isDisabled, setDisabled] = useState(false);
-
+	const [confPasswordType, setconfPasswordType] = useState("password");
+	const [isError, setError] = useState("");
+	const [uConfirmPassword, setConfirmPassword] = useState("");
 	const handleEyeClick = () => {
 		if (passwordType === "password") {
 			setPasswordType("text");
@@ -30,6 +32,26 @@ export default function SignUp() {
 			setPasswordType("password");
 		}
 	}
+	const handleConfEyeClick = () => {
+		if (confPasswordType === "password") {
+			setconfPasswordType("text");
+		} else {
+			setconfPasswordType("password");
+		}
+	}
+
+
+	const checkValidation=(event) => {
+		const confirmPassword = event.target.value;
+		setConfirmPassword(confirmPassword);
+		if(uPassword !== confirmPassword){
+			setError("Confirm Password should match with Password");
+		}
+		else {
+			setError("");
+		}
+	}
+
 
 	const checkUsername = (email) => {
 		const tempUsernames = allUsers.map(d => d.username)
@@ -52,6 +74,7 @@ export default function SignUp() {
 		userFormData.append("uAddress", uAddress);
 		userFormData.append("uEmail", uEmail);
 		userFormData.append("uPassword", uPassword);
+		userFormData.append("uConfirmPassword", uConfirmPassword);
 		// userFormData.append("uImage", uImage);   IF we are having them insert their profile pic during sign up
 
 		try {
@@ -86,7 +109,7 @@ export default function SignUp() {
 						<div className="signup-form-outline">
 							<form
 								className="signup-form"
-								// onSubmit={onSubmit}
+								 onSubmit={onSubmit}
 								// action="/login"
 								// method="post"
 							>
@@ -201,11 +224,39 @@ export default function SignUp() {
 											);
 										}}
 									/>
-									<i onClick={handleEyeClick}>
-										{passwordType === "password" ? <FontAwesomeIcon id="passEye" icon={faEye}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash" icon={faEyeSlash}></FontAwesomeIcon>}
+												<i className="eyeIcon" onClick={handleEyeClick}>
+										{passwordType === "password" ? <FontAwesomeIcon id="passEye"  icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash"  icon={faEye}></FontAwesomeIcon>}
 									</i>
 									{" "}
 								</div>
+								<div className="form-field">
+									<img
+										alt=""
+										id="lock"
+										src={images["login-lock-icon"]}
+									/>
+									<input className="form-input"
+										name="confirmPassword"
+										type={passwordType}
+										placeholder="Confirm Password"
+										required
+										onBlur={(event) => 
+											checkValidation(event)
+										}
+									/>
+									<i className="eyeConfIcon" onClick={handleConfEyeClick}>
+										{confPasswordType === "password" ? <FontAwesomeIcon id="passEye"  icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash"  icon={faEye}></FontAwesomeIcon>}
+									</i>
+									{" "}
+								</div>
+								<div className="form-field">
+								<span><svg aria-hidden="true" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></span>
+										<div>{isError}</div>
+										{/* <div style={{position: "absolute", top:20,marginLeft: 330}}>
+											{isError}
+										</div> */}
+								</div>
+								
 
 								<div>
 									<div className="login-form-button-wrapper">

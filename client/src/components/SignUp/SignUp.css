@@ -72,3 +72,11 @@
   color: #666666;
   cursor: default;
 }
+
+.eyeIcon{
+    cursor: pointer;
+}
+
+.eyeConfIcon{
+    cursor: pointer;
+}
