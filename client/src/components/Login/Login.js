@@ -4,6 +4,11 @@ import { useNavigate, Navigate, Link } from "react-router-dom";
 import "./Login.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faEye,
+	faEyeSlash
+} from "@fortawesome/free-solid-svg-icons";
 
 async function authenticate(username, password) {
 	let result = "";
@@ -84,7 +89,7 @@ export default function Login({ setPermission, permission }) {
 									id="user"
 									src={images["login-user-icon"]}
 								/>
-								<input
+								<input className="form-input"
 									type="text"
 									placeholder="Email"
 									required
@@ -100,27 +105,18 @@ export default function Login({ setPermission, permission }) {
 									id="lock"
 									src={images["login-lock-icon"]}
 								/>
-								<input
+								<input className="form-input"
 									type={passwordType}
 									placeholder="Password"
 									required
 									onChange={(e) => {
 										setPassword(e.target.value);
 									}}
-<<<<<<< HEAD
-								
-								/>{" "}
-								<span></span>
-								
-=======
 								/>
 								<i onClick={handleEyeClick}>
-									{passwordType === "password" ? <img id="passEye" src={images["password-eye"]}/> : <img id="passEyeSlash" src={images["password-eye-slash"]}/>}
+									{passwordType === "password" ? <FontAwesomeIcon id="passEye" icon={faEye}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash" icon={faEyeSlash}></FontAwesomeIcon>}
 								</i>
-								{" "}
->>>>>>> c949c45689d580650790a09798e443697e6842bc
 							</div>
-
 							<div>
 								<div className="login-form-button-wrapper">
 									<button

@@ -5,7 +5,11 @@ import { BASE_URL } from "../constants";
 import images from "../../images.json";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+	faCaretLeft,
+	faEye,
+	faEyeSlash
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
 	const [uFirstName, setFirstName] = useState("");
@@ -14,6 +18,15 @@ export default function SignUp() {
 	const [uAddress, setAddress] = useState("");
 	const [uEmail, setEmail] = useState("");
 	const [uPassword, setPassword] = useState("");
+	const [passwordType, setPasswordType] = useState("password")
+
+	const handleEyeClick = () => {
+		if (passwordType === "password") {
+			setPasswordType("text");
+		} else {
+			setPasswordType("password");
+		}
+	}
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -69,7 +82,7 @@ export default function SignUp() {
 										id="signup-user-first-name"
 										src={images["signup-user-name-icon"]}
 									/>
-									<input
+									<input className="form-input"
 										name="firstname"
 										type="text"
 										placeholder="First Name"
@@ -87,7 +100,7 @@ export default function SignUp() {
 										id="signup-user-last-name"
 										src={images["signup-user-name-icon"]}
 									/>
-									<input
+									<input className="form-input"
 										name="lastname"
 										type="text"
 										placeholder="Last Name"
@@ -104,8 +117,8 @@ export default function SignUp() {
 										alt=""
 										id="signup-user-phone"
 										src={images["signup-user-phone-icon"]}
-									/>
-									<input
+									/> 
+									<input className="form-input"
 										name="phonenum"
 										type="tel"
 										pattern="[0-9]{10}"
@@ -124,7 +137,7 @@ export default function SignUp() {
 										id="signup-user-address"
 										src={images["signup-user-address-icon"]}
 									/>
-									<input
+									<input className="form-input"
 										name="address"
 										type="text"
 										placeholder="Address"
@@ -142,7 +155,7 @@ export default function SignUp() {
 										id="user"
 										src={images["signup-user-email-icon"]}
 									/>
-									<input
+									<input className="form-input"
 										name="email"
 										type="email"
 										placeholder="Email"
@@ -159,9 +172,9 @@ export default function SignUp() {
 										id="lock"
 										src={images["login-lock-icon"]}
 									/>
-									<input
+									<input className="form-input"
 										name="password"
-										type="password"
+										type={passwordType}
 										placeholder="Password"
 										required
 										onChange={(event) => {
@@ -169,7 +182,11 @@ export default function SignUp() {
 												event.target.value
 											);
 										}}
-									/>{" "}
+									/>
+									<i onClick={handleEyeClick}>
+										{passwordType === "password" ? <FontAwesomeIcon id="passEye" icon={faEye}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash" icon={faEyeSlash}></FontAwesomeIcon>}
+									</i>
+									{" "}
 								</div>
 
 								<div>
