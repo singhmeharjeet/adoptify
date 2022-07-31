@@ -246,3 +246,8 @@
 .post-title>input:focus {
     outline: none;
 }
+
+#editPicIcon {
+    width: 25px;
+    height: 25px;
+}

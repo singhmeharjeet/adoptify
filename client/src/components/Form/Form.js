@@ -11,7 +11,6 @@ export default function Form({ username }) {
 	const [petDescription, setPetDescription] = useState("");
 
 	const [petImageName, setPetImageName] = useState("");
-	const [uploadedImage, setUploadedImage] = useState({});
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -45,10 +44,6 @@ export default function Form({ username }) {
 
 		try {
 			const res = await axios.post(`${BASE_URL}/addPost`, formData);
-			const { imageName, imagePath } = res.data;
-
-			setUploadedImage({ imageName, imagePath });
-			console.log("uploadedImage", uploadedImage);
 		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");

@@ -14,6 +14,7 @@ const admin = require("./routers/admin.js");
 const removePost = require("./routers/deletePost.js");
 const removeUser = require("./routers/deleteUser.js");
 const editPost = require("./routers/editPost.js");
+const editProfilePic = require("./routers/editProfilePic.js");
 
 /* 
 	Setup Server app
@@ -44,6 +45,7 @@ app.use("/allData", admin);
 app.use("/delete", removePost);
 app.use("/deleteUser", removeUser);
 app.use("/editPost", editPost);
+app.use("/editProfilePic", editProfilePic);
 
 /* 
 	Default Action

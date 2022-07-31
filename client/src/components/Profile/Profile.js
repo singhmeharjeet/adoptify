@@ -7,9 +7,13 @@ import Post from "./Post";
 import EditPost from "./EditPost";
 import Info from "./Info.js";
 import images from "../../images.json";
+import axios from "axios";
+import { BASE_URL } from "../constants";
 import "./Profile.css";
 
 import { useGlobalData } from "../../Context/global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImagePortrait } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
@@ -17,6 +21,8 @@ const Profile = ({ clearPermission }) => {
 	const { userDetails, postsDetails, deletePostData, editUserPost } =
 		useGlobalData();
 	const [postState, setPostState] = useState(-1);
+	const [newProfilePic, setNewProfilePic] = useState();
+	const [isPicClicked, setIsPicClicked] = useState(false);
 
 	// -1 as a post id means that it is not editing
 	const isPostEditing = (pid) => {
@@ -70,6 +76,32 @@ const Profile = ({ clearPermission }) => {
 		if (imgURL) return imgURL.includes("adoptify");
 		else return false;
 	}
+
+	function handlePicClick() {
+		//should maybe pop up modal and show a choose new image screen
+		setIsPicClicked(!isPicClicked);
+		console.log("pic button clicked");	 
+	}
+
+	const handleNewPicSubmit = async (e) => {
+		e.preventDefault();
+
+		const formData = new FormData();
+		formData.append("newProfilePic", newProfilePic);
+		formData.append("username", userDetails.username);
+
+		try {
+			const res = await axios.post(`${BASE_URL}/editProfilePic`, formData);
+		} catch (err) {
+			if (err.response.status === 500) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log(err.response.data.msg);
+			}
+		}
+
+	}
+	
 	return (
 		<>
 			<NavBar
@@ -98,6 +130,21 @@ const Profile = ({ clearPermission }) => {
 									src={images["profile-placeholder"]}
 								/>
 							)}
+							<i onClick={handlePicClick}>
+								<FontAwesomeIcon id="editPicIcon" icon={faImagePortrait}/>
+							</i>
+							<>
+								{isPicClicked ? 
+								<form onSubmit={handleNewPicSubmit}>
+									<input type="file" name="newPic" onChange={(e) => {
+										setNewProfilePic(e.target.files[0]);
+									}}/>
+									<button type="submit" className="app-form-button">
+										Submit
+									</button>
+								</form>
+								: ""}
+							</>
 						</div>
 						<div className="profile-info-container">
 							<Info userDetails={userDetails} />
