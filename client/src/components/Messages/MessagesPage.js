@@ -27,11 +27,11 @@ export default function MessagesPage({ clearPermission }) {
 		clearPermission();
 		navigate("/login");
 	}
-	
+
 	function handleContactClick(contact) {
 		setSelectedContact(contact);
 		setSelectedConversation(conversations[contact.conversationKey]);
-		console.log("Taling to", selectedContact.firstname, selectedConversation);
+		console.log("Talking to", selectedContact.firstname, selectedConversation);
 	}
 
 	return (

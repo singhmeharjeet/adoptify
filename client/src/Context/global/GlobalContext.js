@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useEffect, useContext } from "react";
 import AppReducer from "./AppReducer";
 import { BASE_URL } from "../../components/constants";
 import { INSERT_USER_DATA, INSERT_ALL_DATA, DELETE_POST, UPDATE_POST } from "./Types.js";
-import axios from "axios";
+
 
 // Initial state
 const initialState = {
@@ -18,6 +18,7 @@ const GlobalContext = createContext(initialState);
 export function useGlobalData() {
 	return useContext(GlobalContext);
 }
+
 // Provider component
 const GlobalContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);

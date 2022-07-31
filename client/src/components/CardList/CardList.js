@@ -27,10 +27,8 @@ export default function CardList() {
 	}, []);
 
 	// Bug Ask Ananat
-	// Home page doesn't change 
-	useEffect(() => {
-
-	},[list])
+	// Home page doesn't change
+	// useEffect(() => {}, [list]);
 	useEffect(() => {
 		if (list.length) {
 			handleBtns();
@@ -70,10 +68,9 @@ export default function CardList() {
 	};
 
 	const openModal = (data) => {
-		setModalData(data)
-		setIsOpen(true)
-	}
-
+		setModalData(data);
+		setIsOpen(true);
+	};
 
 	return (
 		<>
@@ -113,8 +110,11 @@ export default function CardList() {
 				<div className="card-list-container">
 					<div className="-fx-image-gal">
 						{filteredList.map((filteredList) => (
-							<div className="-fx-gal-item" key={filteredList.postid}
-							 onClick={()=> openModal(filteredList)}>
+							<div
+								className="-fx-gal-item"
+								key={filteredList.postid}
+								onClick={() => openModal(filteredList)}
+							>
 								<div className="-fx-gal-image-thumb">
 									{checkForAcceptedURLS(
 										filteredList.images[0]
@@ -147,9 +147,16 @@ export default function CardList() {
 							</div>
 						))}
 					</div>
-					{isOpen ? <Modal postInfo={modalData} closeModal={() => setIsOpen(false)}>
-						Modal
-					</Modal> : ""}
+					{isOpen ? (
+						<Modal
+							postInfo={modalData}
+							closeModal={() => setIsOpen(false)}
+						>
+							Modal
+						</Modal>
+					) : (
+						""
+					)}
 				</div>
 			</div>
 		</>

@@ -27,7 +27,7 @@ export default function ConversationsContexProvider({ children }) {
 		text,
 		time_stamp
 	) {
-		console.log("conversations before adding", conversations);
+		// console.log("conversations before adding", conversations);
 		if (
 			key != null &&
 			sender_id != null &&
