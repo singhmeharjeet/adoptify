@@ -251,18 +251,11 @@
 #post-edit-icon{
     cursor: pointer;
     font-size: 25px;
-    margin-right: 25px;
-    margin-top:5px;
-    transition: transform .3s;
-}
-
-#post-table-delete-icon{
-    color: var(--navyblue);
-    cursor: pointer;
-    font-size: 25px;
     margin-right: 10px;
     margin-top:5px;
-    transition: transform .3s;
+    padding: 10px;
+    border-radius: 10%;
+    transition: all 0.4s ease;
 }
 
 #post-delete-icon{
@@ -270,15 +263,19 @@
     font-size: 25px;
     margin-right: 10px;
     margin-top:5px;
-    transition: transform .3s;
+    padding: 10px;
+    border-radius: 10%;
+    transition: all 0.4s ease;
 }
 
 #post-save-icon{
     cursor: pointer;
     font-size: 25px;
-    margin-right: 25px;
+    margin-right: 10px;
     margin-top:5px;
-    transition: transform .3s;
+    padding: 10px;
+    border-radius: 10%;
+    transition: all 0.4s ease;
 }
 
 #post-cancel-icon{
@@ -286,19 +283,13 @@
     font-size: 25px;
     margin-right: 10px;
     margin-top:5px;
-    transition: transform .3s;
+    padding: 10px;
+    border-radius: 10%;
+    transition: all 0.4s ease;
 }
 
-#user-delete-icon{
-    color: var(--navyblue);
-    cursor: pointer;
-    font-size: 25px;
-    margin-right: 10px;
-    margin-top:5px;
-    transition: transform .3s;
-}
-
-#post-edit-icon:hover, #post-table-delete-icon:hover, #post-delete-icon:hover, 
-#post-save-icon:hover, #post-cancel-icon:hover, #user-delete-icon:hover {
-    transform: scale(1.3); 
+#post-edit-icon:hover, #post-delete-icon:hover, 
+#post-save-icon:hover, #post-cancel-icon:hover{
+    transform: scale(1.2); 
+    background-color: rgb(207, 207, 207);
 } 
