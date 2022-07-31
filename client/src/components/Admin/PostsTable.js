@@ -1,4 +1,8 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function PostsTable({ allPosts, deletePostData }) {
 	return (
@@ -24,7 +28,17 @@ export default function PostsTable({ allPosts, deletePostData }) {
 								<td>{post.pet_species}</td>
 								<td>{post.description}</td>
 								<td>
-									<input
+								<FontAwesomeIcon id="post-table-delete-icon"  icon={faTrashCan}
+									value="Delete"
+									onClick={() => {
+										deletePostData(post?.postid);
+										setTimeout(
+											() => window.location.reload(),
+											500
+										);
+									}}>
+								</FontAwesomeIcon>
+									{/* <input
 										type="button"
 										className="delete-button"
 										value="Delete"
@@ -35,7 +49,7 @@ export default function PostsTable({ allPosts, deletePostData }) {
 												500
 											);
 										}}
-									/>
+									/> */}
 								</td>
 							</tr>
 						</tbody>
