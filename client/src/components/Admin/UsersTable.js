@@ -30,7 +30,7 @@ export default function UsersTable({ allUsers, deleteUserData }) {
 								<td>{user.email}</td>
 								<td>{user.address}</td>
 								<td>
-								<FontAwesomeIcon id="user-delete-icon"  icon={faTrashCan}
+								<FontAwesomeIcon id="user-table-delete-icon"  icon={faTrashCan}
 									value="Delete"
 									onClick={() => {
 										deleteUserData(user?.username);
