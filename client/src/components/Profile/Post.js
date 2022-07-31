@@ -1,4 +1,9 @@
-import React from 'react'
+import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faPenToSquare,
+	faTrashCan
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Post({postInfo, editPost, onDelete}) {
   return (
@@ -16,19 +21,14 @@ export default function Post({postInfo, editPost, onDelete}) {
 							</p>
 						</div>
 						<div className="post-buttons">
-							<button
-								className="post-edit-button"
-								onClick={() => editPost(postInfo?.postid)}
-							>
-								EDIT
-							</button>
-							<button
-								className="post-delete-button"
+							<FontAwesomeIcon id="post-edit-icon"  icon={faPenToSquare}
+								onClick={() => editPost(postInfo?.postid)}>
+							</FontAwesomeIcon>
+
+							<FontAwesomeIcon id="post-delete-icon"  icon={faTrashCan}
 								value={postInfo?.postid}
-								onClick={onDelete}
-							>
-								DELETE
-							</button>
+								onClick={onDelete}>
+							</FontAwesomeIcon>
 						</div>
 					</div>
 					<p className="pet-description">{postInfo?.description}</p>

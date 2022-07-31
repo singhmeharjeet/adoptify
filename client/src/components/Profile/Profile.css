@@ -230,12 +230,8 @@
 }
 
 .post-buttons {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
     justify-content: center;
     align-items: flex-end;
-    gap: 0.3em;
 }
 
 .post-title>input {
@@ -251,3 +247,58 @@
     width: 25px;
     height: 25px;
 }
+
+#post-edit-icon{
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 25px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#post-table-delete-icon{
+    color: var(--navyblue);
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#post-delete-icon{
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#post-save-icon{
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 25px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#post-cancel-icon{
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#user-delete-icon{
+    color: var(--navyblue);
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 10px;
+    margin-top:5px;
+    transition: transform .3s;
+}
+
+#post-edit-icon:hover, #post-table-delete-icon:hover, #post-delete-icon:hover, 
+#post-save-icon:hover, #post-cancel-icon:hover, #user-delete-icon:hover {
+    transform: scale(1.3); 
+} 

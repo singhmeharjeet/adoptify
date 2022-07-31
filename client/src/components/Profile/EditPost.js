@@ -1,4 +1,9 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faFloppyDisk,
+	faX
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
 	return (
@@ -20,26 +25,13 @@ export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
 							/>
 						</div>
 						<div className="post-buttons">
-							<button
-								className="post-edit-button"
-								onClick={savePost}
-							>
-								SAVE
-							</button>
-							<button
-								className="post-edit-button"
-								onClick={cancelEdit}
-							>
-								CANCEL
-							</button>
+							<FontAwesomeIcon id="post-save-icon"  icon={faFloppyDisk}
+								onClick={savePost}>
+							</FontAwesomeIcon>
 
-							<button
-								className="post-delete-button"
-								value={postInfo?.postid}
-								onClick={onDelete}
-							>
-								DELETE
-							</button>
+							<FontAwesomeIcon id="post-cancel-icon"  icon={faX}
+								onClick={cancelEdit}>
+							</FontAwesomeIcon>
 						</div>
 					</div>
 					<textarea
