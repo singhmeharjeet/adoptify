@@ -8,6 +8,8 @@
     --kinda-white: #f5f5f5;
     --kinda-grey: #c1c1c1;
     --dark-grey: #c4c2c2;
+    --hover-background: rgb(207, 207, 207);
+    --icon-size: 18px;
 }
 
 * {
