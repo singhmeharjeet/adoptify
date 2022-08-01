@@ -13,15 +13,17 @@ export default function MessagesPage({ clearPermission }) {
 	const { contacts, createContact } = useContacts();
 	const { conversations } = useConversations();
 	const [selectedContact, setSelectedContact] = useState({});
-	const [selectedConversation, setSelectedConversation] = useState([]);
+	const [selectedConversation, setSelectedConversation] = useState();
 
 	if (contacts.length === 0) {
 		navigate("/");
 	}
+
 	useEffect(() => {
-		// It will exist but may be empty
-		setSelectedConversation(Object.values(conversations)[0]);
-	}, []);
+		setSelectedContact(contacts[0], () => {
+			setSelectedConversation(selectedContact?.conversationKey);
+		});
+	}, [contacts.length, contacts, selectedContact.conversationKey]);
 
 	function handleLogout() {
 		clearPermission();
@@ -31,7 +33,6 @@ export default function MessagesPage({ clearPermission }) {
 	function handleContactClick(contact) {
 		setSelectedContact(contact);
 		setSelectedConversation(conversations[contact.conversationKey]);
-		console.log("Talking to", selectedContact.firstname, selectedConversation);
 	}
 
 	return (
@@ -46,10 +47,24 @@ export default function MessagesPage({ clearPermission }) {
 					/>
 				</div>
 				<div className="conversation-container">
-					<Conversation
-						contact={selectedContact}
-						selectedConversation={selectedConversation}
-					/>
+					{selectedConversation ? (
+						<Conversation
+							selectedContact={selectedContact}
+							selectedConversation={selectedConversation}
+						/>
+					) : (
+						<h2
+							style={{
+								width: "100%",
+								height: "100%",
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
+						>
+							Please Select a contact
+						</h2>
+					)}
 				</div>
 			</div>
 		</>

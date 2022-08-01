@@ -1,5 +1,5 @@
 import "./CardList.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import Modal from "../Modal/Modal";
 import images from "../../images.json";
@@ -24,7 +24,42 @@ export default function CardList() {
 	}
 	useEffect(() => {
 		setFilteredList(list);
-	}, []);
+	}, [list]);
+
+	const handleBtns = useCallback(
+		(e) => {
+			let pet = e?.target?.value ?? "All";
+
+			if (pet === "All") {
+				setFilteredList(list);
+			} else if (pet === "Dogs") {
+				const filtered = list.filter(
+					(list) =>
+						list.pet_species.toLowerCase() === "dog" ||
+						list.pet_species.toLowerCase() === "dogs"
+				);
+
+				setFilteredList(filtered);
+			} else if (pet === "Cats") {
+				const filtered = list.filter(
+					(list) =>
+						list.pet_species.toLowerCase() === "cat" ||
+						list.pet_species.toLowerCase() === "cats"
+				);
+				setFilteredList(filtered);
+			} else {
+				const filtered = list.filter(
+					(list) =>
+						list.pet_species.toLowerCase() !== "dog" &&
+						list.pet_species.toLowerCase() !== "dogs" &&
+						list.pet_species.toLowerCase() !== "cat" &&
+						list.pet_species.toLowerCase() !== "cats"
+				);
+				setFilteredList(filtered);
+			}
+		},
+		[list]
+	);
 
 	// Bug Ask Ananat
 	// Home page doesn't change
@@ -33,39 +68,7 @@ export default function CardList() {
 		if (list.length) {
 			handleBtns();
 		}
-	}, [list]);
-
-	const handleBtns = (e) => {
-		let pet = e?.target?.value ?? "All";
-
-		if (pet === "All") {
-			setFilteredList(list);
-		} else if (pet === "Dogs") {
-			const filtered = list.filter(
-				(list) =>
-					list.pet_species.toLowerCase() === "dog" ||
-					list.pet_species.toLowerCase() === "dogs"
-			);
-
-			setFilteredList(filtered);
-		} else if (pet === "Cats") {
-			const filtered = list.filter(
-				(list) =>
-					list.pet_species.toLowerCase() === "cat" ||
-					list.pet_species.toLowerCase() === "cats"
-			);
-			setFilteredList(filtered);
-		} else {
-			const filtered = list.filter(
-				(list) =>
-					list.pet_species.toLowerCase() !== "dog" &&
-					list.pet_species.toLowerCase() !== "dogs" &&
-					list.pet_species.toLowerCase() !== "cat" &&
-					list.pet_species.toLowerCase() !== "cats"
-			);
-			setFilteredList(filtered);
-		}
-	};
+	}, [list, handleBtns]);
 
 	const openModal = (data) => {
 		setModalData(data);
@@ -120,12 +123,12 @@ export default function CardList() {
 										filteredList.images[0]
 									) ? (
 										<img
-											alt="Pet Image"
+											alt="Pet"
 											src={filteredList.images[0]}
 										/>
 									) : (
 										<img
-											alt="Image Placeholder"
+											alt="Placeholder"
 											src={images["image-placeholder"]}
 											style={{
 												maxWidth: "100%",

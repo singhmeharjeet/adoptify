@@ -11,10 +11,18 @@ const profile = require("./routers/profile.js");
 const post = require("./routers/post.js");
 const addUser = require("./routers/addUser.js");
 const admin = require("./routers/admin.js");
-const removePost = require("./routers/deletePost.js");
 const removeUser = require("./routers/deleteUser.js");
-const editPost = require("./routers/editPost.js");
+const editUser = require("./routers/editUser.js");
 const editProfilePic = require("./routers/editProfilePic.js");
+const removePost = require("./routers/deletePost.js");
+const editPost = require("./routers/editPost.js");
+// const httpServer = require("http").createServer();
+// const io = require("socket.io")(httpServer, {
+// 	cors: {
+// 		origin: "*",
+// 		methods: ["GET", "POST"],
+// 	},
+// });
 
 /* 
 	Setup Server app
@@ -32,7 +40,6 @@ app.use(express.urlencoded({ extended: true })); // Understand fetch requests
 app.use(express.static("public/build")); // for pushing onto heroku
 app.use(express.static("public")); // for pushing onto heroku
 
-
 /* 
 	Routing APIs
 */
@@ -46,6 +53,27 @@ app.use("/delete", removePost);
 app.use("/deleteUser", removeUser);
 app.use("/editPost", editPost);
 app.use("/editProfilePic", editProfilePic);
+app.use("/editUser", editUser);
+/* 
+	Set Up Connection for messages
+*/
+// io.use(cors());
+// io.on("connection", (socket) => {
+// 	const id = socket.handshake.query.id;
+// 	console.log("id", id);
+// 	socket.join(id);
+
+// 	socket.on("send-message", (key, message) => {
+// 		console.log("key", key);
+// 		socket.to(message.receiver_id).emit("receive-message", {
+// 			key,
+// 			receiver_id: message.receiver_id,
+// 			sender_id: message.sender_id,
+// 			text: message.message,
+// 			time_stamp: message.time_stamp,
+// 		});
+// 	});
+// });
 
 /* 
 	Default Action
@@ -55,3 +83,4 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// httpServer.listen(PORT, () => console.log(`Listening on ${PORT}`));

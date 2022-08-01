@@ -1,16 +1,17 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faFloppyDisk,
-	faX
-} from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
 	return (
 		<>
 			<div className="post">
 				<div className="post-image-container">
-					<img className="post-picture" src={postInfo.images[0]} />
+					<img
+						className="post-picture"
+						src={postInfo.images[0]}
+						alt="pet"
+					/>
 				</div>
 				<div className="post-contents">
 					<div className="post-content-upper">
@@ -25,13 +26,17 @@ export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
 							/>
 						</div>
 						<div className="post-buttons">
-							<FontAwesomeIcon id="post-save-icon"  icon={faFloppyDisk}
-								onClick={savePost}>
-							</FontAwesomeIcon>
+							<FontAwesomeIcon
+								id="post-save-icon"
+								icon={faFloppyDisk}
+								onClick={savePost}
+							></FontAwesomeIcon>
 
-							<FontAwesomeIcon id="post-cancel-icon"  icon={faX}
-								onClick={cancelEdit}>
-							</FontAwesomeIcon>
+							<FontAwesomeIcon
+								id="post-cancel-icon"
+								icon={faX}
+								onClick={cancelEdit}
+							></FontAwesomeIcon>
 						</div>
 					</div>
 					<textarea

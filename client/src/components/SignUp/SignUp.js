@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
 import { BASE_URL } from "../constants";
@@ -9,7 +9,7 @@ import { useGlobalData } from "../../Context/global/GlobalContext";
 import {
 	faCaretLeft,
 	faEye,
-	faEyeSlash
+	faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
@@ -20,7 +20,7 @@ export default function SignUp() {
 	const [uEmail, setEmail] = useState("");
 	const [uPassword, setPassword] = useState("");
 	const [passwordType, setPasswordType] = useState("password");
-	const {allUsers} = useGlobalData();
+	const { allUsers } = useGlobalData();
 	const [isDisabled, setDisabled] = useState(false);
 	const [confPasswordType, setconfPasswordType] = useState("password");
 	const [isError, setError] = useState("");
@@ -31,38 +31,35 @@ export default function SignUp() {
 		} else {
 			setPasswordType("password");
 		}
-	}
+	};
 	const handleConfEyeClick = () => {
 		if (confPasswordType === "password") {
 			setconfPasswordType("text");
 		} else {
 			setconfPasswordType("password");
 		}
-	}
+	};
 
-
-	const checkValidation=(event) => {
+	const checkValidation = (event) => {
 		const confirmPassword = event.target.value;
 		setConfirmPassword(confirmPassword);
-		if(uPassword !== confirmPassword){
+		if (uPassword !== confirmPassword) {
 			setError("Confirm Password should match with Password");
-		}
-		else {
+		} else {
 			setError("");
 		}
-	}
-
+	};
 
 	const checkUsername = (email) => {
-		const tempUsernames = allUsers.map(d => d.username)
-		if(tempUsernames.includes(email)){
+		const tempUsernames = allUsers.map((d) => d.username);
+		if (tempUsernames.includes(email)) {
 			// window.alert("Warning: This email is already taken. Please enter another email.")
-			setDisabled(true);	
-		}else{
+			setDisabled(true);
+		} else {
 			setDisabled(false);
 		}
 		console.log(tempUsernames);
-	}
+	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
@@ -78,12 +75,12 @@ export default function SignUp() {
 		// userFormData.append("uImage", uImage);   IF we are having them insert their profile pic during sign up
 
 		try {
-			const res = await axios
+			await axios
 				.post(`${BASE_URL}/addUser`, userFormData)
-				.then(response => console.log(response))
+				.then((response) => console.log(response))
 				.then(alert("Signed up successfully!"));
 		} catch (err) {
-			if(err){ 
+			if (err) {
 				console.log(err);
 			}
 		}
@@ -109,7 +106,7 @@ export default function SignUp() {
 						<div className="signup-form-outline">
 							<form
 								className="signup-form"
-								 onSubmit={onSubmit}
+								onSubmit={onSubmit}
 								// action="/login"
 								// method="post"
 							>
@@ -119,7 +116,8 @@ export default function SignUp() {
 										id="signup-user-first-name"
 										src={images["signup-user-name-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="firstname"
 										type="text"
 										placeholder="First Name"
@@ -137,7 +135,8 @@ export default function SignUp() {
 										id="signup-user-last-name"
 										src={images["signup-user-name-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="lastname"
 										type="text"
 										placeholder="Last Name"
@@ -154,8 +153,9 @@ export default function SignUp() {
 										alt=""
 										id="signup-user-phone"
 										src={images["signup-user-phone-icon"]}
-									/> 
-									<input className="form-input"
+									/>
+									<input
+										className="form-input"
 										name="phonenum"
 										type="tel"
 										pattern="[0-9]{10}"
@@ -174,7 +174,8 @@ export default function SignUp() {
 										id="signup-user-address"
 										src={images["signup-user-address-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="address"
 										type="text"
 										placeholder="Address"
@@ -186,17 +187,19 @@ export default function SignUp() {
 										}}
 									/>
 								</div>
-								<div className="form-field" onBlur={(event) => {
-											checkUsername(
-												event.target.value
-											);
-										}}>
+								<div
+									className="form-field"
+									onBlur={(event) => {
+										checkUsername(event.target.value);
+									}}
+								>
 									<img
 										alt=""
 										id="user"
 										src={images["signup-user-email-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="email"
 										type="email"
 										placeholder="Email"
@@ -213,7 +216,8 @@ export default function SignUp() {
 										id="lock"
 										src={images["login-lock-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="password"
 										type={passwordType}
 										placeholder="Password"
@@ -224,10 +228,22 @@ export default function SignUp() {
 											);
 										}}
 									/>
-												<i className="eyeIcon" onClick={handleEyeClick}>
-										{passwordType === "password" ? <FontAwesomeIcon id="passEye"  icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash"  icon={faEye}></FontAwesomeIcon>}
-									</i>
-									{" "}
+									<i
+										className="eyeIcon"
+										onClick={handleEyeClick}
+									>
+										{passwordType === "password" ? (
+											<FontAwesomeIcon
+												id="passEye"
+												icon={faEyeSlash}
+											></FontAwesomeIcon>
+										) : (
+											<FontAwesomeIcon
+												id="passEyeSlash"
+												icon={faEye}
+											></FontAwesomeIcon>
+										)}
+									</i>{" "}
 								</div>
 								<div className="form-field">
 									<img
@@ -235,33 +251,62 @@ export default function SignUp() {
 										id="lock"
 										src={images["login-lock-icon"]}
 									/>
-									<input className="form-input"
+									<input
+										className="form-input"
 										name="confirmPassword"
 										type={passwordType}
 										placeholder="Confirm Password"
 										required
-										onBlur={(event) => 
+										onBlur={(event) =>
 											checkValidation(event)
 										}
 									/>
-									<i className="eyeConfIcon" onClick={handleConfEyeClick}>
-										{confPasswordType === "password" ? <FontAwesomeIcon id="passEye"  icon={faEyeSlash}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash"  icon={faEye}></FontAwesomeIcon>}
-									</i>
-									{" "}
+									<i
+										className="eyeConfIcon"
+										onClick={handleConfEyeClick}
+									>
+										{confPasswordType === "password" ? (
+											<FontAwesomeIcon
+												id="passEye"
+												icon={faEyeSlash}
+											></FontAwesomeIcon>
+										) : (
+											<FontAwesomeIcon
+												id="passEyeSlash"
+												icon={faEye}
+											></FontAwesomeIcon>
+										)}
+									</i>{" "}
 								</div>
 								<div className="form-field">
-								<span><svg aria-hidden="true" fill="currentColor" focusable="false" width="16px" height="16px" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></span>
-										<div>{isError}</div>
-										{/* <div style={{position: "absolute", top:20,marginLeft: 330}}>
+									<span>
+										<svg
+											aria-hidden="true"
+											fill="currentColor"
+											focusable="false"
+											width="16px"
+											height="16px"
+											viewBox="0 0 24 24"
+											xmlns="https://www.w3.org/2000/svg"
+										>
+											<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
+										</svg>
+									</span>
+									<div>{isError}</div>
+									{/* <div style={{position: "absolute", top:20,marginLeft: 330}}>
 											{isError}
 										</div> */}
 								</div>
-								
 
 								<div>
 									<div className="login-form-button-wrapper">
-										<button type="submit" id = "sign-up-button" disabled={isDisabled}
-										 >Sign Up</button>
+										<button
+											type="submit"
+											id="sign-up-button"
+											disabled={isDisabled}
+										>
+											Sign Up
+										</button>
 									</div>
 								</div>
 							</form>

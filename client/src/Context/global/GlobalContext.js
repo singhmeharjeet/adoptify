@@ -1,8 +1,19 @@
-import React, { createContext, useReducer, useEffect, useContext } from "react";
+import React, {
+	createContext,
+	useReducer,
+	useEffect,
+	useContext,
+	useState,
+} from "react";
 import AppReducer from "./AppReducer";
 import { BASE_URL } from "../../components/constants";
-import { INSERT_USER_DATA, INSERT_ALL_DATA, DELETE_POST, UPDATE_POST } from "./Types.js";
-
+import {
+	INSERT_USER_DATA,
+	INSERT_ALL_DATA,
+	DELETE_POST,
+	UPDATE_POST,
+	UPDATE_USER,
+} from "./Types.js";
 
 // Initial state
 const initialState = {
@@ -22,6 +33,7 @@ export function useGlobalData() {
 // Provider component
 const GlobalContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(AppReducer, initialState);
+	const [changeCounter, setChangeCounter] = useState(0);
 
 	function putAllData() {
 		fetch(`${BASE_URL}/allData`, {
@@ -45,6 +57,7 @@ const GlobalContextProvider = ({ children }) => {
 				console.log("error", error);
 			});
 	}
+
 	function putUserData(username) {
 		fetch(`${BASE_URL}/profile/${username}`)
 			.then((r) => r.json())
@@ -71,13 +84,13 @@ const GlobalContextProvider = ({ children }) => {
 			})
 				.then((r) => r.json())
 				.then((data) => {
-					if (data.status) {	
-						dispatch({ 
+					if (data.status) {
+						dispatch({
 							type: DELETE_POST,
 							payload: {
 								postid: id,
-							}
-						})
+							},
+						});
 					}
 				});
 		} catch (err) {
@@ -88,6 +101,46 @@ const GlobalContextProvider = ({ children }) => {
 				putUserData(localStorage.getItem("token"));
 			}
 		}
+		setChangeCounter((prev) => prev + 1);
+	}
+	async function editUserData(
+		username,
+		password,
+		firstname,
+		lastname,
+		phone,
+		address
+	) {
+		try {
+			const responseJSON = await (
+				await fetch(`${BASE_URL}/editUser`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						username,
+						password,
+						firstname,
+						lastname,
+						phone,
+						address,
+					}),
+				})
+			).json();
+			if (responseJSON.status) {
+				dispatch({
+					type: UPDATE_USER,
+					payload: {
+						userDetails: responseJSON?.data,
+					},
+				});
+			}
+			console.log("responseJSON", responseJSON);
+		} catch (error) {
+			console.log("error", error);
+		}
+		setChangeCounter((prev) => prev + 1);
 	}
 	function deleteUserData(username) {
 		try {
@@ -106,11 +159,12 @@ const GlobalContextProvider = ({ children }) => {
 				console.log("User Deleted Successfully");
 			}
 		}
+		setChangeCounter((prev) => prev + 1);
 	}
 	function getUserDetailsFromUsername(username) {
-		return state.allUsers.find((user) => user.username === username)
+		return state.allUsers.find((user) => user.username === username);
 	}
-	async function editUserPost(id, name, species, des) {
+	const editUserPost = async (id, name, species, des) => {
 		try {
 			const responseJSON = await (
 				await fetch(`${BASE_URL}/editPost`, {
@@ -119,7 +173,10 @@ const GlobalContextProvider = ({ children }) => {
 						"Content-Type": "application/json",
 					},
 					body: JSON.stringify({
-						id, name, species, des
+						id,
+						name,
+						species,
+						des,
 					}),
 				})
 			).json();
@@ -127,19 +184,20 @@ const GlobalContextProvider = ({ children }) => {
 				dispatch({
 					type: UPDATE_POST,
 					payload: {
-						post: responseJSON?.data
+						post: responseJSON?.data,
 					},
 				});
 			}
-			console.log('responseJSON', responseJSON);
+			console.log("responseJSON", responseJSON);
 		} catch (error) {
 			console.log("error", error);
 		}
-	}
+		setChangeCounter((prev) => prev + 1);
+	};
 	useEffect(() => {
 		putAllData();
 		putUserData(localStorage.getItem("token"));
-	}, []);
+	}, [changeCounter]);
 
 	return (
 		<GlobalContext.Provider
@@ -152,7 +210,8 @@ const GlobalContextProvider = ({ children }) => {
 				deleteUserData,
 				deletePostData,
 				editUserPost,
-				getUserDetailsFromUsername
+				editUserData,
+				getUserDetailsFromUsername,
 			}}
 		>
 			{children}

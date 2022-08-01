@@ -38,12 +38,12 @@ export default function NavBar({ handleLogout }) {
 					<Link to="/profile" className="addPost button">
 						Profile
 					</Link>
-					<a
+					<div
 						onClick={() => setConfirm(true)}
 						className="profile button"
 					>
 						Sign Out
-					</a>
+					</div>
 					{confirm ? (
 						<NavModal
 							handleLogout={handleLogout}

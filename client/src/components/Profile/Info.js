@@ -6,7 +6,7 @@ import {
 	faMobileScreen,
 	faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-export default function Info({userDetails}) {
+export default function Info({ userDetails }) {
 	return (
 		<>
 			<div className="info-section">

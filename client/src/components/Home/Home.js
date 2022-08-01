@@ -25,7 +25,9 @@ export default function Home({ clearPermission }) {
 			<div className="home-container">
 				<div className="home-left"></div>
 				<div className="home-center">
-					<div className="home-center-heading">Your New Companion.</div>
+					<div className="home-center-heading">
+						Your New Companion.
+					</div>
 					<CardList />
 				</div>
 				<div className="home-right"></div>

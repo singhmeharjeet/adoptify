@@ -25,14 +25,16 @@ const modal = {
 
 export default function Modal({ postInfo, closeModal }) {
 	const navigate = useNavigate();
-    const { createContact } = useContacts();
-    const { createConversation } = useConversations();
-    const { getUserDetailsFromUsername } = useGlobalData();
+	const { createContact } = useContacts();
+	const { createConversation } = useConversations();
+	const { getUserDetailsFromUsername } = useGlobalData();
 
 	function handleMessageClick() {
-        const postOwnerDetails = getUserDetailsFromUsername(postInfo.fk_username);
-        const newContact = createContact(postOwnerDetails);
-        createConversation(newContact);
+		const postOwnerDetails = getUserDetailsFromUsername(
+			postInfo.fk_username
+		);
+		const newContact = createContact(postOwnerDetails);
+		createConversation(newContact);
 		navigate("/messages");
 	}
 	return (
@@ -44,6 +46,7 @@ export default function Modal({ postInfo, closeModal }) {
 						<img
 							className="post-picture"
 							src={postInfo.images[0]}
+							alt="pet"
 						/>
 					</div>
 					<div className="post-contents">

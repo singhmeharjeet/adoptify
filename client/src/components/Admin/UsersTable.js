@@ -1,8 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function UsersTable({ allUsers, deleteUserData }) {
 	return (
@@ -30,16 +28,18 @@ export default function UsersTable({ allUsers, deleteUserData }) {
 								<td>{user.email}</td>
 								<td>{user.address}</td>
 								<td>
-								<FontAwesomeIcon id="user-table-delete-icon"  icon={faTrashCan}
-									value="Delete"
-									onClick={() => {
-										deleteUserData(user?.username);
-										setTimeout(
-											() => window.location.reload(),
-											500
-										);
-									}}>
-								</FontAwesomeIcon>
+									<FontAwesomeIcon
+										id="user-table-delete-icon"
+										icon={faTrashCan}
+										value="Delete"
+										onClick={() => {
+											deleteUserData(user?.username);
+											setTimeout(
+												() => window.location.reload(),
+												500
+											);
+										}}
+									></FontAwesomeIcon>
 								</td>
 							</tr>
 						</tbody>
