@@ -22,7 +22,8 @@
     outline: none;
 }
 
-.contact-search-bar button {
+
+/* .contact-search-bar button {
     width: 20%;
     border-radius: 0;
     display: flex;
@@ -44,8 +45,7 @@
 
 .contact-search-bar button:hover {
     color: white;
-    background-color: var(--brown);
-}
+} */
 
 .contacts {
     overflow-y: scroll;
@@ -63,8 +63,9 @@
 }
 
 .contact:hover {
-    background-color: var(--navyblue);
-    color: white;
+    background-color: var(--hover-background);
+    cursor: pointer;
+    /* color: white; */
 }
 
 .contact-img img {
