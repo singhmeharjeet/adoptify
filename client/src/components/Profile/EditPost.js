@@ -69,7 +69,7 @@ export default function EditPost({ postInfo, savePost, cancelEdit }) {
 							<FontAwesomeIcon
 								id="post-save-icon"
 								icon={faFloppyDisk}
-								onClick={(e) => savePost(e)}
+								onClick={savePost}
 							></FontAwesomeIcon>
 							</button>
 

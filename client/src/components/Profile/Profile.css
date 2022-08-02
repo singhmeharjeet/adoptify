@@ -241,9 +241,10 @@
 }
 
 .post-title>input {
-    width: 100%;
-    padding: 0.3em 10px;
+    width: 75%;
+    padding: 10px;
     border-radius: 5px;
+    border: 2px solid var(--kinda-grey);
 }
 
 .post-title>input:focus {

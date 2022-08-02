@@ -194,7 +194,7 @@ const Profile = ({ clearPermission }) => {
 				<div className="posts-container">
 					{editUser ? 
 						<>
-							<p className="posts-label">User Details</p>
+							<p className="posts-label">Edit Profile</p>
 							<div className="posts-list-wrapper">
 								<div className="posts-list">
 									<div
