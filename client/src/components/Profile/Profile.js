@@ -53,6 +53,7 @@ const Profile = ({ clearPermission }) => {
 		console.log("infoInput", infoInput);
 		let post_name = infoInput[1].value;
 		let post_species = infoInput[2].value;
+		let post_color = infoInput[3].value;
 
 		const infoTextArea = document
 			.getElementById(postState)
@@ -67,12 +68,13 @@ const Profile = ({ clearPermission }) => {
 				postState,
 				post_name,
 				post_species,
+				post_color,
 				post_description,
 				uploadedPostImage
 			);
 			console.log("updatedPost", updatedPost);
 		} else {
-			editUserPost(postState, post_name, post_species, post_description);
+			editUserPost(postState, post_name, post_species, post_color, post_description);
 		}
 		setPostState(-1);
 	};

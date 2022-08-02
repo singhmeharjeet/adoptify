@@ -3,8 +3,8 @@ const express = require("express"),
 const pool = require("../database.js");
 
 module.exports = router.post("/", async (req, res) => {
-	const { id, name, species, des } = req.body;
-	const editPostQuery = `update posts set (pet_name, pet_species, description) = ('${name}', '${species}', '${des}') where postid=${id} returning *`;
+	const { id, name, species, color, des } = req.body;
+	const editPostQuery = `update posts set (pet_name, pet_species, pet_color, description) = ('${name}', '${species}', '${color}', '${des}') where postid=${id} returning *`;
 	pool.query(editPostQuery, (error, result) => {
 		if (error) {
 			res.json({ status: false, message: "error" }).status(400);

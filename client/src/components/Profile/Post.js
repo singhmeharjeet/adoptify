@@ -20,7 +20,7 @@ export default function Post({ postInfo, editPost, onDelete }) {
 						<div className="post-title">
 							<p className="pet-name">{postInfo?.pet_name}</p>
 							<p className="pet-species">
-								{postInfo?.pet_species}
+								{postInfo?.pet_species} | {postInfo?.pet_color}
 							</p>
 						</div>
 						<div className="post-buttons">
