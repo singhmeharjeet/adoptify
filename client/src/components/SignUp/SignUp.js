@@ -23,7 +23,6 @@ export default function SignUp() {
 	const [uPassword, setPassword] = useState("");
 	const [passwordType, setPasswordType] = useState("password");
 	const { allUsers } = useGlobalData();
-	const [isDisabled, setDisabled] = useState(false);
 	const [isError, setError] = useState(false);
 	const [isValid, setValid] = useState(false);
 	const [isClicked, setClicked] = useState(false);
@@ -71,6 +70,8 @@ export default function SignUp() {
 			setErrFirstName("");
 			setError(false);	
 		}
+
+
 	}
 	const validateLastName=(event) => {
 		const lastname = event.target.value;
@@ -138,6 +139,7 @@ export default function SignUp() {
 	const validateEmail=(event) => {
 		const email= event.target.value;
 		const patt = RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i);
+		const tempUsernames = allUsers.map((d) => d.username);
 		// console.log(email)
 		setEmail(email);
 		if(email== "")
@@ -150,11 +152,13 @@ export default function SignUp() {
 			setErrEmail("Invalid email address. Should be of format abc@abc.abc")
 			setError(true);
 			
+		}else if(tempUsernames.includes(email)){
+			setErrEmail("Invalid email address. Email is taken.")
+			setError(true);
 		}
 		else{
 			setErrEmail("");
 			setError(false);
-			
 		}
 
 	}
@@ -206,23 +210,10 @@ export default function SignUp() {
 		}
 	}
 
-
-
-	const checkUsername = (email) => {
-		const tempUsernames = allUsers.map((d) => d.username);
-		if (tempUsernames.includes(email)) {
-			// window.alert("Warning: This email is already taken. Please enter another email.")
-			setDisabled(true);
-		} else {
-			setDisabled(false);
-		}
-		console.log(tempUsernames);
-	};
-
 	const onSubmit = async (e) => {
         e.preventDefault();
 		setClicked(true);
-		if(errFirstName !== "" || errLastName !==  "" || errPhoneNum !== "" || errAddress !== ""
+		if(errFirstName !== "" || errLastName !==  "" || errPhoneNum !== "" || errAddress !== "" || errEmail !== ""
 		|| errPassword !== "" || errConfPassword !== "")
 		{	   
 			return;
@@ -278,12 +269,12 @@ export default function SignUp() {
 						<div>
                          { isClicked ?  <div className="alert"><i className="circleErrorIcon"  >
 							<FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon></i>
-								Please fill the form Carefully</div>: null }
+								Please fill in the form with the appropriate values. </div>: null }
                         </div>
 						<div>
                          { isValid ?  <div className="alert-success"><i className="circleCheckIcon"  >
 							<FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon></i>
-								Signed In Successfully!</div>: null }
+								Signed Up Successfully!</div>: null }
                         </div>
 						<div className="groupFirstLastName">
 								<div className="form-field">
@@ -379,9 +370,6 @@ export default function SignUp() {
 								</div>
 								<div
 									className="form-field"
-									onBlur={(event) => {
-										checkUsername(event.target.value);
-									}}
 								>
 									<img
 										alt=""
@@ -460,7 +448,7 @@ export default function SignUp() {
 								</div>
 								<div>
 									<div className="login-form-button-wrapper">
-										<button type="submit" id = "sign-up-button"  disabled={isDisabled}
+										<button type="submit" id = "sign-up-button" 
 										 >Sign Up</button>
 									</div>
 								</div>
