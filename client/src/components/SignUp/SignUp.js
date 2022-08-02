@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
 import { BASE_URL } from "../constants";
@@ -124,7 +124,7 @@ export default function SignUp() {
 		setAddress(address);
 		if(address== "")
 		{
-			setErrAddress("City should not be empt");
+			setErrAddress("City should not be empty");
 			setError(true);
 			
 		}
@@ -263,7 +263,7 @@ export default function SignUp() {
 						</Link>
 					</div>
 					<div className="sign-up-form-container">
-						<div className="signup-form-title">Adoptifyyyyy</div>
+						<div className="signup-form-title">Adoptify</div>
 						
 						<div className="signup-form-outline" >
 						
@@ -322,12 +322,7 @@ export default function SignUp() {
 								
 								</div>
 								</div>
-								
-								{/* <div className="form-field">
-								<i ><FontAwesomeIcon icon={faExclamationCircle}></FontAwesomeIcon></i>
-										<label className="errMsg">{errFirstName}
-										</label>
-								</div> */}
+							
 								<div className="groupErrFirstLastName">
 									
 								<label className="errMsg">{errFirstName}
