@@ -44,8 +44,8 @@ const Profile = ({ clearPermission }) => {
 			.getElementById(postState)
 			.getElementsByTagName("input");
 		console.log("infoInput", infoInput);
-		let post_name = infoInput[0].value;
-		let post_species = infoInput[1].value;
+		let post_name = infoInput[1].value;
+		let post_species = infoInput[2].value;
 
 		const infoTextArea = document
 			.getElementById(postState)
@@ -85,6 +85,7 @@ const Profile = ({ clearPermission }) => {
 
 	const handleNewPicSubmit = async (e) => {
 		e.preventDefault();
+		console.log(newProfilePic);
 
 		const formData = new FormData();
 		formData.append("newProfilePic", newProfilePic);
@@ -143,6 +144,7 @@ const Profile = ({ clearPermission }) => {
 										<input
 											type="file"
 											name="newPic"
+											accept=".jpg, .jpeg, .png, .svg"
 											onChange={(e) => {
 												setNewProfilePic(
 													e.target.files[0]
@@ -171,7 +173,9 @@ const Profile = ({ clearPermission }) => {
 					{/* start of posts */}
 					<div className="posts-list-wrapper">
 						<div className="posts-list">
-							{postsDetails.map((postInfo) => (
+							{postsDetails.map((postInfo) => {
+								// console.log(postInfo);
+								return (
 								<div
 									key={postInfo?.postid}
 									id={postInfo?.postid}
@@ -197,7 +201,7 @@ const Profile = ({ clearPermission }) => {
 										/>
 									)}
 								</div>
-							))}
+							)})}
 						</div>
 					</div>
 				</div>

@@ -5,12 +5,13 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 export default function Post({ postInfo, editPost, onDelete }) {
 	return (
 		<>
-			<div className="post" key={postInfo?.postid}>
+			<div className="post">
 				<div className="post-image-container">
 					<img
 						className="post-picture"
 						src={postInfo.images[0]}
 						alt="pet"
+						key={postInfo?.postid}
 					/>
 				</div>
 				<div className="post-contents">

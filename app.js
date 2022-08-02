@@ -16,6 +16,7 @@ const editUser = require("./routers/editUser.js");
 const editProfilePic = require("./routers/editProfilePic.js");
 const removePost = require("./routers/deletePost.js");
 const editPost = require("./routers/editPost.js");
+const editPostImage = require("./routers/editPostImage.js");
 // const httpServer = require("http").createServer();
 // const io = require("socket.io")(httpServer, {
 // 	cors: {
@@ -54,6 +55,7 @@ app.use("/deleteUser", removeUser);
 app.use("/editPost", editPost);
 app.use("/editProfilePic", editProfilePic);
 app.use("/editUser", editUser);
+app.use("/editPostImage", editPostImage);
 /* 
 	Set Up Connection for messages
 */
