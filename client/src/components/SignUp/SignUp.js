@@ -158,10 +158,10 @@ export default function SignUp() {
 		}
 
 	}
-	const validatePassword=(event) => {
+		const validatePassword=(event) => {
 		const password= event.target.value;
 		const patt = RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/i);
-		// console.log(password)
+		console.log(password)
 		setPassword(password);
 		if(password== "")
 		{
@@ -175,16 +175,19 @@ export default function SignUp() {
 			
 		}
 		else if(password !== uConfirmPassword){
+			setErrPassword("")
 			setErrConfPassword("Confirm password don't match with Password! Try again.");	
 			setError(true);
 		}
 		
 		else{
 			setErrPassword("");
+			setErrConfPassword("");	
 			setError(false);
 			
 		}
 	}
+
 
 
 	const validateConfPassword=(event) => {	
