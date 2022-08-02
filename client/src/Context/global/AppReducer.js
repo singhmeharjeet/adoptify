@@ -36,8 +36,8 @@ const AppReducer = (state, action) => {
 		}
 		case UPDATE_POST: {
 			// Changing the Details in my posts array
-			let allPost = [...state.postsDetails];
-			let updatedPostsArray = allPost.reduce((acc, cv) => {
+			let postsOfUser = [...state.postsDetails];
+			let updatedPostsArray = postsOfUser.reduce((acc, cv) => {
 				if (action?.payload?.post.postid === cv.postid) {
 					acc.push(action.payload.post);
 				} else {

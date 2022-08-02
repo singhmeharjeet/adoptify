@@ -14,6 +14,7 @@ import {
 	UPDATE_POST,
 	UPDATE_USER,
 } from "./Types.js";
+import axios from "axios";
 
 // Initial state
 const initialState = {
@@ -194,6 +195,52 @@ const GlobalContextProvider = ({ children }) => {
 		}
 		setChangeCounter((prev) => prev + 1);
 	};
+
+	async function editUserPostWithImage(
+		username,
+		id,
+		name,
+		species,
+		des,
+		imageFile
+	) {
+		const formData = new FormData();
+		formData.append("username", username);
+		formData.append("id", id);
+		formData.append("name", name);
+		formData.append("species", species);
+		formData.append("des", des);
+		formData.append("imageFile", imageFile);
+
+		try {
+			const responseJSON = await axios.post(
+				`${BASE_URL}/editPostPicture`,
+				formData
+			);
+			if (responseJSON.status) {
+				console.log("responseJSON?.data", responseJSON?.data);
+				dispatch({
+					type: UPDATE_POST,
+					payload: {
+						post: responseJSON?.data,
+					},
+				});
+			}
+		} catch (err) {
+			if (err.response.status === 500) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log(err.response.data.msg);
+			}
+		}
+		for (let i = 0; i < state.postsDetails.length; i++) {
+			if (state.postsDetails[i].postid === id) {
+				return state.postsDetails[i];
+			}
+		}
+		return null;
+	}
+
 	useEffect(() => {
 		putAllData();
 		putUserData(localStorage.getItem("token"));
@@ -210,6 +257,7 @@ const GlobalContextProvider = ({ children }) => {
 				deleteUserData,
 				deletePostData,
 				editUserPost,
+				editUserPostWithImage,
 				editUserData,
 				getUserDetailsFromUsername,
 			}}

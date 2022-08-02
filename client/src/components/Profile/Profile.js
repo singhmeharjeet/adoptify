@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
@@ -18,8 +18,13 @@ import { faImagePortrait } from "@fortawesome/free-solid-svg-icons";
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
 
-	const { userDetails, postsDetails, deletePostData, editUserPost } =
-		useGlobalData();
+	const {
+		userDetails,
+		postsDetails,
+		deletePostData,
+		editUserPost,
+		editUserPostWithImage,
+	} = useGlobalData();
 	const [postState, setPostState] = useState(-1);
 	const [newProfilePic, setNewProfilePic] = useState();
 	const [isPicClicked, setIsPicClicked] = useState(false);
@@ -38,7 +43,7 @@ const Profile = ({ clearPermission }) => {
 		setPostState(pid);
 	};
 
-	const savePost = async (e) => {
+	const savePost = async (e, uploadedPostImage) => {
 		e.preventDefault();
 
 		// postState has the current id, do not change until the end
@@ -55,7 +60,20 @@ const Profile = ({ clearPermission }) => {
 
 		let post_description = infoTextArea[0].value;
 
-		editUserPost(postState, post_name, post_species, post_description);
+		// postState = postid;
+		if (uploadedPostImage) {
+			const updatedPost = editUserPostWithImage(
+				userDetails.username,
+				postState,
+				post_name,
+				post_species,
+				post_description,
+				uploadedPostImage
+			);
+			console.log("updatedPost", updatedPost);
+		} else {
+			editUserPost(postState, post_name, post_species, post_description);
+		}
 		setPostState(-1);
 	};
 

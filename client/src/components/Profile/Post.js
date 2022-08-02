@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export default function Post({ postInfo, editPost, onDelete }) {
+	console.log("postInfo.images[0]", postInfo.images[0]);
 	return (
 		<>
 			<div className="post">
