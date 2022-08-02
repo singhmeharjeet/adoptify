@@ -33,14 +33,10 @@ export default function ContactsContextProvider({ children }) {
 	/* Provided Functions */
 	function createContact(otherUserDetails) {
 		if (!isContactCreated(otherUserDetails)) {
-
 			otherUserDetails.conversationKey =
 				getConversationKey(otherUserDetails);
-			
-			setContacts((prevContacts) => [
-				...prevContacts,
-				otherUserDetails
-			]);
+
+			setContacts((prevContacts) => [...prevContacts, otherUserDetails]);
 
 			return otherUserDetails;
 		}

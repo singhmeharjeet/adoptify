@@ -16,7 +16,8 @@ import "./Admin.css";
 export default function Admin({ clearPermission }) {
 	const navigate = useNavigate();
 	const [showUsers, setShowUsers] = useState(true);
-	const { userDetails, allUsers, allPosts, deleteUserData, deletePostData } = useGlobalData();
+	const { userDetails, allUsers, allPosts, deleteUserData, deletePostData } =
+		useGlobalData();
 	const handleLogout = () => {
 		clearPermission();
 		navigate("/login");
@@ -37,18 +38,14 @@ export default function Admin({ clearPermission }) {
 					<div className="menu-container">
 						<p className="admin-greeting">Hi, Admin!</p>
 						<div className="admin-links">
-							<p
-								onClick={() => setShowUsers(true)}
-							>
+							<p onClick={() => setShowUsers(true)}>
 								<FontAwesomeIcon
 									className="profile-icon"
 									icon={faUser}
 								></FontAwesomeIcon>
 								List of Users
 							</p>
-							<p
-								onClick={() => setShowUsers(false)}
-							>
+							<p onClick={() => setShowUsers(false)}>
 								<FontAwesomeIcon
 									className="profile-icon"
 									icon={faPaw}

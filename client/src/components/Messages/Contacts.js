@@ -2,11 +2,7 @@ import React from "react";
 import images from "../../images.json";
 import "./Contacts.css";
 
-export default function Contacts({
-	allContacts,
-	createContact,
-	handleContactClick,
-}) {
+export default function Contacts({ allContacts, handleContactClick }) {
 	return (
 		<>
 			<div className="contact-search-bar">
@@ -24,7 +20,7 @@ export default function Contacts({
 							{contact.profilepicture ? (
 								<img
 									src={`${contact.profilepicture}`}
-									alt="Contact Image"
+									alt="Contact"
 								/>
 							) : (
 								<img

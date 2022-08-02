@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Message from "./Message";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { useConversations } from "../../Context/Conversations/ConversationsContext";
 
-export default function Conversation({ selectedConversation, contact }) {
+export default function Conversation({
+	selectedConversation,
+	selectedContact,
+}) {
 	const { userDetails } = useGlobalData();
 	const { addMessageToConversation } = useConversations();
 	const [msg, setMsg] = useState();
 
+	useEffect(
+		() => console.log("Update...", selectedContact, selectedConversation),
+		[selectedConversation.length, selectedContact, selectedConversation]
+	);
 	function handleSubmit(e) {
 		e.preventDefault();
 
 		// Sender is always the Logged In user.
-		addMessageToConversation(
-			contact.conversationKey,
-			userDetails.username,
-			contact.username,
-			msg,
-			new Date().getTime()
-		);
+		if (msg) {
+			addMessageToConversation(
+				selectedContact.conversationKey,
+				userDetails.username,
+				selectedContact.username,
+				msg,
+				new Date().getTime()
+			);
+		}
 
 		setMsg("");
 	}
@@ -30,7 +39,7 @@ export default function Conversation({ selectedConversation, contact }) {
 			<div className="conversation">
 				<div className="allMsgWrap">
 					<div className="allMsg">
-						{selectedConversation.map((message, index) => {
+						{selectedConversation?.map((message, index) => {
 							return (
 								<Message
 									key={index}

@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useContacts } from "../../Context/Contacts/ContactsContext";
 import { useConversations } from "../../Context/Conversations/ConversationsContext";
 import { useGlobalData } from "../../Context/global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faX,
+	faMessage
+} from "@fortawesome/free-solid-svg-icons";
+import "./Modal.css";
+
 const overlay = {
 	position: "fixed",
 	top: 0,
@@ -13,65 +20,60 @@ const overlay = {
 	zIndex: 1000,
 };
 
-const modal = {
-	position: "fixed",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	backgroundColor: "#FFF",
-	padding: "50px",
-	zIndex: 1000,
-};
-
 export default function Modal({ postInfo, closeModal }) {
 	const navigate = useNavigate();
-    const { createContact } = useContacts();
-    const { createConversation } = useConversations();
-    const { getUserDetailsFromUsername } = useGlobalData();
+	const { createContact } = useContacts();
+	const { createConversation } = useConversations();
+	const { getUserDetailsFromUsername } = useGlobalData();
 
 	function handleMessageClick() {
-        const postOwnerDetails = getUserDetailsFromUsername(postInfo.fk_username);
-        const newContact = createContact(postOwnerDetails);
-        createConversation(newContact);
+		const postOwnerDetails = getUserDetailsFromUsername(
+			postInfo.fk_username
+		);
+		const newContact = createContact(postOwnerDetails);
+		createConversation(newContact);
 		navigate("/messages");
 	}
 	return (
 		<>
 			<div style={overlay} onClick={closeModal} />
-			<div style={modal}>
-				<div className="post" key={postInfo?.postid}>
-					<div className="post-image-container">
+			<div className="modal">
+				<div className="modalContainer" key={postInfo?.postid}>
+					<div className="photoContainer">
 						<img
-							className="post-picture"
+							className="photo"
 							src={postInfo.images[0]}
+							alt="pet"
 						/>
 					</div>
-					<div className="post-contents">
-						<div className="post-content-upper">
-							<div className="post-title">
-								<p className="pet-name">{postInfo?.pet_name}</p>
-								<p className="pet-species">
-									{postInfo?.pet_species}
-								</p>
-							</div>
-							<div className="post-buttons">
-								<button
-									className="post-edit-button"
-									onClick={closeModal}
-								>
-									CLOSE
-								</button>
-								<button
-									className="post-edit-button"
-									onClick={handleMessageClick}
-								>
-									MESSAGE
-								</button>
-							</div>
-						</div>
-						<p className="pet-description">
-							{postInfo?.description}
-						</p>
+					<div className="modalDescription">
+						<div className="modal-title">
+							<p className="modal-pet-name">
+								{postInfo?.pet_name}
+							</p>
+							<p className="modal-pet-species">
+								{postInfo?.pet_species} | {postInfo?.pet_color}
+							</p>
+					 	</div>
+						 <p className="modal-description-header">
+								<span className="modal-description">About</span>
+						 </p>
+						 <p className="modal-pet-description">
+					 		{postInfo?.description}
+					 	</p>
+
+					</div>
+					<div className="modalIcons">
+						<FontAwesomeIcon
+							className="modal-message-icon"
+							icon={faMessage}
+							onClick={handleMessageClick}
+						></FontAwesomeIcon>
+						<FontAwesomeIcon
+							className="modal-close-icon"
+							icon={faX}
+							onClick={closeModal}
+						></FontAwesomeIcon>
 					</div>
 				</div>
 			</div>

@@ -43,7 +43,7 @@ export default function Form({ username }) {
 		formData.append("petImage", petImage);
 
 		try {
-			const res = await axios.post(`${BASE_URL}/addPost`, formData);
+			await axios.post(`${BASE_URL}/addPost`, formData);
 		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");

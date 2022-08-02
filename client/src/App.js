@@ -18,6 +18,7 @@ import MessagesPage from "./components/Messages/MessagesPage";
 import GlobalContextProvider from "./Context/global/GlobalContext";
 import ContactsContextProvider from "./Context/Contacts/ContactsContext";
 import ConversationsContextProvider from "./Context/Conversations/ConversationsContext";
+// import SocketContextProvider from "./Context/Socket/SocketContext";
 
 export default function App() {
 	const [perm, setPerm] = useState(() => getPermission());
@@ -31,6 +32,7 @@ export default function App() {
 		<div className="App">
 			<BrowserRouter>
 				<GlobalContextProvider>
+					{/* <SocketContextProvider> */}
 					<ContactsContextProvider>
 						<ConversationsContextProvider>
 							<Routes>
@@ -107,6 +109,7 @@ export default function App() {
 							</Routes>
 						</ConversationsContextProvider>
 					</ContactsContextProvider>
+					{/* </SocketContextProvider> */}
 				</GlobalContextProvider>
 			</BrowserRouter>
 		</div>

@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function NavModal({ handleLogout, exit }) {
-
 	return (
 		<>
 			<div className="navModal-overlay" onClick={exit} />

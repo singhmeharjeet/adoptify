@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
@@ -46,8 +46,8 @@ const Profile = ({ clearPermission }) => {
 			.getElementById(postState)
 			.getElementsByTagName("input");
 		console.log("infoInput", infoInput);
-		let post_name = infoInput[0].value;
-		let post_species = infoInput[1].value;
+		let post_name = infoInput[1].value;
+		let post_species = infoInput[2].value;
 
 		const infoTextArea = document
 			.getElementById(postState)
@@ -82,18 +82,19 @@ const Profile = ({ clearPermission }) => {
 	function handlePicClick() {
 		//should maybe pop up modal and show a choose new image screen
 		setIsPicClicked(!isPicClicked);
-		console.log("pic button clicked");	 
+		console.log("pic button clicked");
 	}
 
 	const handleNewPicSubmit = async (e) => {
 		e.preventDefault();
+		console.log(newProfilePic);
 
 		const formData = new FormData();
 		formData.append("newProfilePic", newProfilePic);
 		formData.append("username", userDetails.username);
 
 		try {
-			const res = await axios.post(`${BASE_URL}/editProfilePic`, formData);
+			await axios.post(`${BASE_URL}/editProfilePic`, formData);
 		} catch (err) {
 			if (err.response.status === 500) {
 				console.log("There was a problem with the server");
@@ -101,9 +102,8 @@ const Profile = ({ clearPermission }) => {
 				console.log(err.response.data.msg);
 			}
 		}
+	};
 
-	}
-	
 	return (
 		<>
 			<NavBar
@@ -123,29 +123,46 @@ const Profile = ({ clearPermission }) => {
 								userDetails.profilepicture
 							) ? (
 								<img
+									alt="profile"
 									className="profile-picture"
 									src={userDetails?.profilepicture}
 								/>
 							) : (
 								<img
+									alt="profile placeholder"
 									className="profile-picture"
 									src={images["profile-placeholder"]}
 								/>
 							)}
 							<i onClick={handlePicClick}>
-								<FontAwesomeIcon id="editPicIcon" icon={faImagePortrait}/>
+								<FontAwesomeIcon
+									id="editPicIcon"
+									icon={faImagePortrait}
+								/>
 							</i>
 							<>
-								{isPicClicked ? 
-								<form onSubmit={handleNewPicSubmit}>
-									<input type="file" name="newPic" onChange={(e) => {
-										setNewProfilePic(e.target.files[0]);
-									}}/>
-									<button type="submit" className="app-form-button">
-										Submit
-									</button>
-								</form>
-								: ""}
+								{isPicClicked ? (
+									<form onSubmit={handleNewPicSubmit}>
+										<input
+											type="file"
+											name="newPic"
+											accept=".jpg, .jpeg, .png, .svg"
+											onChange={(e) => {
+												setNewProfilePic(
+													e.target.files[0]
+												);
+											}}
+										/>
+										<button
+											type="submit"
+											className="app-form-button"
+										>
+											Submit
+										</button>
+									</form>
+								) : (
+									""
+								)}
 							</>
 						</div>
 						<div className="profile-info-container">

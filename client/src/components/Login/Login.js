@@ -5,10 +5,7 @@ import "./Login.css";
 import { BASE_URL } from "../constants";
 import images from "../../images.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faEye,
-	faEyeSlash
-} from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 async function authenticate(username, password) {
 	let result = "";
@@ -36,14 +33,13 @@ async function authenticate(username, password) {
 export default function Login({ setPermission, permission }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-	const [passwordType, setPasswordType] = useState("password")
-
+	const [passwordType, setPasswordType] = useState("password");
 	let navigate = useNavigate();
 
 	if (permission) return <Navigate to="/"></Navigate>;
 
 	const handleSubmit = async (event) => {
-		if (username == "" || password == "") {
+		if (username === "" || password === "") {
 			alert("Please enter a username and password");
 			return;
 		}
@@ -63,7 +59,7 @@ export default function Login({ setPermission, permission }) {
 
 		// Refresh before signing in to avoid previous session login bug
 		window.location.reload();
-		
+
 		// Allow the user to go to the home page
 		navigate("/", { replace: true });
 	};
@@ -74,7 +70,7 @@ export default function Login({ setPermission, permission }) {
 		} else {
 			setPasswordType("password");
 		}
-	}
+	};
 
 	return (
 		<>
@@ -92,7 +88,8 @@ export default function Login({ setPermission, permission }) {
 									id="user"
 									src={images["login-user-icon"]}
 								/>
-								<input className="form-input"
+								<input
+									className="form-input"
 									type="text"
 									placeholder="Email"
 									required
@@ -108,7 +105,8 @@ export default function Login({ setPermission, permission }) {
 									id="lock"
 									src={images["login-lock-icon"]}
 								/>
-								<input className="form-input"
+								<input
+									className="form-input"
 									type={passwordType}
 									placeholder="Password"
 									required
@@ -117,7 +115,17 @@ export default function Login({ setPermission, permission }) {
 									}}
 								/>
 								<i onClick={handleEyeClick}>
-									{passwordType === "password" ? <FontAwesomeIcon id="passEye" icon={faEye}></FontAwesomeIcon> : <FontAwesomeIcon id="passEyeSlash" icon={faEyeSlash}></FontAwesomeIcon>}
+									{passwordType === "password" ? (
+										<FontAwesomeIcon
+											id="passEye"
+											icon={faEye}
+										></FontAwesomeIcon>
+									) : (
+										<FontAwesomeIcon
+											id="passEyeSlash"
+											icon={faEyeSlash}
+										></FontAwesomeIcon>
+									)}
 								</i>
 							</div>
 							<div>

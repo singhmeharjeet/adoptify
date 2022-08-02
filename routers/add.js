@@ -16,7 +16,8 @@ module.exports = router.post("/", async (req, res) => {
 		return res.status(400).json({ msg: "no file uploaded" });
 	}
 
-	const { username, petName, petSpecies, petColor, petDescription } = req.body;
+	const { username, petName, petSpecies, petColor, petDescription } =
+		req.body;
 	const petImage = req.files.petImage.data;
 
 	//TO GIVE IMAGE A UNIQUE ID

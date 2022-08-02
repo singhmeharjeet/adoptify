@@ -9,10 +9,12 @@ module.exports = router.post("/", async (req, res) => {
 		if (error) {
 			res.json({ status: false, message: "error" }).status(400);
 		} else {
-			console.log("result", result);
-			res.json({ status: true, message: "edited", data: result.rows[0] }).status(
-				200
-			);
+			// console.log("result", result);
+			res.json({
+				status: true,
+				message: "edited",
+				data: result.rows[0],
+			}).status(200);
 		}
 	});
 });

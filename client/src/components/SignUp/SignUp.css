@@ -3,11 +3,12 @@
     height: 100vh;
 }
 
+
 .signup-backtologin {
-    width: 160px;
-    margin-top: 15px;
+    width: 150px;
+    margin-top: 11px;
     margin-left: 35px;
-    margin-bottom: 6vh;
+  
 }
 
 .back-to-login-link {
@@ -36,13 +37,16 @@
     padding-top: 10px;
 }
 
+
 .signup-form-title {
-    font-size: 4.5em;
+    font-size: 4.0em;
+    margin-top: -30px;
     font-family: "Anton", sans-serif;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: center;
     align-content: center;
+    letter-spacing: 0.02em;
 }
 
 .signup-form-wrapper {
@@ -62,7 +66,7 @@
 }
 
 .signup-title {
-    width: 115vh;
+    width: 100vh;
 }
 
 #sign-up-button:disabled,
@@ -79,4 +83,83 @@
 
 .eyeConfIcon{
     cursor: pointer;
+}
+
+.circleCheckIcon {
+    position: relative;
+   /* visibility: hidden; */
+    right: 10px;
+}
+.circleErrorIcon {
+    position: relative;
+   /* visibility: hidden; */
+    right: 10px;
+}
+#signup-user-last-name,#lockConfPwd{
+    margin-left: 9px;
+}
+
+
+.errMsg{
+    margin-left: 50px;
+    font-size: 12px;
+    position: relative;
+    width: 160px;
+    display: flex; 
+    align-content: block;
+    visibility: visible;
+    margin-bottom: 2px;
+    color: red;
+}
+.groupFirstLastName,.groupPwdConfPwd{
+    display: flex;
+    justify-content: space-between;
+}
+
+.groupFirstLastName{
+   margin-top: 60px;
+}
+.groupErrFirstLastName{
+    display: flex;
+    justify-content: space-between;
+ }
+#sign-up-button{
+    margin-top: 5px;
+    background-color: #000;
+    color: white;
+    display: block;
+    width: 88%;
+}
+
+#sign-up-button:hover{
+    color: black;
+   background-color: var(--light-brown);
+}
+
+.alert{
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+    width: 420px;
+    background-color: 	#fff3cd;
+    color: #f2b560;
+    padding: 20px 40px;
+    height: 20px;
+    position: absolute;
+    border-radius: 4px;
+    border-left: 8px solid #f2b560;
+}
+
+.alert-success{
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+    width: 420px;
+    background-color: #d4edda;
+    color: #5cb85c;
+    padding: 20px 40px;
+    height: 20px;
+    position: absolute;
+    border-radius: 4px;
+    border-left: 8px solid #5cb85c;
 }

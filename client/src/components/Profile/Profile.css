@@ -127,7 +127,7 @@
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    width: 50%;
+    width: 100%;
     overflow-x: scroll;
     gap: 0.3em;
 }
@@ -139,6 +139,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     padding: 1em;
     border-right: 0.01rem solid var(--kinda-grey);
 }

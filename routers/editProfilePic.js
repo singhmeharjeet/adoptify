@@ -10,17 +10,16 @@ const s3 = new AWS.S3({
 	secretAccessKey: "4G5yNC31KD4+9xjlRjJiv0Fq484ArwD9rEw8WxdP",
 });
 
-//take in the new profile image file and update the database 
+//take in the new profile image file and update the database
 module.exports = router.post("/", async (req, res) => {
-
-	const {username} = req.body;
-    const newPic = req.files.newProfilePic.data;
+	const { username } = req.body;
+	const newPic = req.files.newProfilePic.data;
 
 	// console.log(username, newPic);
 	const params = {
 		Bucket: "adoptify-users",
 		Key: `${username}.jpg`,
-		Body: newPic
+		Body: newPic,
 	};
 	s3.upload(params, async function (err, data) {
 		if (err) console.log(err);
@@ -28,8 +27,9 @@ module.exports = router.post("/", async (req, res) => {
 
 		const updatePicQ = `UPDATE users SET profilepicture='${newPicURL}' WHERE username='${username}'`;
 		await pool.query(updatePicQ);
-		console.log("New profile picture uploaded and updated successfully, ", newPicURL);
-	}
-
-	)
+		console.log(
+			"New profile picture uploaded and updated successfully, ",
+			newPicURL
+		);
+	});
 });
