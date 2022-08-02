@@ -202,6 +202,7 @@ const GlobalContextProvider = ({ children }) => {
 		id,
 		name,
 		species,
+		color,
 		des,
 		imageFile
 	) {
@@ -210,6 +211,7 @@ const GlobalContextProvider = ({ children }) => {
 		formData.append("id", id);
 		formData.append("name", name);
 		formData.append("species", species);
+		formData.append("color", color);
 		formData.append("des", des);
 		formData.append("imageFile", imageFile);
 
