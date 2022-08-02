@@ -52,7 +52,7 @@ export default function Modal({ postInfo, closeModal }) {
 								{postInfo?.pet_name}
 							</p>
 							<p className="modal-pet-species">
-								{postInfo?.pet_species}
+								{postInfo?.pet_species} | {postInfo?.pet_color}
 							</p>
 					 	</div>
 						 <p className="modal-description-header">
