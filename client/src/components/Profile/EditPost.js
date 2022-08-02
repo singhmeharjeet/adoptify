@@ -5,7 +5,7 @@ import {
 	faX
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function EditPost({ postInfo, savePost, onDelete, cancelEdit }) {
+export default function EditPost({ postInfo, savePost, cancelEdit }) {
 	return (
 		<>
 			<div className="post">
