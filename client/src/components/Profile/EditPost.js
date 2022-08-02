@@ -52,10 +52,17 @@ export default function EditPost({ postInfo, savePost, cancelEdit }) {
 								className="pet-name"
 								defaultValue={postInfo?.pet_name}
 							/>
-							<input
-								className="pet-species"
-								defaultValue={postInfo?.pet_species}
-							/>
+							<div className="post-species-and-color">
+								<input
+									className="post-pet-species"
+									defaultValue={postInfo?.pet_species}
+								/> 
+								&nbsp;
+								<input
+									className="post-pet-color"
+									defaultValue={postInfo?.pet_color}
+								/>
+							</div>
 						</div>
 						<div className="post-buttons">
 							<button onClick={handleNewPicSubmit} type="submit" style={{border: "none"}}>

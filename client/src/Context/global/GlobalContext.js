@@ -165,7 +165,7 @@ const GlobalContextProvider = ({ children }) => {
 	function getUserDetailsFromUsername(username) {
 		return state.allUsers.find((user) => user.username === username);
 	}
-	const editUserPost = async (id, name, species, des) => {
+	const editUserPost = async (id, name, species, color, des) => {
 		try {
 			const responseJSON = await (
 				await fetch(`${BASE_URL}/editPost`, {
@@ -177,7 +177,8 @@ const GlobalContextProvider = ({ children }) => {
 						id,
 						name,
 						species,
-						des,
+						color,
+						des
 					}),
 				})
 			).json();
