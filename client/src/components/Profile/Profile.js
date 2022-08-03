@@ -14,6 +14,11 @@ import EditUser from "./EditUser";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImagePortrait } from "@fortawesome/free-solid-svg-icons";
+import '../Admin/Admin.css'
+import {
+	faUser,
+	faPaw,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
@@ -27,7 +32,6 @@ const Profile = ({ clearPermission }) => {
 	} = useGlobalData();
 	const [postState, setPostState] = useState(-1);
 	const [newProfilePic, setNewProfilePic] = useState();
-	const [isPicClicked, setIsPicClicked] = useState(false);
 	const [editUser, setEditUser] = useState(true);
 
 	// -1 as a post id means that it is not editing
@@ -97,12 +101,6 @@ const Profile = ({ clearPermission }) => {
 		else return false;
 	}
 
-	function handlePicClick() {
-		//should maybe pop up modal and show a choose new image screen
-		setIsPicClicked(!isPicClicked);
-		console.log("pic button clicked");
-	}
-
 	return (
 		<>
 			<NavBar
@@ -133,44 +131,28 @@ const Profile = ({ clearPermission }) => {
 									src={images["profile-placeholder"]}
 								/>
 							)}
-							<i onClick={handlePicClick}>
-								<FontAwesomeIcon
-									id="editPicIcon"
-									icon={faImagePortrait}
-								/>
-							</i>
-							<>
-								{isPicClicked ? (
-									<form onSubmit={handleProfilePictureSubmit}>
-										<input
-											type="file"
-											name="newPic"
-											accept=".jpg, .jpeg, .png, .svg"
-											onChange={(e) => {
-												setNewProfilePic(
-													e.target.files[0]
-												);
-											}}
-										/>
-										<button
-											type="submit"
-											className="app-form-button"
-										>
-											Submit
-										</button>
-									</form>
-								) : (
-									""
-								)}
-							</>
+							
 						</div>
 						<div className="profile-info-container">
 							<Info userDetails={userDetails} />
 						</div>
-						<button onClick={() => setEditUser(!editUser)}>
-							{" "}
-							{editUser ? "My Posts" : "User Details"}
-						</button>
+									
+						<div className="admin-links">
+							<p onClick={() => setEditUser(true)}>
+								<FontAwesomeIcon
+									className="profile-icon"
+									icon={faUser}
+								></FontAwesomeIcon>
+								User Settings
+							</p>
+							<p onClick={() => setEditUser(false)}>
+								<FontAwesomeIcon
+									className="profile-icon"
+									icon={faPaw}
+								></FontAwesomeIcon>
+								My Posts
+							</p>
+						</div>
 					</div>
 				</div>
 				<div className="posts-container">
@@ -178,18 +160,10 @@ const Profile = ({ clearPermission }) => {
 						<>
 							<p className="posts-label">Edit Profile</p>
 							<div className="posts-list-wrapper">
-								<div className="posts-list">
-									<div
-										style={{
-											width: "80%",
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center",
-										}}
-									>
-										<EditUser />
-									</div>
-								</div>
+								
+										<EditUser 
+										setNewProfilePic={setNewProfilePic}
+										handleProfilePictureSubmit={handleProfilePictureSubmit}/>
 							</div>
 						</>
 					) : (

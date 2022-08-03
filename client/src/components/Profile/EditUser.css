@@ -5,6 +5,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 1em;
+    margin-bottom: 2em;
 }
 
 .editUser-card:hover {
@@ -20,7 +21,7 @@
     border-radius: 10px;
 }
 
-.editUser-body {
+.editUser-body { 
     width: 100%;
     display: flex;
     flex-grow: 1;
