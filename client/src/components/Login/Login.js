@@ -118,12 +118,12 @@ export default function Login({ setPermission, permission }) {
 									{passwordType === "password" ? (
 										<FontAwesomeIcon
 											id="passEye"
-											icon={faEye}
+											icon={faEyeSlash}
 										></FontAwesomeIcon>
 									) : (
 										<FontAwesomeIcon
 											id="passEyeSlash"
-											icon={faEyeSlash}
+											icon={faEye}
 										></FontAwesomeIcon>
 									)}
 								</i>

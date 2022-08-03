@@ -6,15 +6,15 @@ module.exports = router.post("/", async (req, res) => {
 	const { username, password, firstname, lastname, address, phone } =
 		req.body;
 
-	console.log(
-		"username, password, firstname, lastname, address, phone",
-		username,
-		password,
-		firstname,
-		lastname,
-		address,
-		phone
-	);
+	// console.log(
+	// 	"username, password, firstname, lastname, address, phone",
+	// 	username,
+	// 	password,
+	// 	firstname,
+	// 	lastname,
+	// 	address,
+	// 	phone
+	// );
 	const editUserQuery = `update users set (password, firstname, lastname, address, phone) = ('${password}', '${firstname}', '${lastname}','${address}','${phone}') where username='${username}' returning *`;
 
 	pool.query(editUserQuery, (error, result) => {

@@ -15,7 +15,6 @@ const s3 = new AWS.S3({
 module.exports = router.post("/", async (req, res) => {
 	const { username, postid } = req.body;
 	const newPostPic = req?.files?.newPostPic?.data;
-	console.log("newPostPic", newPostPic);
 	const uID = uuidv4();
 
 	const params = {

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import "./EditUser.css";
 import { useGlobalData } from "../../Context/global/GlobalContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditUser({
 	setNewProfilePic,
 	handleProfilePictureSubmit,
 }) {
 	const { editUserData, userDetails } = useGlobalData();
+	const [passwordType, setPasswordType] = useState("password");
+	const [confirmPasswordType, setConfirmPasswordType] = useState("password");
 	const [seePassword, setSeePassword] = useState(false);
 	const [seeConfirm, setSeeConfirm] = useState(false);
 
@@ -54,6 +58,22 @@ export default function EditUser({
 
 		let address = document.getElementById("address").value;
 		editUserData(userDetails?.username, pw, fname, lname, p_num, address);
+	};
+
+	const handleEyeClick = () => {
+		if (passwordType === "password") {
+			setPasswordType("text");
+		} else {
+			setPasswordType("password");
+		}
+	};
+
+	const handleConfirmEyeClick = () => {
+		if (confirmPasswordType === "password") {
+			setConfirmPasswordType("text");
+		} else {
+			setConfirmPasswordType("password");
+		}
 	};
 
 	return (
@@ -154,8 +174,22 @@ export default function EditUser({
 									<td className="editUser-row-right">
 										<input
 											id="pw"
+											type={passwordType}
 											defaultValue={userDetails?.password}
 										></input>
+											<i onClick={handleEyeClick}>
+											{passwordType === "password" ? (
+												<FontAwesomeIcon
+													id="passEye"
+													icon={faEyeSlash}
+												></FontAwesomeIcon>
+											) : (
+												<FontAwesomeIcon
+													id="passEyeSlash"
+													icon={faEye}
+												></FontAwesomeIcon>
+											)}
+										</i>
 									</td>
 								</tr>
 								<tr className="editUser-row">
@@ -165,8 +199,22 @@ export default function EditUser({
 									<td className="editUser-row-right">
 										<input
 											id="c_pw"
+											type={confirmPasswordType}
 											defaultValue={userDetails?.password}
 										></input>
+										<i onClick={handleConfirmEyeClick}>
+											{confirmPasswordType === "password" ? (
+												<FontAwesomeIcon
+													id="passEye"
+													icon={faEyeSlash}
+												></FontAwesomeIcon>
+											) : (
+												<FontAwesomeIcon
+													id="passEyeSlash"
+													icon={faEye}
+												></FontAwesomeIcon>
+											)}
+										</i>
 									</td>
 								</tr>
 							</tbody>

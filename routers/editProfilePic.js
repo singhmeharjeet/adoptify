@@ -18,7 +18,6 @@ module.exports = router.post("/", async (req, res) => {
 
 	const uID = uuidv4();
 
-	// console.log(username, newPic);
 	const params = {
 		Bucket: "adoptify-users",
 		Key: `${username}-${uID}.jpg`,
