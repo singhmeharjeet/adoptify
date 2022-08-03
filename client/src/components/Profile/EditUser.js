@@ -6,7 +6,7 @@ export default function EditUser({setNewProfilePic, handleProfilePictureSubmit})
     const { editUserData, userDetails } = useGlobalData();
 	const [seePassword, setSeePassword] = useState(false);
 	const [seeConfirm, setSeeConfirm] = useState(false);
-	
+
 	const saveUserDetails = () => {
 		let pw = document.getElementById("pw").value;
 		let c_pw = document.getElementById("c_pw").value;
@@ -40,6 +40,7 @@ export default function EditUser({setNewProfilePic, handleProfilePictureSubmit})
 		patt = RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/i);
 		if(!patt.test(pw)){
 			window.alert("invalid password input\nUse 8 or more characters with a mix of letters, numbers & symbols")
+			return;
 		}
 		
         let address = document.getElementById("address").value;

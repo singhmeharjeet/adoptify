@@ -32,7 +32,7 @@ const Profile = ({ clearPermission }) => {
 	} = useGlobalData();
 	const [postState, setPostState] = useState(-1);
 	const [newProfilePic, setNewProfilePic] = useState();
-	const [editUser, setEditUser] = useState(true);
+	const [editUser, setEditUser] = useState(false);
 
 	// -1 as a post id means that it is not editing
 	function isPostEditing(pid) {
