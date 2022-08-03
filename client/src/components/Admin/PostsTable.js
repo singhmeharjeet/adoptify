@@ -32,24 +32,8 @@ export default function PostsTable({ allPosts, deletePostData }) {
 										value="Delete"
 										onClick={() => {
 											deletePostData(post?.postid);
-											setTimeout(
-												() => window.location.reload(),
-												500
-											);
 										}}
 									></FontAwesomeIcon>
-									{/* <input
-										type="button"
-										className="delete-button"
-										value="Delete"
-										onClick={() => {
-											deletePostData(post?.postid);
-											setTimeout(
-												() => window.location.reload(),
-												500
-											);
-										}}
-									/> */}
 								</td>
 							</tr>
 						</tbody>

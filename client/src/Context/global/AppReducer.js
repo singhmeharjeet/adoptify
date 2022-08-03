@@ -29,7 +29,6 @@ const AppReducer = (state, action) => {
 			let filteredPosts = allPost.filter(
 				(post) => post.postid != action?.payload?.postid
 			);
-			console.log("filteredPosts", filteredPosts);
 			return {
 				...state,
 				postsDetails: filteredPosts,

@@ -79,9 +79,11 @@ const Profile = ({ clearPermission }) => {
 		navigate("/login");
 	}
 
-	async function onDelete(e) {
+	async function onDelete(e, postInfo) {
 		e.preventDefault();
-		const postId = e.currentTarget.value;
+
+		const postId = postInfo?.postid;
+		console.log('postId', postId);
 		deletePostData(postId);
 	}
 

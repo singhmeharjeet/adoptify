@@ -34,10 +34,6 @@ export default function UsersTable({ allUsers, deleteUserData }) {
 										value="Delete"
 										onClick={() => {
 											deleteUserData(user?.username);
-											setTimeout(
-												() => window.location.reload(),
-												500
-											);
 										}}
 									></FontAwesomeIcon>
 								</td>

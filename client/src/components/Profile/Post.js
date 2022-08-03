@@ -33,7 +33,7 @@ export default function Post({ postInfo, editPost, onDelete }) {
 								id="post-delete-icon"
 								icon={faTrashCan}
 								value={postInfo?.postid}
-								onClick={onDelete}
+								onClick={(e) => onDelete(e, postInfo)}
 							></FontAwesomeIcon>
 						</div>
 					</div>
