@@ -23,7 +23,7 @@ export default function MessagesPage({ clearPermission }) {
 		setSelectedContact(contacts[0], () => {
 			setSelectedConversation(selectedContact?.conversationKey);
 		});
-	}, [contacts.length, contacts, selectedContact.conversationKey]);
+	}, [contacts.length, contacts, selectedContact?.conversationKey]);
 
 	function handleLogout() {
 		clearPermission();
@@ -32,7 +32,7 @@ export default function MessagesPage({ clearPermission }) {
 
 	function handleContactClick(contact) {
 		setSelectedContact(contact);
-		setSelectedConversation(conversations[contact.conversationKey]);
+		setSelectedConversation(conversations[contact?.conversationKey]);
 	}
 
 	return (

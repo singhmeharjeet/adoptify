@@ -178,7 +178,7 @@ const GlobalContextProvider = ({ children }) => {
 						name,
 						species,
 						color,
-						des
+						des,
 					}),
 				})
 			).json();
@@ -197,31 +197,16 @@ const GlobalContextProvider = ({ children }) => {
 		setChangeCounter((prev) => prev + 1);
 	};
 
-	async function editUserPostWithImage(
-		username,
-		id,
-		name,
-		species,
-		color,
-		des,
-		imageFile
-	) {
+	async function editProfileImage(username, imageFile) {
 		const formData = new FormData();
+		formData.append("newProfilePic", imageFile);
 		formData.append("username", username);
-		formData.append("id", id);
-		formData.append("name", name);
-		formData.append("species", species);
-		formData.append("color", color);
-		formData.append("des", des);
-		formData.append("imageFile", imageFile);
 
 		try {
-			const responseJSON = await axios.post(
-				`${BASE_URL}/editPostPicture`,
-				formData
-			);
+			const responseJSON = await (
+				await axios.post(`${BASE_URL}/editProfilePic`, formData)
+			).json();
 			if (responseJSON.status) {
-				console.log("responseJSON?.data", responseJSON?.data);
 				dispatch({
 					type: UPDATE_POST,
 					payload: {
@@ -230,18 +215,13 @@ const GlobalContextProvider = ({ children }) => {
 				});
 			}
 		} catch (err) {
-			if (err.response.status === 500) {
+			if (err?.response?.status === 500) {
 				console.log("There was a problem with the server");
 			} else {
-				console.log(err.response.data.msg);
+				console.log(err?.response);
 			}
 		}
-		for (let i = 0; i < state.postsDetails.length; i++) {
-			if (state.postsDetails[i].postid === id) {
-				return state.postsDetails[i];
-			}
-		}
-		return null;
+		setChangeCounter((prev) => prev + 1);
 	}
 
 	useEffect(() => {
@@ -260,7 +240,7 @@ const GlobalContextProvider = ({ children }) => {
 				deleteUserData,
 				deletePostData,
 				editUserPost,
-				editUserPostWithImage,
+				editProfileImage,
 				editUserData,
 				getUserDetailsFromUsername,
 			}}

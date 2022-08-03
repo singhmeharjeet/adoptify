@@ -1,35 +1,36 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import { io } from "socket.io-client";
-// import { useGlobalData } from "../global/GlobalContext";
-// const SocketContext = React.createContext();
+import React, { useContext, useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { useGlobalData } from "../global/GlobalContext";
+const SocketContext = React.createContext();
 
-// export function useSocket() {
-// 	return useContext(SocketContext);
-// }
+export function useSocket() {
+	return useContext(SocketContext);
+}
 
-// export default function SocketContextProvider({ children }) {
-// 	const userDetails = useGlobalData();
-// 	const [socket, setSocket] = useState();
+export default function SocketContextProvider({ children }) {
+	const userDetails = useGlobalData();
+	const [socket, setSocket] = useState();
 
-// 	useEffect(() => {
-// 		const newSocket = io("http://localhost:5000", {
-// 			query: {
-// 				id: userDetails?.username,
-// 			},
-// 		});
+	useEffect(() => {
+		(async () => {
+			console.log("userDetails?.username", userDetails?.username);
+			const newSocket = io("http://localhost:5010", {
+				query: {
+					id: await userDetails?.username,
+				},
+			});
+			setSocket(newSocket);
+			socket?.onAny((event, ...args) => {
+				console.log(event, args);
+			});
+			// return () => newSocket?.close();
+		})();
 
-// 		setSocket(newSocket);
+	}, [userDetails.username]);
 
-// 		return () => newSocket.close();
-// 	}, [userDetails?.username]);
-
-// 	socket?.onAny((event, ...args) => {
-// 		console.log(event, args);
-// 	});
-
-// 	return (
-// 		<SocketContext.Provider value={socket}>
-// 			{children}
-// 		</SocketContext.Provider>
-// 	);
-// }
+	return (
+		<SocketContext.Provider value={socket}>
+			{children}
+		</SocketContext.Provider>
+	);
+}

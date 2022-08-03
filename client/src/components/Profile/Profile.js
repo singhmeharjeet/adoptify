@@ -23,27 +23,22 @@ const Profile = ({ clearPermission }) => {
 		postsDetails,
 		deletePostData,
 		editUserPost,
-		editUserPostWithImage,
+		editProfileImage,
 	} = useGlobalData();
 	const [postState, setPostState] = useState(-1);
 	const [newProfilePic, setNewProfilePic] = useState();
 	const [isPicClicked, setIsPicClicked] = useState(false);
-	const [userData, setUserData] = useState(userDetails);
 	const [editUser, setEditUser] = useState(true);
 
 	// -1 as a post id means that it is not editing
-	const isPostEditing = (pid) => {
+	function isPostEditing(pid) {
 		if (pid === postState) {
 			return true;
 		}
 		return false;
-	};
+	}
 
-	const editPost = (pid) => {
-		setPostState(pid);
-	};
-
-	const savePost = async (e, uploadedPostImage) => {
+	async function savePost(e) {
 		e.preventDefault();
 
 		// postState has the current id, do not change until the end
@@ -62,37 +57,40 @@ const Profile = ({ clearPermission }) => {
 		let post_description = infoTextArea[0].value;
 
 		// postState = postid;
-		if (uploadedPostImage) {
-			const updatedPost = editUserPostWithImage(
-				userDetails.username,
-				postState,
-				post_name,
-				post_species,
-				post_color,
-				post_description,
-				uploadedPostImage
-			);
-			console.log("updatedPost", updatedPost);
-		} else {
-			editUserPost(postState, post_name, post_species, post_color, post_description);
-		}
-		setPostState(-1);
-	};
+		editUserPost(
+			postState,
+			post_name,
+			post_species,
+			post_color,
+			post_description
+		);
 
-	const handleLogout = () => {
+		setPostState(-1);
+	}
+
+	async function handleProfilePictureSubmit(e) {
+		e.preventDefault();
+		editProfileImage(userDetails.username, newProfilePic);
+	}
+
+	function handleLogout() {
 		clearPermission();
 		navigate("/login");
-	};
+	}
 
-	const onDelete = async (e) => {
+	async function onDelete(e) {
 		e.preventDefault();
 		const postId = e.currentTarget.value;
 		deletePostData(postId);
-	};
+	}
 
-	const cancelEdit = async (e) => {
+	function editPost(pid) {
+		setPostState(pid);
+	}
+
+	async function cancelEdit(e) {
 		editPost(-1);
-	};
+	}
 
 	function profilePictureExists(imgURL) {
 		if (imgURL) return imgURL.includes("adoptify");
@@ -104,25 +102,6 @@ const Profile = ({ clearPermission }) => {
 		setIsPicClicked(!isPicClicked);
 		console.log("pic button clicked");
 	}
-
-	const handleNewPicSubmit = async (e) => {
-		e.preventDefault();
-		console.log(newProfilePic);
-
-		const formData = new FormData();
-		formData.append("newProfilePic", newProfilePic);
-		formData.append("username", userDetails.username);
-
-		try {
-			await axios.post(`${BASE_URL}/editProfilePic`, formData);
-		} catch (err) {
-			if (err.response.status === 500) {
-				console.log("There was a problem with the server");
-			} else {
-				console.log(err.response.data.msg);
-			}
-		}
-	};
 
 	return (
 		<>
@@ -162,7 +141,7 @@ const Profile = ({ clearPermission }) => {
 							</i>
 							<>
 								{isPicClicked ? (
-									<form onSubmit={handleNewPicSubmit}>
+									<form onSubmit={handleProfilePictureSubmit}>
 										<input
 											type="file"
 											name="newPic"
@@ -188,28 +167,32 @@ const Profile = ({ clearPermission }) => {
 						<div className="profile-info-container">
 							<Info userDetails={userDetails} />
 						</div>
-						<button onClick={() => setEditUser(!editUser)}> {editUser ? "My Posts" : "User Details"}</button>
+						<button onClick={() => setEditUser(!editUser)}>
+							{" "}
+							{editUser ? "My Posts" : "User Details"}
+						</button>
 					</div>
 				</div>
 				<div className="posts-container">
-					{editUser ? 
+					{editUser ? (
 						<>
 							<p className="posts-label">Edit Profile</p>
 							<div className="posts-list-wrapper">
 								<div className="posts-list">
 									<div
-									style={{
-										width: "80%",
-										display: "flex",
-										justifyContent: "center",
-										alignItems: "center",
-									}}>
-										<EditUser userData={userData} setUserData={setUserData}/>	
+										style={{
+											width: "80%",
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+										}}
+									>
+										<EditUser />
 									</div>
 								</div>
 							</div>
 						</>
-						: 
+					) : (
 						<>
 							<p className="posts-label">My Posts</p>
 							{/* start of posts */}
@@ -244,7 +227,7 @@ const Profile = ({ clearPermission }) => {
 								</div>
 							</div>
 						</>
-					}
+					)}
 				</div>
 			</div>
 		</>

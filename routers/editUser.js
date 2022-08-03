@@ -5,10 +5,21 @@ const pool = require("../database.js");
 module.exports = router.post("/", async (req, res) => {
 	const { username, password, firstname, lastname, address, phone } =
 		req.body;
-	const editUserQuery = `update posts set (password, firstname, lastname, address, phone) = ('${password}', '${firstname}', '${lastname}','${address}','${phone}') where username=${username} returning *`;
+
+	console.log(
+		"username, password, firstname, lastname, address, phone",
+		username,
+		password,
+		firstname,
+		lastname,
+		address,
+		phone
+	);
+	const editUserQuery = `update users set (password, firstname, lastname, address, phone) = ('${password}', '${firstname}', '${lastname}','${address}','${phone}') where username='${username}' returning *`;
 
 	pool.query(editUserQuery, (error, result) => {
 		if (error) {
+			console.log('error', error);
 			res.json({ status: false, message: "error" }).status(400);
 		} else {
 			console.log("result", result);

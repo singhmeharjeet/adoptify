@@ -17,13 +17,6 @@ const editProfilePic = require("./routers/editProfilePic.js");
 const removePost = require("./routers/deletePost.js");
 const editPost = require("./routers/editPost.js");
 const editPostImage = require("./routers/editPostImage.js");
-// const httpServer = require("http").createServer();
-// const io = require("socket.io")(httpServer, {
-// 	cors: {
-// 		origin: "*",
-// 		methods: ["GET", "POST"],
-// 	},
-// });
 
 /* 
 	Setup Server app
@@ -31,6 +24,15 @@ const editPostImage = require("./routers/editPostImage.js");
 const app = express();
 const PORT = process.env.PORT || 5010;
 
+/*
+	Set Socket Connection
+*/
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, {
+	cors: {
+		origin: "*",
+	},
+});
 /* 
 	Middleware
 */
@@ -56,26 +58,34 @@ app.use("/editPost", editPost);
 app.use("/editProfilePic", editProfilePic);
 app.use("/editUser", editUser);
 app.use("/editPostImage", editPostImage);
+
 /* 
 	Set Up Connection for messages
 */
-// io.use(cors());
-// io.on("connection", (socket) => {
-// 	const id = socket.handshake.query.id;
-// 	console.log("id", id);
-// 	socket.join(id);
+io.on("connection", (socket) => {
+	// console.log("what is the socket", socket);
+	console.log("socket.handshake.query", socket?.handshake?.query);
+	const id = socket?.handshake?.query?.id;
+	console.log("id", id);
 
-// 	socket.on("send-message", (key, message) => {
-// 		console.log("key", key);
-// 		socket.to(message.receiver_id).emit("receive-message", {
-// 			key,
-// 			receiver_id: message.receiver_id,
-// 			sender_id: message.sender_id,
-// 			text: message.message,
-// 			time_stamp: message.time_stamp,
-// 		});
-// 	});
-// });
+	// Join the room to see messages
+	socket.join(id);
+
+	// Create a room (conversation)
+	socket.on("send-message", async (payload) => {
+		const data = await payload;
+		console.log('data', data);
+
+		// Emit the message back to other client
+		socket.emit("receive-message", {
+			conversationKey: data?.conversationKey,
+			receiver_id: data?.receiver_id,
+			sender_id: data?.sender_id,
+			text: data?.text,
+			time_stamp: data?.time_stamp,
+		});
+	});
+});
 
 /* 
 	Default Action
@@ -84,5 +94,5 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
 });
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-// httpServer.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+httpServer.listen(5010), () => console.log(`Listening on ${5010}`);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faX } from "@fortawesome/free-solid-svg-icons";
+import { useGlobalData } from "../../Context/global/GlobalContext"
 
 import axios from "axios";
 import { BASE_URL } from "../constants";
@@ -8,6 +9,7 @@ import { BASE_URL } from "../constants";
 export default function EditPost({ postInfo, savePost, cancelEdit }) {
 
 	const [newPostPic, setNewPostPic] = useState(null);
+	const { editPostImage } = useGlobalData();
 
 	const handleNewPicSubmit = async (e) => {
 		if (newPostPic !== null) {

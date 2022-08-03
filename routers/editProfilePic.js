@@ -25,11 +25,19 @@ module.exports = router.post("/", async (req, res) => {
 		if (err) console.log(err);
 		var newPicURL = data.Location;
 
-		const updatePicQ = `UPDATE users SET profilepicture='${newPicURL}' WHERE username='${username}'`;
-		await pool.query(updatePicQ);
-		console.log(
-			"New profile picture uploaded and updated successfully, ",
-			newPicURL
-		);
+		const updatePicQ = `UPDATE users SET profilepicture='${newPicURL}' WHERE username='${username}' returning *`;
+		pool.query(updatePicQ, (error, result) => {
+			// console.log('result', result);
+			if (error) {
+				res.json({ status: false, message: "error" }).status(400);
+			} else {
+				res.json({
+					status: true,
+					message:
+						"New profile picture uploaded and updated successfully",
+					data: result.rows[0],
+				}).status(200);
+			}
+		});
 	});
 });

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-// import { useSocket } from "../Socket/SocketContext";
+import React, { useContext, useState, useEffect } from "react";
+import { useSocket } from "../Socket/SocketContext";
 
 const ConversationContext = React.createContext();
 
@@ -9,7 +9,7 @@ export function useConversations() {
 
 export default function ConversationsContexProvider({ children }) {
 	const [conversations, setConversations] = useState({});
-	// const socket = useSocket();
+	const socket = useSocket();
 
 	function createConversation(contact) {
 		if (!(contact.conversationKey in conversations)) {
@@ -21,6 +21,15 @@ export default function ConversationsContexProvider({ children }) {
 			});
 		}
 	}
+	function sendMessage(payload) {
+		socket.emit("send-message", {
+			conversationKey: payload?.conversationKey,
+			sender_id: payload?.sender_id,
+			receiver_id: payload?.receiver_id,
+			text: payload?.text,
+			time_stamp: payload?.time_stamp,
+		});
+	}
 
 	const addMessageToConversation = (
 		key,
@@ -29,44 +38,54 @@ export default function ConversationsContexProvider({ children }) {
 		text,
 		time_stamp
 	) => {
+		console.log(
+			"key, sender_id, receiver_id, text",
+			key,
+			sender_id,
+			receiver_id,
+			text
+		);
 		if (
 			key != null &&
 			sender_id != null &&
 			receiver_id != null &&
 			text != null
 		) {
-			// const message = {
-			// 	sender_id,
-			// 	reciver_id: receiver_id,
-			// 	message: text,
-			// 	time_stamp,
-			// };
-			// socket.emit("send-message", key, message);
-
 			conversations[key].push({
 				sender_id,
 				reciver_id: receiver_id,
-				message: text,
+				text,
 				time_stamp,
 			});
+			console.log("conversations after adding", key, conversations[key]);
+		} else {
+			console.log("Couldn't add the conversation");
 		}
-		// console.log("conversations after adding", conversations);
 	};
 
 	// Prevents Unwanted event listeners to our socket
-	// useEffect(() => {
-	// 	if (socket == null) return;
-	// 	socket.on("receive-message", addMessageToConversation);
+	useEffect(() => {
+		if (socket == null) return;
+		socket.on("receive-message", async (payload) => {
+			console.log("response from server", await payload);
+			addMessageToConversation(
+				payload?.conversationKey,
+				payload?.sender_id,
+				payload?.receiver_id,
+				payload?.text,
+				payload?.time_stamp
+			);
+		});
 
-	// 	return () => socket.off("receive-message");
-	// }, [socket, addMessageToConversation]);
+		return () => socket.off("receive-message");
+	}, [socket, addMessageToConversation]);
 
 	return (
 		<ConversationContext.Provider
 			value={{
 				conversations,
 				createConversation,
-				addMessageToConversation,
+				sendMessage,
 			}}
 		>
 			{children}

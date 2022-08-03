@@ -8,32 +8,32 @@ export default function Conversation({
 	selectedContact,
 }) {
 	const { userDetails } = useGlobalData();
-	const { addMessageToConversation } = useConversations();
-	const [msg, setMsg] = useState();
+	const { sendMessage } = useConversations();
+	const [text, setText] = useState();
 
-	useEffect(
-		() => console.log("Update...", selectedContact, selectedConversation),
-		[selectedConversation.length, selectedContact, selectedConversation]
-	);
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		// Sender is always the Logged In user.
-		if (msg) {
-			addMessageToConversation(
-				selectedContact.conversationKey,
-				userDetails.username,
-				selectedContact.username,
-				msg,
-				new Date().getTime()
-			);
-		}
-
-		setMsg("");
+		sendMessage({
+			conversationKey: selectedContact?.conversationKey,
+			sender_id: userDetails?.username,
+			receiver_id: selectedContact?.username,
+			text,
+			time_stamp: new Date()?.getTime(),
+		});
+		setText("");
 	}
 	function handleChange(e) {
-		setMsg(e.target.value);
+		setText(e.target.value);
 	}
+	useEffect(
+		() => console.log("Update on the front end...", selectedConversation),
+		[
+			selectedConversation.length,
+			selectedContact,
+			selectedConversation.sendMessage,
+		]
+	);
 	return (
 		<>
 			<div className="conversation">
@@ -47,7 +47,7 @@ export default function Conversation({
 										message.sender_id ===
 										userDetails.username
 									}
-									text={message.message}
+									text={message.text}
 								/>
 							);
 						})}
@@ -58,7 +58,7 @@ export default function Conversation({
 						name="messageInput"
 						rows="1"
 						placeholder="Enter Your Message"
-						value={msg}
+						value={text}
 						onChange={handleChange}
 					></textarea>
 					<button type="submit" onClick={handleSubmit}>

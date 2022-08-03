@@ -1,7 +1,8 @@
 import React from "react";
 import "./EditUser.css";
-
-export default function EditUser({ userData, setUserData }) {
+import { useGlobalData } from "../../Context/global/GlobalContext"
+export default function EditUser() {
+    const { editUserData, userDetails } = useGlobalData();
 	const saveUserDetails = () => {
 		let pw = document.getElementById("pw").value;
 		let c_pw = document.getElementById("c_pw").value;
@@ -13,7 +14,9 @@ export default function EditUser({ userData, setUserData }) {
 		let fname = document.getElementById("fname").value;
 		let lname = document.getElementById("lname").value;
 		let p_num = document.getElementById("p_num").value;
-		let address = document.getElementById("address").value;
+        let address = document.getElementById("address").value;
+
+        editUserData(userDetails?.username, pw, fname, lname, p_num, address);
 	};
 
 	return (
@@ -25,7 +28,7 @@ export default function EditUser({ userData, setUserData }) {
 							<th className="editUser-row-left">First Name: </th>
 							<td className="editUser-row-right">
 								<input
-									defaultValue={userData?.firstname}
+									defaultValue={userDetails?.firstname}
 									id="fname"
 								/>
 							</td>
@@ -34,7 +37,7 @@ export default function EditUser({ userData, setUserData }) {
 							<th className="editUser-row-left">Last Name:</th>
 							<td className="editUser-row-right">
 								<input
-									defaultValue={userData?.lastname}
+									defaultValue={userDetails?.lastname}
 									id="lname"
 								></input>
 							</td>
@@ -43,7 +46,7 @@ export default function EditUser({ userData, setUserData }) {
 							<th className="editUser-row-left">Phone Number:</th>
 							<td className="editUser-row-right">
 								<input
-									defaultValue={userData?.phone}
+									defaultValue={userDetails?.phone}
 									id="p_num"
 								></input>
 							</td>
@@ -52,7 +55,7 @@ export default function EditUser({ userData, setUserData }) {
 							<th className="editUser-row-left">Address:</th>
 							<td className="editUser-row-right">
 								<input
-									defaultValue={userData?.address}
+									defaultValue={userDetails?.address}
 									id="address"
 								></input>
 							</td>

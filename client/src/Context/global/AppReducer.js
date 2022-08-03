@@ -73,7 +73,7 @@ const AppReducer = (state, action) => {
 			let allUsers = [...state.allUsers];
 			let updatedAllUsersArray = allUsers.reduce((acc, cv) => {
 				if (cv.username === updatedUserDetails.username) {
-					acc.push(action.payload.userDetails);
+					acc.push(updatedUserDetails);
 				} else {
 					acc.push(cv);
 				}
