@@ -1,7 +1,7 @@
 const express = require("express"),
 	router = express.Router();
 const pool = require("../database.js");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
 
 const AWS = require("aws-sdk");
 
@@ -14,7 +14,8 @@ const s3 = new AWS.S3({
 //take in the new post image file and update the database
 module.exports = router.post("/", async (req, res) => {
 	const { username, postid } = req.body;
-	const newPostPic = req.files.newPostPic.data;
+	const newPostPic = req?.files?.newPostPic?.data;
+	console.log("newPostPic", newPostPic);
 	const uID = uuidv4();
 
 	const params = {
@@ -28,16 +29,16 @@ module.exports = router.post("/", async (req, res) => {
 
 		const updatePostPicQ = `UPDATE posts SET images[0]='${newPostPicURL}' WHERE postid='${postid}' returning *`;
 		pool.query(updatePostPicQ, (error, result) => {
-            if (error) {
-                res.json({ status: false, message: "error" }).status(400);
-            } else {
-                res.json({
-                    status: true,
-                    message: "edited",
-                    data: result.rows[0],
-                }).status(200);
-            }
-        });
+			if (error) {
+				res.json({ status: false, message: "error" }).status(400);
+			} else {
+				res.json({
+					status: true,
+					message: "edited",
+					data: result.rows[0],
+				}).status(200);
+			}
+		});
 		console.log(
 			"New post image uploaded and updated successfully, ",
 			newPostPicURL

@@ -197,6 +197,26 @@ const GlobalContextProvider = ({ children }) => {
 		setChangeCounter((prev) => prev + 1);
 	};
 
+	async function editPostImage(pic, username, postid) {
+		if (pic !== null) {
+			const formData = new FormData();
+			formData.append("newPostPic", pic);
+			formData.append("username", username);
+			formData.append("postid", postid);
+
+			try {
+				await axios.post(`${BASE_URL}/editPostImage`, formData);
+			} catch (err) {
+				if (err.response.status === 500) {
+					console.log("There was a problem with the server");
+				} else {
+					console.log(err.response.data.msg);
+				}
+			}
+		}
+		setChangeCounter((prev) => prev + 1);
+	}
+
 	async function editProfileImage(username, imageFile) {
 		const formData = new FormData();
 		formData.append("newProfilePic", imageFile);
@@ -241,6 +261,7 @@ const GlobalContextProvider = ({ children }) => {
 				deletePostData,
 				editUserPost,
 				editProfileImage,
+				editPostImage,
 				editUserData,
 				getUserDetailsFromUsername,
 			}}

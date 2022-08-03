@@ -1,51 +1,34 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faX } from "@fortawesome/free-solid-svg-icons";
-import { useGlobalData } from "../../Context/global/GlobalContext"
-
-import axios from "axios";
-import { BASE_URL } from "../constants";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 
 export default function EditPost({ postInfo, savePost, cancelEdit }) {
-
 	const [newPostPic, setNewPostPic] = useState(null);
 	const { editPostImage } = useGlobalData();
 
 	const handleNewPicSubmit = async (e) => {
-		if (newPostPic !== null) {
-			console.log("new post pic: ", newPostPic);
-			e.preventDefault();
-			const formData = new FormData();
-			formData.append("newPostPic", newPostPic);
-			formData.append("username", postInfo.fk_username);
-			formData.append("postid", postInfo.postid);
-			
-			try {
-				await axios.post(`${BASE_URL}/editPostImage`, formData);
-			} catch (err) {
-				if (err.response.status === 500) {
-					console.log("There was a problem with the server");
-				} else {
-					console.log(err.response.data.msg); 
-				}
-			}
-		}
-	}
+		e.preventDefault();
+		editPostImage(newPostPic, postInfo?.fk_username, postInfo?.postid);
+	};
 
 	return (
 		<>
 			<div className="post">
 				<div className="post-image-container">
 					<img
-						className="post-picture" 
+						className="post-picture"
 						src={postInfo.images[0]}
-						alt="pet" 
+						alt="pet"
 					/>
 					{/* <input type="file"></input> */}
-					<input type="file" accept=".jpg, .jpeg, .png, .svg" onChange={(e) => {
-						setNewPostPic(e.target.files[0]);
-					}}>	
-					</input>
+					<input
+						type="file"
+						accept=".jpg, .jpeg, .png, .svg"
+						onChange={(e) => {
+							setNewPostPic(e.target.files[0]);
+						}}
+					></input>
 				</div>
 				<div className="post-contents">
 					<div className="post-content-upper">
@@ -58,7 +41,7 @@ export default function EditPost({ postInfo, savePost, cancelEdit }) {
 								<input
 									className="post-pet-species"
 									defaultValue={postInfo?.pet_species}
-								/> 
+								/>
 								&nbsp;
 								<input
 									className="post-pet-color"
@@ -67,12 +50,16 @@ export default function EditPost({ postInfo, savePost, cancelEdit }) {
 							</div>
 						</div>
 						<div className="post-buttons">
-							<button onClick={handleNewPicSubmit} type="submit" style={{border: "none"}}>
-							<FontAwesomeIcon
-								id="post-save-icon"
-								icon={faFloppyDisk}
-								onClick={savePost}
-							></FontAwesomeIcon>
+							<button
+								onClick={handleNewPicSubmit}
+								type="submit"
+								style={{ border: "none" }}
+							>
+								<FontAwesomeIcon
+									id="post-save-icon"
+									icon={faFloppyDisk}
+									onClick={savePost}
+								></FontAwesomeIcon>
 							</button>
 
 							<FontAwesomeIcon

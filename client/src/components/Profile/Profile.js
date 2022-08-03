@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
@@ -7,13 +7,10 @@ import Post from "./Post";
 import EditPost from "./EditPost";
 import Info from "./Info.js";
 import images from "../../images.json";
-import axios from "axios";
-import { BASE_URL } from "../constants";
 import "./Profile.css";
 import EditUser from "./EditUser";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImagePortrait } from "@fortawesome/free-solid-svg-icons";
 import '../Admin/Admin.css'
 import {
 	faUser,
