@@ -22,13 +22,20 @@ export default function ConversationsContexProvider({ children }) {
 		}
 	}
 	function sendMessage(payload) {
-		socket.emit("send-message", {
-			conversationKey: payload?.conversationKey,
-			sender_id: payload?.sender_id,
-			receiver_id: payload?.receiver_id,
-			text: payload?.text,
-			time_stamp: payload?.time_stamp,
-		});
+		// socket.emit("send-message", {
+		// 	conversationKey: payload?.conversationKey,
+		// 	sender_id: payload?.sender_id,
+		// 	receiver_id: payload?.receiver_id,
+		// 	text: payload?.text,
+		// 	time_stamp: payload?.time_stamp,
+		// });
+		addMessageToConversation(
+			payload?.conversationKey,
+			payload?.sender_id,
+			payload?.receiver_id,
+			payload?.text,
+			payload?.time_stamp
+		);
 	}
 
 	const addMessageToConversation = (
@@ -38,13 +45,6 @@ export default function ConversationsContexProvider({ children }) {
 		text,
 		time_stamp
 	) => {
-		console.log(
-			"key, sender_id, receiver_id, text",
-			key,
-			sender_id,
-			receiver_id,
-			text
-		);
 		if (
 			key != null &&
 			sender_id != null &&
@@ -57,7 +57,6 @@ export default function ConversationsContexProvider({ children }) {
 				text,
 				time_stamp,
 			});
-			console.log("conversations after adding", key, conversations[key]);
 		} else {
 			console.log("Couldn't add the conversation");
 		}

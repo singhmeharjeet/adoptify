@@ -4,10 +4,7 @@ import { useContacts } from "../../Context/Contacts/ContactsContext";
 import { useConversations } from "../../Context/Conversations/ConversationsContext";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faX,
-	faMessage
-} from "@fortawesome/free-solid-svg-icons";
+import { faX, faMessage } from "@fortawesome/free-solid-svg-icons";
 import "./Modal.css";
 
 const overlay = {
@@ -24,7 +21,7 @@ export default function Modal({ postInfo, closeModal }) {
 	const navigate = useNavigate();
 	const { createContact } = useContacts();
 	const { createConversation } = useConversations();
-	const { getUserDetailsFromUsername } = useGlobalData();
+	const { getUserDetailsFromUsername, userDetails } = useGlobalData();
 
 	function handleMessageClick() {
 		const postOwnerDetails = getUserDetailsFromUsername(
@@ -54,21 +51,23 @@ export default function Modal({ postInfo, closeModal }) {
 							<p className="modal-pet-species">
 								{postInfo?.pet_species} | {postInfo?.pet_color}
 							</p>
-					 	</div>
-						 <p className="modal-description-header">
-								<span className="modal-description">About</span>
-						 </p>
-						 <p className="modal-pet-description">
-					 		{postInfo?.description}
-					 	</p>
-
+						</div>
+						<p className="modal-description-header">
+							<span className="modal-description">About</span>
+						</p>
+						<p className="modal-pet-description">
+							{postInfo?.description}
+						</p>
 					</div>
 					<div className="modalIcons">
-						<FontAwesomeIcon
-							className="modal-message-icon"
-							icon={faMessage}
-							onClick={handleMessageClick}
-						></FontAwesomeIcon>
+						{postInfo?.fk_username ===
+						userDetails.username ? null : (
+							<FontAwesomeIcon
+								className="modal-message-icon"
+								icon={faMessage}
+								onClick={handleMessageClick}
+							></FontAwesomeIcon>
+						)}
 						<FontAwesomeIcon
 							className="modal-close-icon"
 							icon={faX}

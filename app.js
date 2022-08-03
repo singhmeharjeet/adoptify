@@ -64,9 +64,7 @@ app.use("/editPostImage", editPostImage);
 */
 io.on("connection", (socket) => {
 	// console.log("what is the socket", socket);
-	console.log("socket.handshake.query", socket?.handshake?.query);
 	const id = socket?.handshake?.query?.id;
-	console.log("id", id);
 
 	// Join the room to see messages
 	socket.join(id);
@@ -74,7 +72,6 @@ io.on("connection", (socket) => {
 	// Create a room (conversation)
 	socket.on("send-message", async (payload) => {
 		const data = await payload;
-		console.log('data', data);
 
 		// Emit the message back to other client
 		socket.emit("receive-message", {

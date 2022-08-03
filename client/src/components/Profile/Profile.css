@@ -4,7 +4,7 @@
 
 .profile-container {
     height: var(--page-height-with-navbar);
-    width: 400px;
+    width: 27%;
     float: left;
     word-wrap: break-word;
     display: flex;
@@ -283,19 +283,20 @@
     border-radius: 5px;
 }
 
-.post-pet-species{
+.post-pet-species {
     width: 46% !important;
     padding: 0.3em 10px;
     border-radius: 5px;
 }
 
-.post-pet-color{
+.post-pet-color {
     width: 46% !important;
     padding: 0.3em 10px;
     border-radius: 5px;
 }
 
-.post-pet-species:focus, .post-pet-color:focus {
+.post-pet-species:focus,
+.post-pet-color:focus {
     outline: none;
 }
 
@@ -314,7 +315,7 @@
     margin-left: 2%;
 }
 
-.post-pet-species-and-color{
+.post-pet-species-and-color {
     display: flex;
     flex-direction: row;
 }
