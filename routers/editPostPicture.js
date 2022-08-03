@@ -1,6 +1,7 @@
 const express = require("express"),
 	router = express.Router();
 const pool = require("../database.js");
+const { v4: uuidv4 } = require('uuid');
 
 const AWS = require("aws-sdk");
 
@@ -13,11 +14,12 @@ const s3 = new AWS.S3({
 module.exports = router.post("/", async (req, res) => {
 	const { username, id, name, species, des } = req.body;
 	const newPic = req.files.imageFile.data;
+	const uID = uuidv4();
 
 	// console.log(username, newPic);
 	const params = {
 		Bucket: "adoptify-posts",
-		Key: `${username}-${id}.jpg`,
+		Key: `${username}-${id}-${uID}.jpg`,
 		Body: newPic,
 	};
 
