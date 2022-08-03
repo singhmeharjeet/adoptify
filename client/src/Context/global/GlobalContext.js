@@ -13,6 +13,7 @@ import {
 	DELETE_POST,
 	UPDATE_POST,
 	UPDATE_USER,
+	ADD_POST,
 } from "./Types.js";
 import axios from "axios";
 
@@ -53,6 +54,7 @@ const GlobalContextProvider = ({ children }) => {
 					},
 				});
 				console.log("The number of users is: ", data?.allUsers?.length);
+				console.log("The number of posts is: ", data?.allPosts?.length);
 			})
 			.catch((error) => {
 				console.log("error", error);
@@ -165,6 +167,49 @@ const GlobalContextProvider = ({ children }) => {
 	function getUserDetailsFromUsername(username) {
 		return state.allUsers.find((user) => user.username === username);
 	}
+	async function addPost(username, name, species, color, des, petImage) {
+		if (!name || !species || !color || !petImage || !petImage || !des) {
+			alert("Please Enter all the values and try again.");
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append("username", username.replace("'", "''"));
+		formData.append("petName", name.replace("'", "''"));
+		formData.append("petSpecies", species.replace("'", "''"));
+		formData.append("petColor", color.replace("'", "''"));
+		formData.append("petDescription", des.replace("'", "''"));
+		formData.append("petImage", petImage);
+
+		try {
+			const responseJSON = await (
+				await axios.post(`${BASE_URL}/addPost`, formData)
+			).json();
+
+			if (responseJSON.status) {
+				dispatch({
+					type: ADD_POST,
+					payload: {
+						post: responseJSON?.data,
+					},
+				});
+			} else {
+				return false;
+			}
+			setChangeCounter((prev) => prev + 1);
+		} catch (err) {
+			setChangeCounter((prev) => prev + 1);
+			if (err?.response?.status === 500) {
+				console.log("There was a problem with the server");
+			} else {
+				console.log(err?.response?.data?.msg);
+				return false;
+			}
+		}
+		setChangeCounter((prev) => prev + 1);
+		return true;
+	}
+
 	const editUserPost = async (id, name, species, color, des) => {
 		try {
 			const responseJSON = await (
@@ -264,6 +309,7 @@ const GlobalContextProvider = ({ children }) => {
 				editPostImage,
 				editUserData,
 				getUserDetailsFromUsername,
+				addPost,
 			}}
 		>
 			{children}

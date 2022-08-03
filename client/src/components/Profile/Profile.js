@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./Profile.css";
@@ -19,7 +19,6 @@ import {
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
-
 	const {
 		userDetails,
 		postsDetails,
@@ -27,6 +26,7 @@ const Profile = ({ clearPermission }) => {
 		editUserPost,
 		editProfileImage,
 	} = useGlobalData();
+	const [allOfMyPosts, setAllOfMyPosts] = useState(postsDetails);
 	const [postState, setPostState] = useState(-1);
 	const [newProfilePic, setNewProfilePic] = useState();
 	const [editUser, setEditUser] = useState(false);
@@ -47,15 +47,15 @@ const Profile = ({ clearPermission }) => {
 			.getElementById(postState)
 			.getElementsByTagName("input");
 		console.log("infoInput", infoInput);
-		let post_name = infoInput[1].value;
-		let post_species = infoInput[2].value;
-		let post_color = infoInput[3].value;
+		let post_name = infoInput[1].value.replace("'", "''");
+		let post_species = infoInput[2].value.replace("'", "''");
+		let post_color = infoInput[3].value.replace("'", "''");
 
 		const infoTextArea = document
 			.getElementById(postState)
 			.getElementsByTagName("textarea");
 
-		let post_description = infoTextArea[0].value;
+		let post_description = infoTextArea[0].value.replace("'", "''");
 
 		// postState = postid;
 		editUserPost(
@@ -98,6 +98,9 @@ const Profile = ({ clearPermission }) => {
 		else return false;
 	}
 
+	useEffect(() => {
+		setAllOfMyPosts(postsDetails);
+	},[postsDetails.length])
 	return (
 		<>
 			<NavBar
@@ -172,7 +175,7 @@ const Profile = ({ clearPermission }) => {
 							{/* start of posts */}
 							<div className="posts-list-wrapper">
 								<div className="posts-list">
-									{postsDetails.map((postInfo) => (
+									{allOfMyPosts.map((postInfo) => (
 										<div
 											key={postInfo?.postid}
 											id={postInfo?.postid}

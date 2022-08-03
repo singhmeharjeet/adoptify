@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { BASE_URL } from "../constants";
+import { useNavigate } from "react-router-dom";
+import { useGlobalData } from "../../Context/global/GlobalContext";
 import "./Form.css";
-import axios from "axios";
 //
 export default function Form({ username }) {
 	const [petName, setPetName] = useState("");
@@ -9,48 +9,21 @@ export default function Form({ username }) {
 	const [petColor, setPetColor] = useState("");
 	const [petImage, setPetImage] = useState();
 	const [petDescription, setPetDescription] = useState("");
+	const navigate = useNavigate();
 
-	const [petImageName, setPetImageName] = useState("");
+	const { addPost } = useGlobalData();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		/*
-			when petName is empty then	
-				if (petName) => returns false, so if block doesn't execute
-
-			when petName is empty, we want to run the if block
-				so we need to add 
-					if (!petName) => returns true when petname is empty.
-		*/
-		if (
-			!petName ||
-			!petSpecies ||
-			!petColor ||
-			!petImageName ||
-			!petImage ||
-			!petDescription
-		) {
-			alert("Please Enter all the values and try again.");
-			return;
-		}
-
-		const formData = new FormData();
-		formData.append("username", username);
-		formData.append("petName", petName);
-		formData.append("petSpecies", petSpecies);
-		formData.append("petColor", petColor);
-		formData.append("petDescription", petDescription);
-		formData.append("petImage", petImage);
-
-		try {
-			await axios.post(`${BASE_URL}/addPost`, formData);
-		} catch (err) {
-			if (err.response.status === 500) {
-				console.log("There was a problem with the server");
-			} else {
-				console.log(err.response.data.msg);
-			}
-		}
+		const isAdded = addPost(
+			username,
+			petName,
+			petSpecies,
+			petColor,
+			petDescription,
+			petImage
+		);
+		if (isAdded) navigate("/profile");
 	};
 	return (
 		<>
@@ -124,9 +97,6 @@ export default function Form({ username }) {
 											accept=".jpg, .jpeg, .png, .svg, .gif"
 											onChange={(e) => {
 												setPetImage(e.target.files[0]);
-												setPetImageName(
-													e.target.files[0].name
-												);
 											}}
 										/>
 									</div>

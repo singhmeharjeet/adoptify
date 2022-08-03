@@ -5,6 +5,7 @@ import {
 	INSERT_ALL_DATA,
 	UPDATE_POST,
 	UPDATE_USER,
+	ADD_POST
 } from "./Types.js";
 
 const AppReducer = (state, action) => {
@@ -85,6 +86,13 @@ const AppReducer = (state, action) => {
 				allUsers: updatedAllUsersArray,
 				userDetails: updatedUserDetails,
 			};
+		}
+		case ADD_POST: {
+			return {
+				...state,
+				postsDetails: [...state?.postsDetails, action?.payload?.post],
+				allPosts: [...state?.allPosts, action?.payload?.post]
+			}
 		}
 		default:
 			return state;

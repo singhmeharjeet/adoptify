@@ -56,7 +56,9 @@ export default function EditUser({
 			return;
 		}
 
-		let address = document.getElementById("address").value;
+		let address = document
+			.getElementById("address")
+			.value.replace("'", "''");
 		editUserData(userDetails?.username, pw, fname, lname, p_num, address);
 	};
 
