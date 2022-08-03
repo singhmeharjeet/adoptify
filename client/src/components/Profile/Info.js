@@ -10,41 +10,43 @@ export default function Info({ userDetails }) {
 	return (
 		<>
 			<div className="info-section">
-				<p className="profile-text">
+				<div className="profile-text">
 					<FontAwesomeIcon
 						className="profile-icon"
 						icon={faUser}
 					></FontAwesomeIcon>
-					{userDetails.firstname ? userDetails.firstname : ""}{" "}
-					{userDetails.lastname ? userDetails.lastname : ""}
-				</p>
+					<div>
+						{userDetails.firstname ? userDetails.firstname : ""}{" "}
+						{userDetails.lastname ? userDetails.lastname : ""}
+					</div>
+				</div>
 			</div>
 			<div className="info-section">
-				<p className="profile-text">
+				<div className="profile-text">
 					<FontAwesomeIcon
 						className="profile-icon"
 						icon={faEnvelope}
 					></FontAwesomeIcon>
-					{userDetails.email}
-				</p>
+					<div>{userDetails.email}</div>
+				</div>
 			</div>
 			<div className="info-section">
-				<p className="profile-text">
+				<div className="profile-text">
 					<FontAwesomeIcon
 						className="profile-icon"
 						icon={faMobileScreen}
 					></FontAwesomeIcon>
-					{userDetails.phone}
-				</p>
+					<div>{userDetails.phone}</div>
+				</div>
 			</div>
 			<div className="info-section">
-				<p className="profile-text">
+				<div className="profile-text">
 					<FontAwesomeIcon
 						className="profile-icon"
 						icon={faMapLocationDot}
 					></FontAwesomeIcon>
-					{userDetails.address}
-				</p>
+					<div>{userDetails.address}</div>
+				</div>
 			</div>
 		</>
 	);

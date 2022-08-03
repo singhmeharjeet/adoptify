@@ -128,27 +128,28 @@ const Profile = ({ clearPermission }) => {
 									src={images["profile-placeholder"]}
 								/>
 							)}
-							
 						</div>
 						<div className="profile-info-container">
 							<Info userDetails={userDetails} />
 						</div>
-									
-						<div className="admin-links">
-							<p onClick={() => setEditUser(true)}>
-								<FontAwesomeIcon
-									className="profile-icon"
-									icon={faUser}
-								></FontAwesomeIcon>
-								User Settings
-							</p>
-							<p onClick={() => setEditUser(false)}>
-								<FontAwesomeIcon
-									className="profile-icon"
-									icon={faPaw}
-								></FontAwesomeIcon>
-								My Posts
-							</p>
+
+						<div className="link-wrap">
+							<div className="profile-links">
+								<div onClick={() => setEditUser(false)}>
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faPaw}
+									></FontAwesomeIcon>
+									<div>My Posts</div>
+								</div>
+								<div onClick={() => setEditUser(true)}>
+									<FontAwesomeIcon
+										className="profile-icon"
+										icon={faUser}
+									></FontAwesomeIcon>
+									<div>Edit Profile</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -157,10 +158,12 @@ const Profile = ({ clearPermission }) => {
 						<>
 							<p className="posts-label">Edit Profile</p>
 							<div className="posts-list-wrapper">
-								
-										<EditUser 
-										setNewProfilePic={setNewProfilePic}
-										handleProfilePictureSubmit={handleProfilePictureSubmit}/>
+								<EditUser
+									setNewProfilePic={setNewProfilePic}
+									handleProfilePictureSubmit={
+										handleProfilePictureSubmit
+									}
+								/>
 							</div>
 						</>
 					) : (

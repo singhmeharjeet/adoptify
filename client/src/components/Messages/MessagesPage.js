@@ -53,17 +53,27 @@ export default function MessagesPage({ clearPermission }) {
 							selectedConversation={selectedConversation}
 						/>
 					) : (
-						<h2
-							style={{
-								width: "100%",
-								height: "100%",
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-							}}
-						>
-							Please Select a contact
-						</h2>
+						<>
+							<div
+								style={{
+									width: "100%",
+									height: "100%",
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									alignItems: "center",
+									gap: "2em",
+								}}
+							>
+								<h2>Please select a contact</h2>
+								<img
+									style={{ borderRadius: "10px" }}
+									src={
+										"https://media0.giphy.com/media/ynRrAHj5SWAu8RA002/giphy.gif?cid=ecf05e47n3x1cc1mwkgeodgaz7wcdgpd0gf27e90e8ne8lio&rid=giphy.gif&ct=g"
+									}
+								/>
+							</div>
+						</>
 					)}
 				</div>
 			</div>

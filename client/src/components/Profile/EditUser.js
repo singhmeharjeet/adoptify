@@ -89,8 +89,19 @@ export default function EditUser({
 				>
 					<div className="editUser-card">
 						<div className="editUser-table">
-							<form onSubmit={handleProfilePictureSubmit} className="editUserImage-form">
-								<label style={{fontWeight: "bolder", width: "25%"}} HtmlFor="newPic">Edit Profile Picture</label>
+							<form
+								onSubmit={handleProfilePictureSubmit}
+								className="editUserImage-form"
+							>
+								<div
+									style={{
+										fontWeight: "bolder",
+										width: "25%",
+									}}
+									htmlFor="newPic"
+								>
+									Edit Profile Picture
+								</div>
 								<input
 									type="file"
 									name="newPic"
@@ -158,7 +169,7 @@ export default function EditUser({
 								</tr>
 								<tr className="editUser-row">
 									<th className="editUser-row-left">
-										Address:
+										City:
 									</th>
 									<td className="editUser-row-right">
 										<input
@@ -217,16 +228,18 @@ export default function EditUser({
 										</i>
 									</td>
 								</tr>
+								<tr className="editUser-btn-wrap">
+									<td>
+										<button
+											className="app-form-button"
+											onClick={() => saveUserDetails()}
+										>
+											save
+										</button>
+									</td>
+								</tr>
 							</tbody>
 						</table>
-						<div className="editUser-btn-wrap">
-							<button
-								className="app-form-button"
-								onClick={() => saveUserDetails()}
-							>
-								save
-							</button>
-						</div>
 					</div>
 				</div>
 			</div>

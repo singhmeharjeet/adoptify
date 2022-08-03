@@ -1,17 +1,18 @@
 .container {
     width: 100%;
     height: var(--page-height-with-navbar);
+    display: flex;
 }
 
 .admin-container {
     display: flex;
     height: 100%;
+    width: 100%;
 }
 
 .menu-container {
-    width: 400px;
-    height: 100%;
-    margin-bottom: 50px;
+    width: 30%;
+    height: var(--page-height-with-navbar);
     min-height: 100%;
     z-index: 2;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 25px, rgba(0, 0, 0, 0.5) 0px 5px 10px;
@@ -20,9 +21,10 @@
 
 .users-container {
     width: 100%;
-    margin-bottom: 0px;
+    height: var(--page-height-with-navbar);
     padding-bottom: 70px;
-    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: scroll;
     background-color: var(--light-brown);
 }
 
