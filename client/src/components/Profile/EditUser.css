@@ -81,3 +81,15 @@
     font-size: 16px;
     border-left: 0.5em solid green;
 }
+
+.errMsgEditUser{
+
+    font-size: 12px;
+    position: relative;
+    width: 160px;
+    display: flex; 
+    align-content: block;
+    visibility: visible;
+    margin-bottom: 2px;
+    color: red;
+}
