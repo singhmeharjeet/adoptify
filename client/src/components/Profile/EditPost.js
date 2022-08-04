@@ -15,7 +15,7 @@ export default function EditPost({ postInfo, savePost, cancelEdit }) {
 	return (
 		<>
 			<div className="post">
-				<div className="post-image-container">
+				<div className="post-image-edit-container">
 					<img
 						className="post-picture"
 						src={postInfo.images[0]}

@@ -34,6 +34,7 @@ export default function Login({ setPermission, permission }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordType, setPasswordType] = useState("password");
+	const [showBadge, setShowBadge] = useState(false);
 	let navigate = useNavigate();
 
 	if (permission) return <Navigate to="/"></Navigate>;
@@ -50,10 +51,12 @@ export default function Login({ setPermission, permission }) {
 		const isAuthenticated = await authenticate(username, password);
 
 		if (isAuthenticated !== username) {
+			setShowBadge(true);
+
 			console.log("Username or Password invalid");
+			setTimeout(() => setShowBadge(false), 6000);
 			return;
 		}
-
 		// When we receive the token from the server, we set it to the local storage of the browser
 		setPermission(isAuthenticated);
 
@@ -137,6 +140,29 @@ export default function Login({ setPermission, permission }) {
 										Log in
 									</button>
 								</div>
+								{showBadge ? (
+									<div
+										className="update-badge"
+										style={{
+											borderColor: "red",
+											color: "red",
+											padding: "1em",
+											marginRight: "-1em"
+										}}
+									>
+										Invalid username and/or password!
+									</div>
+								) : (
+									<div
+										className="update-badge"
+										style={{
+											color: "red",
+											borderColor: "red",
+											width: "1px"
+										}}
+									></div>
+										// null
+								)}
 							</div>
 							<div className="login-form-signup">
 								<p>Not a user?</p>
