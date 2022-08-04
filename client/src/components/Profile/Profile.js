@@ -102,7 +102,7 @@ const Profile = ({ clearPermission }) => {
 
 	useEffect(() => {
 		setAllOfMyPosts(postsDetails);
-	},[postsDetails.length])
+	},[postsDetails])
 	return (
 		<>
 			<NavBar

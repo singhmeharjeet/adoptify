@@ -138,8 +138,7 @@ const GlobalContextProvider = ({ children }) => {
 						userDetails: responseJSON?.data,
 					},
 				});
-			}
-			else {
+			} else {
 				setChangeCounter((prev) => prev + 1);
 				return true;
 			}
@@ -238,9 +237,11 @@ const GlobalContextProvider = ({ children }) => {
 						post: responseJSON?.data,
 					},
 				});
+				setChangeCounter((prev) => prev + 1);
 			}
 			setChangeCounter((prev) => prev + 1);
 		} catch (error) {
+			setChangeCounter((prev) => prev + 1);
 			console.log("error", error);
 		}
 		setChangeCounter((prev) => prev + 1);
