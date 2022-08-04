@@ -138,12 +138,16 @@ const GlobalContextProvider = ({ children }) => {
 						userDetails: responseJSON?.data,
 					},
 				});
+			} else {
+				setChangeCounter((prev) => prev + 1);
+				return true;
 			}
-			console.log("responseJSON", responseJSON);
 		} catch (error) {
 			console.log("error", error);
+			return false;
 		}
 		setChangeCounter((prev) => prev + 1);
+		return true;
 	}
 	function deleteUserData(username) {
 		try {
@@ -209,7 +213,6 @@ const GlobalContextProvider = ({ children }) => {
 		setChangeCounter((prev) => prev + 1);
 		return true;
 	}
-
 	const editUserPost = async (id, name, species, color, des) => {
 		try {
 			const responseJSON = await (
@@ -234,9 +237,11 @@ const GlobalContextProvider = ({ children }) => {
 						post: responseJSON?.data,
 					},
 				});
+				setChangeCounter((prev) => prev + 1);
 			}
-			console.log("responseJSON", responseJSON);
+			setChangeCounter((prev) => prev + 1);
 		} catch (error) {
+			setChangeCounter((prev) => prev + 1);
 			console.log("error", error);
 		}
 		setChangeCounter((prev) => prev + 1);

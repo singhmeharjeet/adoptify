@@ -1,14 +1,13 @@
 .signup-page {
     display: flex;
-    height: 100vh;
+    height: var(--login-page-height);
+    overflow: hidden;
 }
 
-
 .signup-backtologin {
-    width: 150px;
+    width: 120px;
     margin-top: 11px;
     margin-left: 35px;
-  
 }
 
 .back-to-login-link {
@@ -37,9 +36,8 @@
     padding-top: 10px;
 }
 
-
 .signup-form-title {
-    font-size: 4.0em;
+    font-size: 4em;
     margin-top: -30px;
     font-family: "Anton", sans-serif;
     margin-bottom: 5px;
@@ -70,61 +68,66 @@
 }
 
 #sign-up-button:disabled,
-#sign-up-button[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-  cursor: default;
+#sign-up-button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: default;
 }
 
-.eyeIcon{
+.eyeIcon {
     cursor: pointer;
 }
 
-.eyeConfIcon{
+.eyeConfIcon {
     cursor: pointer;
 }
 
 .circleCheckIcon {
     position: relative;
-   /* visibility: hidden; */
+    /* visibility: hidden; */
     right: 10px;
 }
+
 .circleErrorIcon {
     position: relative;
-   /* visibility: hidden; */
+    /* visibility: hidden; */
     right: 10px;
 }
-#signup-user-last-name,#lockConfPwd{
+
+#signup-user-last-name,
+#lockConfPwd {
     margin-left: 9px;
 }
 
-
-.errMsg{
+.errMsg {
     margin-left: 50px;
     font-size: 12px;
     position: relative;
     width: 160px;
-    display: flex; 
+    display: flex;
     align-content: block;
     visibility: visible;
     margin-bottom: 2px;
     color: red;
 }
-.groupFirstLastName,.groupPwdConfPwd{
+
+.groupFirstLastName,
+.groupPwdConfPwd {
     display: flex;
     justify-content: space-between;
 }
 
-.groupFirstLastName{
-   margin-top: 60px;
+.groupFirstLastName {
+    margin-top: 60px;
 }
-.groupErrFirstLastName{
+
+.groupErrFirstLastName {
     display: flex;
     justify-content: space-between;
- }
- 
-#sign-up-button{
+}
+
+#sign-up-button {
     margin-top: 5px;
     background-color: #000;
     color: white;
@@ -132,17 +135,17 @@
     width: 88%;
 }
 
-#sign-up-button:hover{
+#sign-up-button:hover {
     color: black;
-   background-color: var(--light-brown);
+    background-color: var(--light-brown);
 }
 
-.alert{
+.alert {
     display: flex;
     align-items: center;
     align-content: space-around;
     width: 420px;
-    background-color: 	#fff3cd;
+    background-color: #fff3cd;
     color: #f2b560;
     padding: 20px 40px;
     height: 20px;
@@ -151,7 +154,7 @@
     border-left: 8px solid #f2b560;
 }
 
-.alert-success{
+.alert-success {
     display: flex;
     align-items: center;
     align-content: space-around;

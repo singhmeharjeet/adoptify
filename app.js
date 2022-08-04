@@ -27,12 +27,12 @@ const PORT = process.env.PORT || 5010;
 /*
 	Set Socket Connection
 */
-const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-	cors: {
-		origin: "*",
-	},
-});
+// const httpServer = require("http").createServer(app);
+// const io = require("socket.io")(httpServer, {
+// 	cors: {
+// 		origin: "*",
+// 	},
+// });
 /* 
 	Middleware
 */
@@ -59,30 +59,30 @@ app.use("/editProfilePic", editProfilePic);
 app.use("/editUser", editUser);
 app.use("/editPostImage", editPostImage);
 
-/* 
-	Set Up Connection for messages
-*/
-io.on("connection", (socket) => {
-	// console.log("what is the socket", socket);
-	const id = socket?.handshake?.query?.id;
+// /* 
+// 	Set Up Connection for messages
+// */
+// io.on("connection", (socket) => {
+// 	// console.log("what is the socket", socket);
+// 	const id = socket?.handshake?.query?.id;
 
-	// Join the room to see messages
-	socket.join(id);
+// 	// Join the room to see messages
+// 	socket.join(id);
 
-	// Create a room (conversation)
-	socket.on("send-message", async (payload) => {
-		const data = await payload;
+// 	// Create a room (conversation)
+// 	socket.on("send-message", async (payload) => {
+// 		const data = await payload;
 
-		// Emit the message back to other client
-		socket.emit("receive-message", {
-			conversationKey: data?.conversationKey,
-			receiver_id: data?.receiver_id,
-			sender_id: data?.sender_id,
-			text: data?.text,
-			time_stamp: data?.time_stamp,
-		});
-	});
-});
+// 		// Emit the message back to other client
+// 		socket.emit("receive-message", {
+// 			conversationKey: data?.conversationKey,
+// 			receiver_id: data?.receiver_id,
+// 			sender_id: data?.sender_id,
+// 			text: data?.text,
+// 			time_stamp: data?.time_stamp,
+// 		});
+// 	});
+// });
 
 /* 
 	Default Action
@@ -91,7 +91,12 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
 });
 
+<<<<<<< HEAD
 // app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 httpServer.listen(5010), () => console.log(`Listening on ${5010}`);
 
 module.exports = app;
+=======
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+// httpServer.listen(5010), () => console.log(`Listening on ${5010}`);
+>>>>>>> 99c98788f870cd2fa661e852fb96b4f73899fae3
