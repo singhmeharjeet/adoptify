@@ -91,12 +91,6 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public", "build", "index.html"));
 });
 
-<<<<<<< HEAD
-// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-httpServer.listen(5010), () => console.log(`Listening on ${5010}`);
-
-module.exports = app;
-=======
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+module.exports = app;
 // httpServer.listen(5010), () => console.log(`Listening on ${5010}`);
->>>>>>> 99c98788f870cd2fa661e852fb96b4f73899fae3
