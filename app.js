@@ -93,3 +93,5 @@ app.get("*", (req, res) => {
 
 // app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 httpServer.listen(5010), () => console.log(`Listening on ${5010}`);
+
+module.exports = app;

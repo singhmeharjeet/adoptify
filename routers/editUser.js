@@ -19,10 +19,10 @@ module.exports = router.post("/", async (req, res) => {
 
 	pool.query(editUserQuery, (error, result) => {
 		if (error) {
-			console.log('error', error);
+			// console.log('error', error);
 			res.json({ status: false, message: "error" }).status(400);
 		} else {
-			console.log("result", result);
+			// console.log("result", result);
 			res.json({
 				status: true,
 				message: "edited",
