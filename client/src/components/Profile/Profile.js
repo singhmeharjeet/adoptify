@@ -11,11 +11,8 @@ import "./Profile.css";
 import EditUser from "./EditUser";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '../Admin/Admin.css'
-import {
-	faUser,
-	faPaw,
-} from "@fortawesome/free-solid-svg-icons";
+import "../Admin/Admin.css";
+import { faUser, faPaw } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ clearPermission }) => {
 	const navigate = useNavigate();
@@ -83,7 +80,7 @@ const Profile = ({ clearPermission }) => {
 		e.preventDefault();
 
 		const postId = postInfo?.postid;
-		console.log('postId', postId);
+		console.log("postId", postId);
 		deletePostData(postId);
 	}
 
@@ -102,7 +99,7 @@ const Profile = ({ clearPermission }) => {
 
 	useEffect(() => {
 		setAllOfMyPosts(postsDetails);
-	},[postsDetails])
+	}, [postsDetails]);
 	return (
 		<>
 			<NavBar
@@ -177,32 +174,45 @@ const Profile = ({ clearPermission }) => {
 							{/* start of posts */}
 							<div className="posts-list-wrapper">
 								<div className="posts-list">
-									{allOfMyPosts.map((postInfo) => (
-										<div
-											key={postInfo?.postid}
-											id={postInfo?.postid}
-											style={{
-												width: "80%",
-												display: "flex",
-												justifyContent: "center",
-												alignItems: "center",
-											}}
-										>
-											{isPostEditing(postInfo?.postid) ? (
-												<EditPost
-													postInfo={postInfo}
-													savePost={savePost}
-													cancelEdit={cancelEdit}
-												/>
-											) : (
-												<Post
-													postInfo={postInfo}
-													editPost={editPost}
-													onDelete={onDelete}
-												/>
-											)}
-										</div>
-									))}
+									{allOfMyPosts.length === 0 ? (
+										<>
+											<h1>You don't have any posts!</h1>
+												<img
+													style={{borderRadius: "10px"}}
+												src="https://c.tenor.com/dG_tr_lmYHkAAAAC/looking-around.gif"
+												alt=""
+											/>
+										</>
+									) : (
+										allOfMyPosts.map((postInfo) => (
+											<div
+												key={postInfo?.postid}
+												id={postInfo?.postid}
+												style={{
+													width: "80%",
+													display: "flex",
+													justifyContent: "center",
+													alignItems: "center",
+												}}
+											>
+												{isPostEditing(
+													postInfo?.postid
+												) ? (
+													<EditPost
+														postInfo={postInfo}
+														savePost={savePost}
+														cancelEdit={cancelEdit}
+													/>
+												) : (
+													<Post
+														postInfo={postInfo}
+														editPost={editPost}
+														onDelete={onDelete}
+													/>
+												)}
+											</div>
+										))
+									)}
 								</div>
 							</div>
 						</>
