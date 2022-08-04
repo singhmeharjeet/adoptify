@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 :root {
-    --login-page-height: calc(100vh - 4px);
+    --login-page-height: calc(100vh);
     --page-height-with-navbar: calc(100vh - 3em);
     --navyblue: #002040;
     --brown: #7b4935;
