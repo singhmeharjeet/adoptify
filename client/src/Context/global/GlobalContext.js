@@ -214,7 +214,6 @@ const GlobalContextProvider = ({ children }) => {
 		setChangeCounter((prev) => prev + 1);
 		return true;
 	}
-
 	const editUserPost = async (id, name, species, color, des) => {
 		try {
 			const responseJSON = await (
@@ -240,7 +239,7 @@ const GlobalContextProvider = ({ children }) => {
 					},
 				});
 			}
-			console.log("responseJSON", responseJSON);
+			setChangeCounter((prev) => prev + 1);
 		} catch (error) {
 			console.log("error", error);
 		}
