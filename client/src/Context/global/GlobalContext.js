@@ -139,11 +139,16 @@ const GlobalContextProvider = ({ children }) => {
 					},
 				});
 			}
-			console.log("responseJSON", responseJSON);
+			else {
+				setChangeCounter((prev) => prev + 1);
+				return true;
+			}
 		} catch (error) {
 			console.log("error", error);
+			return false;
 		}
 		setChangeCounter((prev) => prev + 1);
+		return true;
 	}
 	function deleteUserData(username) {
 		try {

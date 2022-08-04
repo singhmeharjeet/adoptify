@@ -58,6 +58,41 @@ export default function Modal({ postInfo, closeModal }) {
 						<p className="modal-pet-description">
 							{postInfo?.description}
 						</p>
+						<p className="modal-description-header">
+							<span className="modal-description">Contact</span>
+						</p>
+						<div className="modal-contact">
+							<div className="modal-description">
+								<div>Parent: </div>
+								<span>
+									{
+										getUserDetailsFromUsername(
+											postInfo?.fk_username
+										)?.firstname
+									}
+								</span>
+							</div>
+							<div className="modal-description">
+								<div>Phone: </div>
+								<span>
+									{
+										getUserDetailsFromUsername(
+											postInfo?.fk_username
+										)?.phone
+									}
+								</span>
+							</div>
+							<div className="modal-description">
+								<div>Email: </div>
+								<span>
+									{
+										getUserDetailsFromUsername(
+											postInfo?.fk_username
+										)?.username
+									}
+								</span>
+							</div>
+						</div>
 					</div>
 					<div className="modalIcons">
 						{postInfo?.fk_username ===

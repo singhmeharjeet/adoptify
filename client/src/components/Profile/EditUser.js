@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EditUser.css";
 import { useGlobalData } from "../../Context/global/GlobalContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +11,13 @@ export default function EditUser({
 	const { editUserData, userDetails } = useGlobalData();
 	const [passwordType, setPasswordType] = useState("password");
 	const [confirmPasswordType, setConfirmPasswordType] = useState("password");
-	const [seePassword, setSeePassword] = useState(false);
-	const [seeConfirm, setSeeConfirm] = useState(false);
+	const [editStatus, setEditStatus] = useState("");
 
-	const saveUserDetails = () => {
+	useEffect(() => {
+		setTimeout(() => setEditStatus(""), 4000);
+	}, [editStatus]);
+	
+	async function saveUserDetails() {
 		let pw = document.getElementById("pw").value;
 		let c_pw = document.getElementById("c_pw").value;
 
@@ -59,8 +62,17 @@ export default function EditUser({
 		let address = document
 			.getElementById("address")
 			.value.replace("'", "''");
-		editUserData(userDetails?.username, pw, fname, lname, p_num, address);
-	};
+
+		const isEdited = await editUserData(
+			userDetails?.username,
+			pw,
+			fname,
+			lname,
+			p_num,
+			address
+		);
+		return isEdited;
+	}
 
 	const handleEyeClick = () => {
 		if (passwordType === "password") {
@@ -170,9 +182,7 @@ export default function EditUser({
 									</td>
 								</tr>
 								<tr className="editUser-row">
-									<th className="editUser-row-left">
-										City:
-									</th>
+									<th className="editUser-row-left">City:</th>
 									<td className="editUser-row-right">
 										<input
 											defaultValue={userDetails?.address}
@@ -190,7 +200,7 @@ export default function EditUser({
 											type={passwordType}
 											defaultValue={userDetails?.password}
 										></input>
-											<i onClick={handleEyeClick}>
+										<i onClick={handleEyeClick}>
 											{passwordType === "password" ? (
 												<FontAwesomeIcon
 													id="passEye"
@@ -216,7 +226,8 @@ export default function EditUser({
 											defaultValue={userDetails?.password}
 										></input>
 										<i onClick={handleConfirmEyeClick}>
-											{confirmPasswordType === "password" ? (
+											{confirmPasswordType ===
+											"password" ? (
 												<FontAwesomeIcon
 													id="passEye"
 													icon={faEyeSlash}
@@ -231,10 +242,39 @@ export default function EditUser({
 									</td>
 								</tr>
 								<tr className="editUser-btn-wrap">
+									<td
+										style={{
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+										}}
+									>
+										{editStatus === "pass" ? (
+											<div className="update-badge">
+												Details Edited!
+											</div>
+										) : null}
+										{editStatus === "fail" ? (
+											<div
+												className="update-badge"
+												style={{
+													borderLeft: "0.5em solid red"
+												}}
+											>
+												Edit Failed!
+											</div>
+										) : null}
+									</td>
 									<td>
 										<button
 											className="app-form-button"
-											onClick={() => saveUserDetails()}
+											onClick={async () => {
+												const isEdited =
+													await saveUserDetails();
+												if (isEdited)
+													setEditStatus("pass");
+												else setEditStatus("fail");
+											}}
 										>
 											save
 										</button>
